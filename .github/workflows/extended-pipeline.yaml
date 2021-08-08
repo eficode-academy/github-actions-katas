@@ -8,8 +8,5 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2       
       - run: ./ci/build-app.sh
-  Test:
-    runs-on: ubuntu-latest
-    container: gradle:6-jdk11
-    steps: 
-      - run: ./ci/unit-test-app.sh
+      - name: Test
+        run: ./ci/unit-test-app.sh
