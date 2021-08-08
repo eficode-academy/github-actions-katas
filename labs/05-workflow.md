@@ -55,13 +55,9 @@ Let's try to clean up our current build by utilizing a feature called workflows.
 4. The `Test` job runs the tests the code, and stores the test results.
 5. The `Upload artifact` will build the code, and store the artifact
 
-When you run this workflow in CircleCI, you will see a link with your workflow name at the top of the page.
-
-![Screenshot workflow link]()
 
 Opening it should show something like:
 
-![Screenshot workflow]()
-
+![Screenshot workflow](img/workflow.png)
 
 More information can be found here: https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions
