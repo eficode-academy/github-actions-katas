@@ -1,4 +1,4 @@
-name: storing-artifacts
+name: workflow
 on: push
 jobs:
   Build:
@@ -12,6 +12,8 @@ jobs:
     runs-on: ubuntu-latest
     container: gradle:6-jdk11
     steps:
+      - name: Checkout
+        uses: actions/checkout@v2   
       - name: Test
         run: ./ci/unit-test-app.sh
       - run: ls app/build/test-results
