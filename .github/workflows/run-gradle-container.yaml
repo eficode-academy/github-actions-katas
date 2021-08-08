@@ -1,0 +1,9 @@
+name: run-gradle-container 
+on: push
+jobs:
+  docker:
+    runs-on: ubuntu-latest
+    container: gradle:6-jdk11
+    steps:
+      - uses: actions/checkout@v1
+      - uses: ./ci/build-app.sh
