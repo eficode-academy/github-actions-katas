@@ -5,7 +5,7 @@ It is possible to store artifacts in Github Actions
 
 To store artifacts use the following syntax:
 
-```
+```YAML
 - name: Upload a Build Artifact
   uses: actions/upload-artifact@v2
   with: 
