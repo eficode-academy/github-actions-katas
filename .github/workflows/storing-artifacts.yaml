@@ -16,3 +16,8 @@ jobs:
         if: always()
         with:
           files: app/build/test-results/**/*.xml
+      - name: Upload a Build Artifact
+        uses: actions/upload-artifact@v2.2.
+        with: 
+          name: my-artifact
+          path: app/build/libs
