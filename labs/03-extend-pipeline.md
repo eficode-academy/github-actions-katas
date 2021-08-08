@@ -19,5 +19,5 @@ To show test results in Github Actions use the following syntax:
 
 > Hint: The results of running `ci/unit-test-app.sh` are stored in a local directory: `app/build/test-results`.
 
-The outputted test resuts can be seen if pull request will be created towards another branch. It will look like: 
+The outputted test resuts can be seen if pull request will be created towards another branch. It will look like: ![publish-test-results](img/publish-test-results.png)
 
