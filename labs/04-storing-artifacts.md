@@ -7,7 +7,7 @@ To store artifacts use the following syntax:
 
 ```
 - name: Upload a Build Artifact
-  uses: actions/upload-artifact@v2.2.
+  uses: actions/upload-artifact@v2
   with: 
     name: my-artifact
     path:  path/to/artifact/
