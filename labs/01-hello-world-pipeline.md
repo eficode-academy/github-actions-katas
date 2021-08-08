@@ -24,7 +24,7 @@ The Github Actions config syntax is very straight forward. The trickiest part is
 
 
 # Task 
-* Paste the example into `.github/workflows/hello-world.yml`. Commit the file and push it to Github. Then, go to Github Actions and check the action status. 
+* Paste the example into `.github/workflows/hello-world.yaml`. Commit the file and push it to Github. Then, go to Github Actions and check the action status. 
 
 You should see something like this in the logs of Github Actions: (Note: The logs can be a bit hard to the first time :-), but give it a shot)
 
