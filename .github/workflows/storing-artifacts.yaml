@@ -1,4 +1,4 @@
-name: extended-pipeline
+name: storing-artifacts
 on: push
 jobs:
   Build:
