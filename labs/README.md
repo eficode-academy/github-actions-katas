@@ -53,3 +53,4 @@ The list here is the natural progression of the labs, but they are made so that 
 * [Workflow](05-workflow.md)
 * [Dockerimage](06-docker-image.md)
 * [Component test](07-component-test.md)
+* [Self hosted runner](08-selfhosted-runner.md)
