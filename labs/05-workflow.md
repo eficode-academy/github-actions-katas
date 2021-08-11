@@ -25,14 +25,15 @@ Luckily, workflows let us do things like sequential flows, fan out, fan in and s
 To run the two job sequentially we define a workflow where job-2 "requires" job-1 to have run before it starts.
 
 ```YAML
+name: workflow
 jobs:
   job-1:
   job-2:
     needs: job-1
 ```
-This also ensures that  `job-2 ` is not run if  `job-1 ` fails.
+This also ensures that  `job-2 ` is not run if  `job-1 ` fails. It is possible to add name to workflow fx. here: `name: workflow`
 
-It is also possible to filter on branch names. This is useful to create a flow, where different branches go trough different jobs. For instance  `feature/*` branches could be tested, while the  `master  `branch is both tested and an artifact is created and stored.
+It is also possible to filter on branch names. This is useful to create a flow, where different branches go trough different jobs. For instance  `feature/*` branches could be tested, while the  `master` branch is both tested and an artifact is created and stored.
 
 ```YAML
 jobs:
@@ -46,18 +47,20 @@ jobs:
       uses: some/action
 ```
 
+To ensure that all files from previous jobs are avalable at new one, we have to make sure to upload artifact at the end of the job and download it at the beginning of new one. The way to do it can be found in previous exercise `04-storing-artifacts.md`.
+
 ### Tasks
 Let's try to clean up our current build by utilizing a feature called workflows.
 
-1. Make another job in the `.github/workflows`, that is a plain copy of the first one.
-2. Leave name of the first job as `Build`, divide the rest of the code to `Test` and `Upload-Artifact`
-3. The `build` will build the code.
-4. The `Test` job runs the tests the code, and stores the test results.
-5. The `Upload artifact` will build the code, and store the artifact
+1. Make another job in the `.github/workflows/workflow.yaml`, that is a plain copy of the previous one.
+2. Add workflow name `Java CI`
+3. Divide code into three jobs: `Clone-down`, `Test` and `Build`. `Clone-down` will checkout the repository, `Test` job runs the tests for code, `Build` will build the code and stores the results. 
+3. `Test` and `Build` should be dependent on `Clone-down` job. Each of them also needs a running instance and container.
+4. Remember that to have information from previous job(s) the artifact with this information needs to be downloaded and respectively uploaded.
 
 
 Opening it should show something like:
 
 ![Screenshot workflow](img/workflow.png)
 
-More information can be found here: https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions
+More information about this topic can be found here: https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions

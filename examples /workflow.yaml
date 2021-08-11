@@ -1,33 +1,43 @@
-name: workflow
+name: Java CI
 on: push
 jobs:
-  Build:
+  Clone-down:
+    name: Clone down repo
     runs-on: ubuntu-latest
     container: gradle:6-jdk11
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2       
-      - run: ./ci/build-app.sh
+    - uses: actions/checkout@v2
+    - name: Upload Repo
+      uses: actions/upload-artifact@v2
+      with:
+        name: code
+        path: .
   Test:
-    runs-on: ubuntu-latest
-    container: gradle:6-jdk11
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2   
-      - name: Test
-        run: ./ci/unit-test-app.sh
-      - run: ls app/build/test-results
-      - name: Publish Unit Test Results
-        uses: EnricoMi/publish-unit-test-result-action@v1
-        if: always()
+      runs-on: ubuntu-latest
+      needs: Clone-down
+      container: gradle:6-jdk11
+      steps:
+      - name: Download code
+        uses: actions/download-artifact@v2
         with:
-          files: app/build/test-results/**/*.xml
-  Upload-Artifact:
-    runs-on: ubuntu-latest
-    container: gradle:6-jdk11 
-    steps:
-      - name: Upload a Build Artifact
+          name: code
+          path: . 
+      - name: Test with Gradle
+        run: chmod +x ci/unit-test-app.sh && ci/unit-test-app.sh
+  Build:
+      runs-on: ubuntu-latest
+      needs: Clone-down
+      container: gradle:6-jdk11
+      steps:
+      - name: Download code
+        uses: actions/download-artifact@v2
+        with:
+          name: code
+          path: .
+      - name: Build with Gradle
+        run: chmod +x ci/build-app.sh && ci/build-app.sh
+      - name: Upload Repo
         uses: actions/upload-artifact@v2
-        with: 
-          name: my-artifact
-          path: app/build/libs
+        with:
+          name: code
+          path: .
