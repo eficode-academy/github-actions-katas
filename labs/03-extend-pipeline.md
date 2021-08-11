@@ -4,13 +4,6 @@ Once a test step has been added to the pipeline it would be nice to see the resu
 
 To show test results in Github Actions use the following syntax:
 
-```YAML
-    - name: Publish Unit Test Results
-      uses: EnricoMi/publish-unit-test-result-action@v1
-      if: always()
-      with:
-        files: app/build/test-results/**
-```
 
 ### Tasks
 
