@@ -27,4 +27,4 @@ complete/bin
 app/bin/
 .vscode/settings.json
 .DS_Store
-labs/
+labs/.DS_Store

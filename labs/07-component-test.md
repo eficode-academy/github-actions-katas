@@ -1,0 +1,1 @@
+, that require your docker username and password as env, and a `ci/component-test.sh` script that runs a docker-compose file with component tests.
