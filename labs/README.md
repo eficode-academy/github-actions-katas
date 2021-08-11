@@ -1,10 +1,25 @@
-# Katas
+# Github Actions Katas
 
-This workshop is not about making the nitty gritty details of how to build, but making you comfortable with Github Actions terminology.
+This series of katas will go through the basic steps in github actions, making you able to make CI builds in the end.
 
-Therefore we have made a small application with all the ci scripts around it to build,test,and package the application, all stored under the `ci` folder.
+Look into the labs folder for exercises.
+
+## Building a CI pipeline in GitHub Actions
+
+This workshop is not about making the nitty gritty details of how to build, but making you comfortable with GitHub Actions terminology, enabling you to build your own simple pipelines.
+
+We have made a small application with all the ci scripts included to make it
+build,test,and package the application.
+
+They are all stored under the `ci` folder.
 
 We ultimately want a pipeline that has the following jobs:
+
+* **Clone down:** makes the git clone, and prepares the repo for being distributed to the parallel steps
+* **Test:** runs the gradle test command found in [ci/unit-test-app.sh](ci/unit-test-app.sh)
+* **Build:** runs the gradle build command found in [ci/build-app.sh](ci/build-app.sh)
+* **Build docker:** runs both [building of the docker image](ci/build-docker.sh), and [pushes it up to the hub](ci/push-docker.sh)
+* **Component test:** runs a [docker-compose file](component-test/docker-compose.yml) with a [python test](component-test/test_app.py) to test the application.
 
 ## Setup
 
@@ -26,7 +41,6 @@ touch .github/workflows/hello-world.yml
 ```
 
 Now we have set up the fundamentals to run a basic `hello world` build in Github Actions. However, running it would make Github Actions complain, as there is nothing in the file.
-
 
 ## Table of content
 
