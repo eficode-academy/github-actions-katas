@@ -8,7 +8,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Upload Repo
-      uses: actions/upload-artifact@v1
+      uses: actions/upload-artifact@v2
       with:
         name: code
         path: .
@@ -18,7 +18,7 @@ jobs:
       container: gradle:6-jdk11
       steps:
       - name: Download code
-        uses: actions/download-artifact@v1
+        uses: actions/download-artifact@v2
         with:
           name: code
           path: . 
@@ -30,14 +30,14 @@ jobs:
       container: gradle:6-jdk11
       steps:
       - name: Download code
-        uses: actions/download-artifact@v1
+        uses: actions/download-artifact@v2
         with:
           name: code
           path: .
       - name: Build with Gradle
         run: ./ci/build-app.sh
       - name: Upload Repo
-        uses: actions/upload-artifact@v1
+        uses: actions/upload-artifact@v2
         with:
           name: code
           path: .
