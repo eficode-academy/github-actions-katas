@@ -1,16 +1,35 @@
 ## Extend pipeline 
-
-Once a test step has been added to the pipeline it would be nice to see the results of the tests without having to dig through output of the individual steps in Github Actions .
-
-To show test results in Github Actions use the following syntax:
-
+After the application is build, the unit test should be perfommed to check if it works as expected. 
 
 ### Tasks
 
-* make a second `- run:` step with the command `ci/unit-test-app.sh`.
-* publish the outputted test results
+1. Add a step running the unit test step named `Test`, which will run the script`ci/unit-test-app.sh`.
 
-> Hint: The results of running `ci/unit-test-app.sh` are stored in a local directory: `app/build/test-results`.
 
-The outputted test resuts can be seen if pull request will be created towards another branch. It will look like: ![publish-test-results](img/publish-test-results.png)
+If the exercise is complited correctly. The output of `Test`step will look like: 
+
+```YAML
+> Task :clean
+
+> Task :compileJava
+Note: Creating bean classes for 3 type elements
+
+> Task :processResources
+> Task :classes
+
+> Task :compileTestJava
+Note: Creating bean classes for 1 type elements
+
+> Task :processTestResources NO-SOURCE
+> Task :testClasses
+> Task :test
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 7.0.
+Use '--warning-mode all' to show the individual deprecation warnings.
+See https://docs.gradle.org/6.9/userguide/command_line_interface.html#sec:command_line_warnings
+
+BUILD SUCCESSFUL in 7s
+5 actionable tasks: 5 executed
+```
+
 
