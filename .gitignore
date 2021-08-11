@@ -26,3 +26,5 @@ complete/bin
 .gradle/*
 app/bin/
 .vscode/settings.json
+.DS_Store
+labs/

@@ -1,23 +1,17 @@
-name: storing-artifacts
 on: push
 jobs:
   Build:
     runs-on: ubuntu-latest
     container: gradle:6-jdk11
     steps:
-      - name: Checkout
+      - name: Clone-down
         uses: actions/checkout@v2       
-      - run: ./ci/build-app.sh
+      - name: Build application
+        run: chmod +x ci/build-app.sh && ci/build-app.sh
       - name: Test
-        run: ./ci/unit-test-app.sh
-      - run: ls app/build/test-results
-      - name: Publish Unit Test Results
-        uses: EnricoMi/publish-unit-test-result-action@v1
-        if: always()
-        with:
-          files: app/build/test-results/**/*.xml
-      - name: Upload a Build Artifact
+        run: chmod +x ci/unit-test-app.sh && ci/unit-test-app.sh
+      - name: Upload Repo
         uses: actions/upload-artifact@v2
         with: 
-          name: my-artifact
-          path: app/build/libs
+          name: code
+          path: .

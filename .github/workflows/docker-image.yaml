@@ -1,0 +1,59 @@
+name: Java CI
+on: push
+env: # Set the secret as an input
+  docker_username: ${{ secrets. docker_username }}
+  docker_password: ${{ secrets. docker_password }}
+jobs:
+  Clone-down:
+    name: Clone down repo
+    runs-on: ubuntu-latest
+    container: gradle:6-jdk11
+    steps:
+    - uses: actions/checkout@v2
+    - name: Upload Repo
+      uses: actions/upload-artifact@v2
+      with:
+        name: code
+        path: .
+  Test:
+    runs-on: ubuntu-latest
+    needs: Clone-down
+    container: gradle:6-jdk11
+    steps:
+    - name: Download code
+      uses: actions/download-artifact@v2
+      with:
+        name: code
+        path: . 
+    - name: Test with Gradle
+      run: chmod +x ci/unit-test-app.sh && ci/unit-test-app.sh
+  Build:
+    runs-on: ubuntu-latest
+    needs: Clone-down
+    container: gradle:6-jdk11
+    steps:
+    - name: Download code
+      uses: actions/download-artifact@v2
+      with:
+        name: code
+        path: .
+    - name: Build with Gradle
+      run: chmod +x ci/build-app.sh && ci/build-app.sh
+    - name: Upload Repo
+      uses: actions/upload-artifact@v2
+      with:
+        name: code
+        path: .
+  Docker-image:
+    runs-on: ubuntu-latest
+    needs: [Build,Test]
+    steps:
+    - name: Download code
+      uses: actions/download-artifact@v1
+      with:
+        name: code
+        path: .
+    - name: build docker
+      run: chmod +x ci/build-docker.sh && export GIT_COMMIT="GA-$GITHUB_SHA" && ci/build-docker.sh
+    - name: push docker
+      run: chmod +x ci/push-docker.sh && export GIT_COMMIT="GA-$GITHUB_SHA" && ci/push-docker.sh
