@@ -37,4 +37,5 @@ The list here is the natural progression of the labs, but they are made so that 
 * [Extending pipeline](03-extend-pipeline.md)
 * [Storing artifacts](04-storing-artifacts.md)
 * [Workflow](05-workflow.md)
-* [Workspaces](06-workspaces.md)
+* [Dockerimage](06-docker-image.md)
+* [Component test](07-component-test.md)

@@ -1,2 +1,2 @@
-#! /bin/bash
+#!/bin/bash
 gradle clean shadowjar -p app
