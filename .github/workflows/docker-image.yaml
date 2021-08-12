@@ -56,8 +56,8 @@ jobs:
     - name: Login to docker
       uses: docker/login-action@v1
       with:
-        username: ${{ docker_username }}
-        password: ${{ docker_password }}
+        username: ${{ env.docker_username }}
+        password: ${{ env.docker_password }}
     - name: build docker
       run: chmod +x ci/build-docker.sh && export GIT_COMMIT="GA-$GITHUB_SHA" && ci/build-docker.sh
     - name: push docker
