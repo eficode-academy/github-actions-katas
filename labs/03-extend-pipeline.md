@@ -8,7 +8,7 @@ After the application is build, the unit test should be perfommed to check if it
 
 If the exercise is complited correctly. The output of `Test`step will look like: 
 
-```YAML
+``` bash
 > Task :clean
 
 > Task :compileJava

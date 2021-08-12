@@ -1,4 +1,4 @@
-# local runners
+## Local runners
 
 Github actions provides a lot of minutes you can run your pipeline on their machines.
 But it can be that you want to run your pipeline locally as well.
