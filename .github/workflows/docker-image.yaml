@@ -1,8 +1,8 @@
 name: Java CI
 on: push
 env: # Set the secret as an input
-  DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-  DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+  docker_username: ${{ secrets.DOCKER_USERNAME }}
+  docker_password: ${{ secrets.DOCKER_PASSWORD }}
 jobs:
   Clone-down:
     name: Clone down repo
@@ -53,11 +53,6 @@ jobs:
       with:
         name: code
         path: .
-    - name: Login to docker
-      uses: docker/login-action@v1
-      with:
-        username: ${{ env.DOCKER_USERNAME }}
-        password: ${{ env.DOCKER_PASSWORD }}
     - name: build docker
       run: chmod +x ci/build-docker.sh && export GIT_COMMIT="GA-$GITHUB_SHA" && ci/build-docker.sh
     - name: push docker
