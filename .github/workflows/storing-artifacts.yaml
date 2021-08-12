@@ -7,8 +7,10 @@ jobs:
       - name: Clone-down
         uses: actions/checkout@v2
       - name: Build application
+        shell: bash
         run: ci/build-app.sh
       - name: Test
+        shell: bash
         run: ci/unit-test-app.sh
       - name: Upload Repo
         uses: actions/upload-artifact@v2
