@@ -6,6 +6,7 @@ Pull Request workflow (also known as the
 
 
 !!! Talk about triggers
+https://docs.github.com/en/actions/reference/events-that-trigger-workflows
 
 ### Tasks
 
