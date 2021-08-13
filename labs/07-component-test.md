@@ -11,5 +11,5 @@ After running `unit test` in exercise 2, now the time came to run `component tes
 
 
 If you added the job succesfully, your pipeline should look like: 
-
+![Ready pipeline](img/pipeline.png)
 

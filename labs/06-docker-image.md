@@ -2,15 +2,24 @@
 
 Often we also want to have our application packaged as a docker image for easy distribution. Lucky for us, Github Actions has nice support for Docker built in.
 
-The following is an example of a job that builds a Docker image by specifying a `container: image` to run. 
+The following is an example of a job that builds and pushes a Docker image:
 
 ``` yaml
+on: push
 jobs:
-  job-name:
-    runs-on: ios-system
-    container: image-name
+  build-and-push-latest:
+    runs-on: ubuntu-latest
     steps:
-      - name: ...    
+    - name: Login to DockerHub
+      uses: docker/login-action@v1
+      with:
+        username: ${{ env.docker_username }}
+        password: ${{ env.docker_password }}
+    - name: Build and push
+      uses: docker/build-push-action@v2
+      with:
+        push: true
+        tags: my-org/my-image:latest
 ```
 
 To try this on the project, we have made two scripts: `ci/build-docker.sh` and `ci/push-docker.sh`
@@ -18,8 +27,8 @@ In order for this to work, two env. variables needs to be set: `docker_username`
 
 ```YAML
 env: 
-  docker_username: ${{ secrets. docker_username }}
-  docker_password: ${{ secrets. docker_password }}
+  docker_username: ${{ secrets.DOCKER_USERNAME }}
+  docker_password: ${{ secrets.DOCKER_PASSWORD}}
 ```
 
 ### Tasks
