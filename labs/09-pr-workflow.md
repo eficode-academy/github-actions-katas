@@ -12,38 +12,18 @@ It utilizes the pull request feature to merge code from developer branches to ma
 
 ![Securing your branch](../img/branch-protection.png)
 
-We do not want everybody to be able to push
-directly to master, without the CI server checking
-the quality of the code. So we need our Git
-repository to block incoming pushes directly to
-master. In that way we can ensure that the only
-way in to master is through a PR. This can be done
-in
-[GitHub](https://help.github.com/en/github/administering-a-repository/enabling-required-status-checks)
-under `settings->Branches`, Branch protection
-rules and then click on `add rule`.
+We do not want everybody to be able to push directly to master, without the CI server checking the quality of the code. So we need our Git repository to block incoming pushes directly to master. In that way we can ensure that the only way in to master is through a PR. This can be done in [GitHub](https://help.github.com/en/github/administering-a-repository/enabling-required-status-checks) under `settings->Branches`, Branch protection rules and then click on `add rule`.
 
 ### Tasks
 
 - Go to your repository on GitHub enter settings.
 - Go to `Branches` and add a branch protection rule.
 - Give it the pattern `main`.
-- `Require status checks to pass before merging`
-  Will block the pull request from merging untill
-  the tests have passed.
-- `Require branches to be up to date before merging`
-  The branch must be up to date with the base
-  branch before merging.
+- `Require status checks to pass before merging` Will block the pull request from merging until the tests have passed.
+- `Require branches to be up to date before merging` The branch must be up to date with the base branch before merging.
 - Add the following jobs to the `Status checks that are required` selection: `Test`,`Build`,`Docker-image`. In that way, no one can push to master without having the tests pass.
-- `Include administrators` Makes the rules apply
-  to everyone (yes, you too!).
-- OPTIONAL: `Require linear history` requires the
-  PR branch to be rebased with the target branch,
-  so a linear history can be obtained.
-  [Further explanaition here](https://www.bitsnbites.eu/a-tidy-linear-git-history/).
-  This is a very strict way of using git, and is
-  only here for inspiration for experiments.
-
+- `Include administrators` Makes the rules apply to everyone (yes, you too!).
+- OPTIONAL: `Require linear history` requires the PR branch to be rebased with the target branch, so a linear history can be obtained. [Further explanaition here](https://www.bitsnbites.eu/a-tidy-linear-git-history/). This is a very strict way of using git, and is only here for inspiration for experiments.
 - Try to push to master to verify that you cannot.
 
 ## Triggering the build on a PR
@@ -117,11 +97,7 @@ on:
 
 ## Trying it out
 
-Congratulations! If everything works as intended,
-you now have a full "grown up" pipeline, with
-conditions, and security that your master branch
-always contains tested code. Go ahead and try it
-out, to see what it feels like.
+Congratulations! If everything works as intended, you now have a full "grown up" pipeline, with conditions, and security that your master branch always contains tested code. Go ahead and try it out, to see what it feels like.
 
 ## Further reading
 
