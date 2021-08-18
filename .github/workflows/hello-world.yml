@@ -45,6 +45,9 @@ jobs:
           path: .
   Docker-image:
     runs-on: ubuntu-latest
+    env:
+      docker_username: ${{ secrets.DOCKER_USERNAME }}
+      docker_password: ${{ secrets.DOCKER_PASSWORD }}
     needs: 
       - Build
       - Test
@@ -64,6 +67,3 @@ jobs:
           chmod +x ci/push-docker.sh &&
           export GIT_COMMIT="GA-$GITHUB_SHA" &&
           ci/push-docker.sh 
-        env:
-          docker_username: arkobat
-          docker_password: ${{ secrets.DOCKER_PASSWORD }}
