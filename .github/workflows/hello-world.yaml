@@ -12,3 +12,9 @@ jobs:
 
       - name: test-app
         run: ci/unit-test-app.sh
+
+      - name: Upload code
+        uses: actions/upload-artifact@v2
+        with:
+          name: code
+          path: .
