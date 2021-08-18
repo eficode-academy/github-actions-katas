@@ -1,5 +1,8 @@
 name: Push to Docker
-on: push
+on:
+  push:
+    branches-ignore:
+      - '**'
 jobs:
   build-and-push-latest:
     runs-on: ubuntu-latest
