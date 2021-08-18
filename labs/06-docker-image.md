@@ -8,13 +8,16 @@ In order for this to work, two env. variables needs to be set: `docker_username`
 ```YAML
 env:
   docker_username: ${{ secrets.DOCKER_USERNAME }}
-  docker_password: ${{ secrets.DOCKER_PASSWORD}}
+  docker_password: ${{ secrets.DOCKER_PASSWORD }}
 ```
 
 We should give our docker image a meaningful tag, for example we could give it a tag based on the git commit that triggered build.
 This is what the two scripts: `ci/build-docker.sh` and `ci/push-docker.sh` expects, and they will read the name of the git commit from an environment variable named `GIT_COMMIT`, which we must define.
 
 ### Tasks
+To start Docker credentials should be stored as secrets at Github Actions Repository. Please go to `Settings > Secrets > Add Secret` to add them. 
+
+[Github Secrets](img/secret.png)
 
 1. Add a new job named `Docker-image` that requires the `Build` and `Test` jobs have been run.
 2. Add a new step to your `Build` job which uploads the build code, and then a step in `Docker-image` which downloads the build.
@@ -27,7 +30,7 @@ This is what the two scripts: `ci/build-docker.sh` and `ci/push-docker.sh` expec
 
 ---
 
-You can also use a ready made action to build and upload your docker image:
+The above job can be also done by using actions: `docker/login-action@v1` and `docker/build-push-action@v2`, what will provide the same functionality. You can find it in the example below:
 
 ```yaml
 on: push
