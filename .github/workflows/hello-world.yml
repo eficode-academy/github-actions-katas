@@ -1,7 +1,10 @@
 name: hello-world
 on: push
 jobs:
-  test-app:
+  "Clone repo":
+    runs-on: ubuntu-latest
+  Test:
+    needs: "Clone repo"
     runs-on: ubuntu-latest
     container: gradle:6-jdk11
     steps:
@@ -9,18 +12,19 @@ jobs:
       - name: Run tests
         run: | 
           ./ci/unit-test-app.sh
-  build-app:
-    needs: test-app
+  Build:
+    needs: "Clone repo"
     runs-on: ubuntu-latest
     container: gradle:6-jdk11
     steps:
       - name: Build app
         run: | 
           ./ci/build-app.sh
-  deploy-app:
-    needs: build-app
+  Deploy:
+    needs: 
+      - Test
+      - Build
     runs-on: ubuntu-latest
-    container: gradle:6-jdk11
     steps:
       - name: Upload Repo
         uses: actions/upload-artifact@v2
