@@ -6,10 +6,11 @@ jobs:
     container: gradle:6-jdk11
     steps:
       - uses: actions/checkout@v2
-      - name: my-step
+      - name: run-tests
         run: | 
-          pwd
-          ls -a
-          ls -a ci
+          ./ci/unit-test-app.sh
+      - name: build-app
+        run: | 
           ./ci/build-app.sh
+
           
