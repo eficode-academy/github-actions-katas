@@ -69,7 +69,7 @@ jobs:
         run: chmod +x ci/push-docker.sh && export GIT_COMMIT="GA-$GITHUB_SHA" && ci/push-docker.sh
 
   Component-test:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     needs: Docker-image
 
     steps:
