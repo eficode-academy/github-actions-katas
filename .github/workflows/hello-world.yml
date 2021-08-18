@@ -2,6 +2,7 @@ name: hello-world
 on: push
 jobs:
   my-job:
+    runs-on: ubuntu-latest
     container: node:14.16
     steps:
       - uses: actions/checkout@v2
