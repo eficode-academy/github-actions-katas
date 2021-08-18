@@ -1,21 +1,20 @@
 name: hello-world
 on: push
 jobs:
-  "Clone repo":
+  Clone:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
   Test:
-    needs: "Clone repo"
+    needs: Clone
     runs-on: ubuntu-latest
     container: gradle:6-jdk11
     steps:
-      - uses: actions/checkout@v2
       - name: Run tests
         run: | 
           ./ci/unit-test-app.sh
   Build:
-    needs: "Clone repo"
+    needs: Clone
     runs-on: ubuntu-latest
     container: gradle:6-jdk11
     steps:
