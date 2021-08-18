@@ -5,11 +5,21 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - name: Upload Repo
+        uses: actions/upload-artifact@v2
+        with:
+          name: code
+          path: .
   Test:
     needs: Clone
     runs-on: ubuntu-latest
     container: gradle:6-jdk11
     steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v1
+        with:
+          name: code
+          path: .
       - name: Run tests
         run: | 
           ./ci/unit-test-app.sh
@@ -18,20 +28,14 @@ jobs:
     runs-on: ubuntu-latest
     container: gradle:6-jdk11
     steps:
-      - name: Build app
-        run: | 
-          ./ci/build-app.sh
-  Deploy:
-    needs: 
-      - Test
-      - Build
-    runs-on: ubuntu-latest
-    steps:
-      - name: Upload Repo
-        uses: actions/upload-artifact@v2
+      - name: Download artifact
+        uses: actions/download-artifact@v1
         with:
           name: code
           path: .
+      - name: Build app
+        run: | 
+          ./ci/build-app.sh
 
 
           
