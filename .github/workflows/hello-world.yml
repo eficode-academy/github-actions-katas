@@ -9,5 +9,7 @@ jobs:
       - name: my-step
         run: | 
           pwd
-          ci/build-app.sh
           ls -a
+          ls -a ci
+          ./ci/build-app.sh
+          
