@@ -5,12 +5,22 @@ jobs:
     runs-on: ubuntu-latest
     container: gradle:6-jdk11
     steps:
-      - uses: actions/checkout@v2
-      - name: run-tests
+      - name: Run tests
         run: | 
           ./ci/unit-test-app.sh
-      - name: build-app
+      - name: Build app
+        uses: actions/checkout@v2
         run: | 
           ./ci/build-app.sh
+      - name: Upload Repo
+        uses: actions/upload-artifact@v2
+        with:
+          name: code
+          path: .
+#      - name: Download a single artifact
+#        uses: actions/download-artifact@v2
+#        with:
+#          name: my-artifact
+#          path: path/to/download/artifact/
 
           
