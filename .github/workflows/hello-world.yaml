@@ -2,6 +2,7 @@ name: hello-world
 on: push
 jobs:
   Clone-down:
+    runs-on: ubuntu-latest
     name: Clone down repo
     steps:
       - uses: actions/checkout@v2
