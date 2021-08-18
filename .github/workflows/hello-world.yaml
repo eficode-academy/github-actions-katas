@@ -2,6 +2,7 @@ name: Java CI
 on: push
 jobs:
   Clone-down:
+    name: Clone down repo
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -12,6 +13,7 @@ jobs:
           path: .
 
   Test:
+    name: Unit test
     runs-on: ubuntu-latest
     needs: Clone-down
     container: gradle:6-jdk11
@@ -22,11 +24,10 @@ jobs:
           name: code
           path: .
       - name: Test
-        run: |
-          chmod +x ci/unit-test-app.sh
-          ci/unit-test-app.sh
+        run: bash ci/unit-test-app.sh
 
   Build:
+    name: Build java artifact
     runs-on: ubuntu-latest
     needs: Clone-down
     container: gradle:6-jdk11
@@ -37,6 +38,31 @@ jobs:
           name: code
           path: .
       - name: build
-        run: |
-          chmod +x ci/build-app.sh
-          ci/build-app.sh
+        run: bash ci/build-app.sh
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: artifact
+          path: .
+
+
+  Docker-image:
+    runs-on: ubuntu-latest
+    needs: [Build, Test]
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: artifact
+          path: .
+      - name: build
+        env:
+          docker_username: ${{ secrets.DOCKER_USERNAME }}
+          docker_password: ${{ secrets.DOCKER_PASSWORD }}
+        run: export GIT_COMMIT="GA-$GITHUB_SHA" && bash ci/build-docker.sh
+
+      - name: push
+        env:
+          docker_username: ${{ secrets.DOCKER_USERNAME }}
+          docker_password: ${{ secrets.DOCKER_PASSWORD }}
+        run: export GIT_COMMIT="GA-$GITHUB_SHA" && bash ci/push-docker.sh
