@@ -1,5 +1,10 @@
 name: hello-world
 on: push
+
+env:
+  docker_username: ${{ secrets.DOCKER_USERNAME }}
+  docker_password: ${{ secrets.DOCKER_PASSWORD }}
+  
 jobs:
   Clone:
     runs-on: ubuntu-latest
@@ -45,9 +50,6 @@ jobs:
           path: .
   Docker-image:
     runs-on: ubuntu-latest
-    env:
-      docker_username: ${{ secrets.DOCKER_USERNAME }}
-      docker_password: ${{ secrets.DOCKER_PASSWORD }}
     needs: 
       - Build
       - Test
