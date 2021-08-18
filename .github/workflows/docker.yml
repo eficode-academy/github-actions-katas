@@ -1,4 +1,6 @@
 name: Push to Docker
+on: push
+jobs:
   build-and-push-latest:
     runs-on: ubuntu-latest
     steps:
