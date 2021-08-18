@@ -4,6 +4,8 @@ jobs:
   my-job:
     runs-on: gradle:6-jdk11
     steps:
-      - name: build-app
+      - name: checkout
         uses: actions/checkout@v2
+
+      - name: build-app
         run: ci/build-app.sh
