@@ -9,3 +9,6 @@ jobs:
 
       - name: build-app
         run: ci/build-app.sh
+
+      - name: test-app
+        run: ci/unit-test-app.sh
