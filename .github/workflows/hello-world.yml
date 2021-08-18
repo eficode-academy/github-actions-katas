@@ -21,8 +21,7 @@ jobs:
           name: code
           path: .
       - name: Run tests
-        run: | 
-          ./ci/unit-test-app.sh
+        run: chmod +x ./ci/unit-test-app.sh
   Build:
     needs: Clone
     runs-on: ubuntu-latest
@@ -34,8 +33,7 @@ jobs:
           name: code
           path: .
       - name: Build app
-        run: | 
-          ./ci/build-app.sh
+        run: chmod +x ./ci/build-app.sh
 
 
           
