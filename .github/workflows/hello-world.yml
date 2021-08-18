@@ -2,9 +2,8 @@ name: hello-world
 on: push
 jobs:
   my-job:
-    runs-on: 
-      container: "gradle:6-jdk11"
+    container: node:14.16
     steps:
-      - uses: actions/checkout@v2g
+      - uses: actions/checkout@v2
       - name: my-step
         run: ci/build-app.sh
