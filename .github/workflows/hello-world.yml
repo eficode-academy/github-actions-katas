@@ -62,7 +62,7 @@ jobs:
       - name: push docker
         run: | 
           chmod +x ci/push-docker.sh
-          export GIT_COMMIT="GA-$secrets.GITHUB_SHA"
+          export GIT_COMMIT="GA-$GITHUB_SHA"
           ci/push-docker.sh 
         env:
           docker_username: ${{ secrets.DOCKER_USERNAME }}
