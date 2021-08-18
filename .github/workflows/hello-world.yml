@@ -1,7 +1,7 @@
 name: hello-world
 on: push
 jobs:
-  my-job:
+  test-app:
     runs-on: ubuntu-latest
     container: gradle:6-jdk11
     steps:
@@ -9,18 +9,24 @@ jobs:
       - name: Run tests
         run: | 
           ./ci/unit-test-app.sh
+  build-app:
+    needs: test-app
+    runs-on: ubuntu-latest
+    container: gradle:6-jdk11
+    steps:
       - name: Build app
         run: | 
           ./ci/build-app.sh
+  deploy-app:
+    needs: buid-app
+    runs-on: ubuntu-latest
+    container: gradle:6-jdk11
+    steps:
       - name: Upload Repo
         uses: actions/upload-artifact@v2
         with:
           name: code
           path: .
-#      - name: Download a single artifact
-#        uses: actions/download-artifact@v2
-#        with:
-#          name: my-artifact
-#          path: path/to/download/artifact/
+
 
           
