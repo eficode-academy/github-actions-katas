@@ -3,7 +3,7 @@ on: push
 jobs:
   my-job:
     runs-on: ubuntu-latest
-    container: node:14.16
+    container: gradle:6-jdk11
     steps:
       - uses: actions/checkout@v2
       - name: my-step
