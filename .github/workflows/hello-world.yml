@@ -56,13 +56,13 @@ jobs:
           path: .
       - name: build docker
         run: |
-          chmod +x ci/build-docker.sh
-          export GIT_COMMIT="GA-$GITHUB_SHA"
+          chmod +x ci/build-docker.sh &&
+          export GIT_COMMIT="GA-$GITHUB_SHA" &&
           ci/build-docker.sh
       - name: push docker
         run: | 
-          chmod +x ci/push-docker.sh
-          export GIT_COMMIT="GA-$GITHUB_SHA"
+          chmod +x ci/push-docker.sh &&
+          export GIT_COMMIT="GA-$GITHUB_SHA" &&
           ci/push-docker.sh 
         env:
           docker_username: arkobat
