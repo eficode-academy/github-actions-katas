@@ -1,12 +1,8 @@
 name: Java CI
-on:
+on: 
   push:
     branches:
-      - main
-  pull_request:
-    branches:
-      - main
-         
+      - "dev/**"
 jobs:
   Clone-down:
     name: Clone down repo
@@ -70,19 +66,3 @@ jobs:
 
       - name: push
         run: export GIT_COMMIT="GA-$GITHUB_SHA" && bash ci/push-docker.sh
-
-
-  Component-test:
-    runs-on: [self-hosted]
-    needs: [Docker-image]
-    env:
-      docker_username: ${{ secrets.DOCKER_USERNAME }}
-      docker_password: ${{ secrets.DOCKER_PASSWORD }}
-    steps:
-      - name: Download artifact
-        uses: actions/download-artifact@v2
-        with:
-          name: code
-          path: .
-      - name: component-test
-        run: bash ci/component-test.sh
