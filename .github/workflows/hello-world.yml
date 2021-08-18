@@ -7,4 +7,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: my-step
-        run: ci/build-app.sh
+        run: | 
+          pwd
+          ci/build-app.sh
+          ls -a
