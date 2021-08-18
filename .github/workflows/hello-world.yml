@@ -38,7 +38,7 @@ jobs:
         run: |
           chmod +x ./ci/build-app.sh
           ./ci/build-app.sh
-      - name: Upload Repo
+      - name: Upload Artifact
         uses: actions/upload-artifact@v2
         with:
           name: code
@@ -54,11 +54,11 @@ jobs:
           path: .
       - name: build docker
         run: |
-          chmod +x ci/build-docker.sh
+          chmod +x cgi/build-docker.sh
           export GIT_COMMIT="GA-$GITHUB_SHA"
           ci/build-docker.sh
       - name: push docker
         run: | 
           chmod +x ci/push-docker.sh
           export GIT_COMMIT="GA-$GITHUB_SHA"
-          ci/push-docker.sh
+          ci/push-docker.sh --username ${{ secrets.DOCKER_USERNAME }} --pasword ${{ secrets.DOCKER_PASSWORD }}
