@@ -1,10 +1,13 @@
 name: hello-world
-on: push
+on: 
+  pull_request:
+    branches:
+      - main
 
 env:
   docker_username: ${{ secrets.DOCKER_USERNAME }}
   docker_password: ${{ secrets.DOCKER_PASSWORD }}
-  
+
 jobs:
   Clone:
     runs-on: ubuntu-latest
@@ -81,6 +84,6 @@ jobs:
           path: .
       - name: Run test
         run: |
-          export GIT_COMMIT="GA-$GITHUB_SHA" &&
+          export GIT_COMMIT="GA-$GITHUB_SHA"
           chmod +x ci/component-test.sh 
           ci/component-test.sh
