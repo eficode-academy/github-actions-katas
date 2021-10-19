@@ -7,10 +7,21 @@ As a next step, we want Github Actions to actually clone our project, build the 
 ### Tasks
 
 - Instead of printing "Hello World!", now we want to use a docker image that has both JDK and Gradle installed. After section `runs-on:` add `container: gradle:6-jdk11`
+
+___
+
 - Under the `steps` part, insert a `- uses:` list item to the list (before the existing `- name: my-step` item) with action: `actions/checkout@v2`
 
+___
+
 - Change the `run` command to just run `ci/build-app.sh` as the command. (In case of issues with access denied add `chmod +x ci/build-app.sh`.)
-- Commit and push the changes. Github Actions should automatically detect your new commit and build again. See that the build runs green and outputs this in the step log:
+```bash 
+#!/bin/bash
+gradle clean shadowjar -p app
+```
+___
+
+- Commit and push the changes. Github Actions should automatically detect your new commit and build again. 
 
 ### Solution
 
@@ -32,6 +43,7 @@ jobs:
 </details>
 
 ### Results 
+See that the build runs green and outputs this in the step log:
 
 ```bash
 Run ./ci/build-app.sh
