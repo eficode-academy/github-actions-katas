@@ -1,12 +1,12 @@
 ## Extend pipeline 
-After the application is build, the unit test should be perfommed to check if it works as expected. 
+After the application is build, the unit test should be performed to check if it works as expected. 
 
 ### Tasks
 
-1. Add a step running the unit test step named `Test`, which will run the script`ci/unit-test-app.sh`.
+1. Add a step running the unit test step named `Test`, which will run the script `ci/unit-test-app.sh`.
 
 
-If the exercise is complited correctly. The output of `Test`step will look like: 
+If the exercise is completed correctly. The output of `Test`step will look like: 
 
 ``` bash
 > Task :clean
