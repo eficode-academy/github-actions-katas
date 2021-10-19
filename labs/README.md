@@ -56,4 +56,6 @@ The list here is the natural progression of the labs, but they are made so that 
 - [Dockerimage](06-docker-image.md)
 - [Component test](07-component-test.md)
 - [Self hosted runner](08-selfhosted-runner.md)
-- [Extras](09-extras.md)
+- [PR workflow](09-pr-workflow.md)
+- [Matrix](10-matrix.md)
+- [Extras](XX-extras.md)

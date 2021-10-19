@@ -15,7 +15,7 @@ You still reap the benefits of a central CI/CD master, but have the possibility 
 ## Overview
 
 We want to take parts of your pipeline and run it locally, to see if that will speed up the process.
-
+        
 ## Tasks
 
 **Setup a local runner**
