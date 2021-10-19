@@ -8,16 +8,31 @@ As a next step, we want Github Actions to actually clone our project, build the 
 
 - Instead of printing "Hello World!", now we want to use a docker image that has both JDK and Gradle installed. After section `runs-on:` add `container: gradle:6-jdk11`
 
+```YAML
+container: gradle:6-jdk11
+```
+
 ___
 
 - Under the `steps` part, insert a `- uses:` list item to the list (before the existing `- name: my-step` item) with action: `actions/checkout@v2`
 
+```YAML
+- name: Clone-down
+  uses: actions/checkout@v2   
+```
+
 ___
 
 - Change the `run` command to just run `ci/build-app.sh` as the command. (In case of issues with access denied add `chmod +x ci/build-app.sh`.)
+
+Here you can see, what `build-app.sh`is doing. 
 ```bash 
 #!/bin/bash
 gradle clean shadowjar -p app
+```
+
+```YAML
+ - run: chmod +x ci/build-app.sh && ci/build-app.sh
 ```
 ___
 
@@ -25,7 +40,7 @@ ___
 
 ### Solution
 
-If you would like to see ready code: 
+If you strugle and need to see the whole ***Solution*** you can extend the section below. 
 <details>
     <summary> Solution </summary>
 
