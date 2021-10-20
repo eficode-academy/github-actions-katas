@@ -37,6 +37,14 @@ In order to achieve this we will simply save the state of the entire repository 
 
 - Add step named `Upload Repo` to the existing job, which will upload an artifact with the name `code`, with the path `.` to use the current directory.
 
+```YAML
+    - name: Upload Repo
+      uses: actions/upload-artifact@v2
+      with: 
+        name: code
+        path: .
+```
+
 
 ### Solution
 If you strugle and need to see the whole ***Solution*** you can extend the section below. 
