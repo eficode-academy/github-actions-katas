@@ -18,9 +18,9 @@ We want to take parts of your pipeline and run it locally, to see if that will s
         
 ## Tasks
 
-**Setup a local runner**
+- Setup a local runner
 
-* Click on settings > general > runners
+* Click on settings > General > rRunners
 * Click "add runner"
 * Follow the download instructions and configure instructions in a terminal where you are standing in `/home/ubuntu` (so not in the github-actions-katas folder)
 
@@ -35,7 +35,9 @@ $  ./run.sh
 
 Now you are ready to use the runner in your pipeline.
 
-**Use the local runner in your pipeline**
+___
+
+- Use the local runner in your pipeline
 
 * in your pipeline, change the `runs-on` parameter in the component test from `ubuntu-latest` to `self-hosted`
 
@@ -64,7 +66,9 @@ to
 
 * Is there a time difference between running your pipeline with a local runner and with a Github provided runner?
 
-**Make the local runner run as a service**
+___
+
+- Make the local runner run as a service
 
 Right now the runner is attached to a bash session in VS code. If you kill that session, the runner will be stopped.
 So in order for us to have it running in the background, we need to run it as a service.
