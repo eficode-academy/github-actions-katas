@@ -167,5 +167,5 @@ jobs:
 
 You should be able to see your docker image on your DockerHub account as: 
 
-![Dockerhub](img/docker.png)
+![Dockerhub](img/dockerhub.png)
 
