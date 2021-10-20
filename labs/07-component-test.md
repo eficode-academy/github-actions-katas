@@ -17,7 +17,7 @@ docker_username=$DockerRepo docker-compose -f component-test/docker-compose.yml 
   run: chmod +x ci/component-test.sh && GIT_COMMIT="GA-$GITHUB_SHA" && ci/component-test.sh
 ```
 
-__
+___
 - This job needs to be dependent on `Docker-image` job.
 
 ```YAML
@@ -27,7 +27,9 @@ needs: [Docker-image]
 
 
 ### Solution
-
+If you strugle and need to see the whole ***Solution*** you can extend the section below. 
+<details>
+    <summary> Solution </summary>
 ```YAML
 ...
   Component-test:
@@ -42,7 +44,7 @@ needs: [Docker-image]
     - name: Execute component test
       run: chmod +x ci/component-test.sh && GIT_COMMIT="GA-$GITHUB_SHA" && ci/component-test.sh
 ```
-
+</details>
 
 ### Results
 
