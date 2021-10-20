@@ -19,9 +19,10 @@ gradle clean test -p app
 If you strugle and need to see the whole ***Solution*** you can extend the section below. 
 <details>
     <summary> Solution </summary>
-```YAML
-on: push
-jobs:
+  
+  ```
+  on: push
+  jobs:
   Build:
     runs-on: ubuntu-latest
     container: gradle:6-jdk11
@@ -32,7 +33,8 @@ jobs:
         run: chmod +x ci/build-app.sh && ci/build-app.sh
       - name: Test
         run: chmod +x ci/unit-test-app.sh && ci/unit-test-app.sh
-```
+
+  ```
 
 </details>
 
