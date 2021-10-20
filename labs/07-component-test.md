@@ -31,7 +31,7 @@ If you strugle and need to see the whole ***Solution*** you can extend the secti
 <details>
     <summary> Solution </summary>
   
-```
+```YAML
   Component-test:
     runs-on: ubuntu-latest
     needs: Docker-image
