@@ -60,9 +60,19 @@ jobs:
 ```
 ___
 
-`Test` and `Build` should be dependent on `Clone-down` job. Each of them also needs a running instance and container.
+- `Test` and `Build` should be dependent on `Clone-down` job. Each of them also needs a running instance and container.
 
-Remember that to have information from previous job(s) the artifact with this information needs to be downloaded and respectively uploaded.
+```YAML
+Clone-down:
+    runs-on: ubuntu-latest
+    container: gradle:6-jdk11
+    steps:
+      - ...
+```
+
+___
+
+- Remember that to have information from previous job(s) the artifact with this information needs to be downloaded and respectively uploaded by using (`actions/upload-artifact@v2`and `actions/download-artifact@v2`).
 
 ## Solution
 
