@@ -17,7 +17,7 @@ This is what the two scripts: `ci/build-docker.sh` and `ci/push-docker.sh` expec
 ### Tasks
 - To start Docker credentials should be stored as secrets at Github Actions Repository. Please go to `Settings > Secrets > Add Secret` to add them. 
 
-[Github Secrets](img/secret.png)
+![Github Secrets](img/secret.png)
 
 ___
 
@@ -167,4 +167,5 @@ jobs:
 
 You should be able to see your docker image on your DockerHub account as: 
 
+![Dockerhub](img/docker.png)
 
