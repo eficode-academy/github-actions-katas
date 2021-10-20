@@ -20,19 +20,19 @@ If you strugle and need to see the whole ***Solution*** you can extend the secti
 <details>
     <summary> Solution </summary>
   
-  ```
+  ```YAML
   on: push
   jobs:
-  Build:
-    runs-on: ubuntu-latest
-    container: gradle:6-jdk11
-    steps:
-      - name: Clone-down
-        uses: actions/checkout@v2       
-      - name: Build application
-        run: chmod +x ci/build-app.sh && ci/build-app.sh
-      - name: Test
-        run: chmod +x ci/unit-test-app.sh && ci/unit-test-app.sh
+    Build:
+      runs-on: ubuntu-latest
+      container: gradle:6-jdk11
+      steps:
+        - name: Clone-down
+          uses: actions/checkout@v2       
+        - name: Build application
+          run: chmod +x ci/build-app.sh && ci/build-app.sh
+        - name: Test
+          run: chmod +x ci/unit-test-app.sh && ci/unit-test-app.sh
 
   ```
 
