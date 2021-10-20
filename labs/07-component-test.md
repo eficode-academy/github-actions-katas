@@ -30,8 +30,8 @@ needs: [Docker-image]
 If you strugle and need to see the whole ***Solution*** you can extend the section below. 
 <details>
     <summary> Solution </summary>
-```YAML
-[...]
+  
+```
   Component-test:
     runs-on: ubuntu-latest
     needs: Docker-image
@@ -44,6 +44,7 @@ If you strugle and need to see the whole ***Solution*** you can extend the secti
     - name: Execute component test
       run: chmod +x ci/component-test.sh && GIT_COMMIT="GA-$GITHUB_SHA" && ci/component-test.sh
 ```
+  
 </details>
 
 ### Results
