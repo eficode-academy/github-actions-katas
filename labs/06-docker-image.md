@@ -98,8 +98,8 @@ If you strugle and need to see the whole ***Solution*** you can extend the secti
 <details>
     <summary> Solution </summary>
   
-    ```YAML
-    name: Java CI
+```YAML
+name: Java CI
 on: push
 env: # Set the secret as an input
   docker_username: ${{ secrets.DOCKER_USERNAME }}
@@ -158,8 +158,7 @@ jobs:
       run: chmod +x ci/build-docker.sh && export GIT_COMMIT="GA-$GITHUB_SHA" && ci/build-docker.sh
     - name: push docker
       run: chmod +x ci/push-docker.sh && export GIT_COMMIT="GA-$GITHUB_SHA" && ci/push-docker.sh
-  
-    ```
+```
 
 </details>
 
