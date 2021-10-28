@@ -3,8 +3,8 @@
 When you have larger or more complex projects, you’ll want separate jobs to do separate things (i.e. build or test).
 We will split the steps we have so far have created in single job to each their own distinct job.
 
-Up until now, we have had a job called `build` both for the build and test, but that is not necessarily descriptive.
-The only reason we have done this, is because Github Actions **requires** you to have one job called `build`
+Up until now, we have had a job called `Build` both for the build and test, but that is not necessarily descriptive.
+The only reason we have done this, is because Github Actions **requires** you to have at least one job with the name fx. `Build`
 
 We define each job as a collection of `jobs` key:
 
@@ -16,8 +16,7 @@ jobs:
     name: My second job
 ```
 
-We want to be able to control the order that our jobs are executed.
-This is accomplished with the `needs` key of a job.
+By default all jobs are run in parallel. To control the order of jobs execution, we can add the `needs`key. 
 A job can declare that it `needs` one or more (a list) of jobs to finish successfully before it is triggered.
 
 To run the two jobs sequentially we define a workflow where job-2 "requires" job-1 to have run before it starts.
@@ -32,18 +31,103 @@ jobs:
 
 This also ensures that `job-2 ` is not run if `job-1 ` fails. It is possible to add name to workflow fx. here: `name: workflow`.
 
-To ensure that all files from previous jobs are available at new one, we have to make sure to upload artifact at the end of the job and download it at the beginning of a new one.
-The way to do it can be found in previous exercise `04-storing-artifacts.md`.
+To ensure that all files from previous jobs are available at new one, we have to make sure to upload artifact at the end of the job and download it at the beginning of a new one. The way to do it can be found in previous exercise `04-storing-artifacts.md`.
 
 ### Tasks
 
 Let's try to clean up our current build by utilizing workflows:
 
-1. Name your workflow `Java CI`.
-2. Divide your job into three jobs: `Clone-down`, `Test` and `Build`. `Clone-down` will checkout the repository, `Test` job runs the tests for code, `Build` will build the code and stores the results.
-3. `Test` and `Build` should be dependent on `Clone-down` job. Each of them also needs a running instance and container.
+- Name your workflow `Java CI`.
 
-Remember that to have information from previous job(s) the artifact with this information needs to be downloaded and respectively uploaded.
+```YAML
+name: JAVA CI
+workflow:
+```
+
+___
+
+- Divide your job into three jobs: `Clone-down`, `Test` and `Build`. `Clone-down` will checkout the repository, `Test` job runs the tests for code, `Build` will build the code and stores the results.
+
+```YAML
+jobs: 
+  Clone-down:
+    ...
+  Test:
+    ...
+  Build:
+    ...
+
+```
+___
+
+- `Test` and `Build` should be dependent on `Clone-down` job. Each of them also needs a running instance and container.
+
+```YAML
+Clone-down:
+    runs-on: ubuntu-latest
+    container: gradle:6-jdk11
+    steps:
+      - ...
+```
+
+___
+
+- Remember that to have information from previous job(s) the artifact with this information needs to be downloaded and respectively uploaded by using (`actions/upload-artifact@v2`and `actions/download-artifact@v2`).
+
+## Solution
+
+If you strugle and need to see the whole ***Solution*** you can extend the section below. 
+<details>
+    <summary> Solution </summary>
+
+```YAML
+name: Java CI
+on: push
+jobs:
+  Clone-down:
+    name: Clone down repo
+    runs-on: ubuntu-latest
+    container: gradle:6-jdk11
+    steps:
+    - uses: actions/checkout@v2
+    - name: Upload Repo
+      uses: actions/upload-artifact@v2
+      with:
+        name: code
+        path: .
+  Test:
+      runs-on: ubuntu-latest
+      needs: Clone-down
+      container: gradle:6-jdk11
+      steps:
+      - name: Download code
+        uses: actions/download-artifact@v2
+        with:
+          name: code
+          path: .
+      - name: Test with Gradle
+        run: chmod +x ci/unit-test-app.sh && ci/unit-test-app.sh
+  Build:
+      runs-on: ubuntu-latest
+      needs: Clone-down
+      container: gradle:6-jdk11
+      steps:
+      - name: Download code
+        uses: actions/download-artifact@v2
+        with:
+          name: code
+          path: .
+      - name: Build with Gradle
+        run: chmod +x ci/build-app.sh && ci/build-app.sh
+      - name: Upload Repo
+        uses: actions/upload-artifact@v2
+        with:
+          name: code
+          path: .
+ ```
+ </details>
+
+## Results
 
 Opening it should show something like:
 

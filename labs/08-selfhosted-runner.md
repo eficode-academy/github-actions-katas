@@ -18,11 +18,11 @@ We want to take parts of your pipeline and run it locally, to see if that will s
         
 ## Tasks
 
-**Setup a local runner**
+- Setup a local runner
 
-* Click on settings > general > runners
-* Click "add runner"
-* Follow the download instructions and configure instructions in a terminal where you are standing in `/home/ubuntu` (so not in the github-actions-katas folder)
+    - Click on settings > General > Runners
+    - Click `"Add runner"`
+    - Follow the download instructions and configure instructions in a terminal where you are standing in `/home/ubuntu` (so not in the github-actions-katas folder)
 
 You should see something like this at the end:
 
@@ -35,44 +35,48 @@ $  ./run.sh
 
 Now you are ready to use the runner in your pipeline.
 
-**Use the local runner in your pipeline**
+___
 
-* in your pipeline, change the `runs-on` parameter in the component test from `ubuntu-latest` to `self-hosted`
+- Use the local runner in your pipeline
 
-from:
+     - in your pipeline, change the `runs-on` parameter in the component test from `ubuntu-latest` to `self-hosted`
 
-``` yaml
-  Component-test:
-    runs-on: [ubuntu-latest]
-```
+        from:
 
-to
+        ``` yaml
+          Component-test:
+            runs-on: [ubuntu-latest]
+        ```
 
-``` yaml
-  Component-test:
-    runs-on: [self-hosted]
-```
+        to
 
-* Commit and push that change and observe that the CI gets triggered.
-* In the terminal where you are running the GH Actions runner, you should see something like this:
+        ``` yaml
+          Component-test:
+            runs-on: [self-hosted]
+        ```
 
-``` bash
-2021-08-11 10:14:27Z: Listening for Jobs
-2021-08-11 10:26:17Z: Running job: Component-test
-2021-08-11 10:27:40Z: Job Component-test completed with result: Succeeded
-```
+     - Commit and push that change and observe that the CI gets triggered.
+     - In the terminal where you are running the GH Actions runner, you should see something like this:
 
-* Is there a time difference between running your pipeline with a local runner and with a Github provided runner?
+        ``` bash
+        2021-08-11 10:14:27Z: Listening for Jobs
+        2021-08-11 10:26:17Z: Running job: Component-test
+        2021-08-11 10:27:40Z: Job Component-test completed with result: Succeeded
+        ```
 
-**Make the local runner run as a service**
+     - Is there a time difference between running your pipeline with a local runner and with a Github provided runner?
 
-Right now the runner is attached to a bash session in VS code. If you kill that session, the runner will be stopped.
-So in order for us to have it running in the background, we need to run it as a service.
+___
 
-* In the terminal where you are running the GH Actions runner, kill the current bash session with `Ctrl+C`
-* Follow the `Installing the service`, `Starting the service` and `Checking the status of the service` instructions on how to run the runner as a service here: https://docs.github.com/en/actions/hosting-your-own-runners/configuring-the-self-hosted-runner-application-as-a-service
+- Make the local runner run as a service
 
-* Rerun the last actions run, or push another commit to trigger the pipeline to see the local runner still works.
+     Right now the runner is attached to a bash session in VS code. If you kill that session, the runner will be stopped.
+     So in order for us to have it running in the background, we need to run it as a service.
+
+     - In the terminal where you are running the GH Actions runner, kill the current bash session with `Ctrl+C`
+     - Follow the `Installing the service`, `Starting the service` and `Checking the status of the service` instructions on how to run the runner as a service here: https://docs.github.com/en/actions/hosting-your-own-runners/configuring-the-self-hosted-runner-application-as-a-service
+
+     - Rerun the last actions run, or push another commit to trigger the pipeline to see the local runner still works.
 
 Congratulations! You have now configured a local runner and used it in your pipeline!
 

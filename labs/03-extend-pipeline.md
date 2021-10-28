@@ -3,10 +3,44 @@ After the application is build, the unit test should be performed to check if it
 
 ### Tasks
 
-1. Add a step running the unit test step named `Test`, which will run the script `ci/unit-test-app.sh`.
+Add a step running the unit test named `Test`, which will run the script `ci/unit-test-app.sh`. The script is testing Gradle application as:
+```bash
+#! /bin/bash
+gradle clean test -p app
+```
 
+```YAML
+- name: Test
+  run: chmod +x ci/unit-test-app.sh && ci/unit-test-app.sh
+```
 
-If the exercise is completed correctly. The output of `Test`step will look like: 
+## Solution
+
+If you strugle and need to see the whole ***Solution*** you can extend the section below. 
+<details>
+    <summary> Solution </summary>
+  
+  ```YAML
+  on: push
+  jobs:
+    Build:
+      runs-on: ubuntu-latest
+      container: gradle:6-jdk11
+      steps:
+        - name: Clone-down
+          uses: actions/checkout@v2       
+        - name: Build application
+          run: chmod +x ci/build-app.sh && ci/build-app.sh
+        - name: Test
+          run: chmod +x ci/unit-test-app.sh && ci/unit-test-app.sh
+
+  ```
+
+</details>
+
+## Results 
+
+If the exercise is completed correctly. The output of `Test` step will look like: 
 
 ``` bash
 > Task :clean
