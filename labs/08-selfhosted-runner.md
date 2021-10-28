@@ -21,8 +21,9 @@ We want to take parts of your pipeline and run it locally, to see if that will s
 - Setup a local runner
 
     - Click on Settings > Actions > General > Runners
-    - Click `"Add runner"`
-    - Follow the download instructions and configure instructions in a terminal where you are standing in `/home/ubuntu` (so not in the github-actions-katas folder)
+    - Click `"New self-hosted runner"`
+    - Choose `Linux`, leave Architecture settings for `x64`
+    - Follow the download instructions and configure instructions in a terminal where you are standing in `/home/ubuntu` (so not in the github-actions-katas folder) on your instance 
 
 You should see something like this at the end:
 
