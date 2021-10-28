@@ -20,7 +20,7 @@ We want to take parts of your pipeline and run it locally, to see if that will s
 
 - Setup a local runner
 
-    - Click on settings > General > Runners
+    - Click on Settings > Actions > General > Runners
     - Click `"Add runner"`
     - Follow the download instructions and configure instructions in a terminal where you are standing in `/home/ubuntu` (so not in the github-actions-katas folder)
 
