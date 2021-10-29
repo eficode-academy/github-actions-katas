@@ -29,6 +29,11 @@ jobs:
           path: .
       - name: Run script 
         run: bash ci/build-app.sh
+      - name: Upload a build artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: build
+          path: .
 
   Tests:
     needs: Clone-down
@@ -49,7 +54,7 @@ jobs:
       - name: Download a build artifact
         uses: actions/download-artifact@v2
         with:
-          name: code
+          name: build
           path: .
       - name: Build Docker image
         run: |
