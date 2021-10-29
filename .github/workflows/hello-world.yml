@@ -65,7 +65,7 @@ jobs:
               export GIT_COMMIT="GA-$GITHUB_SHA"
               bash ci/push-docker.sh
   Component-test:
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted]
     needs: [Docker-image]
     steps:
       - name: Download a build artifact
