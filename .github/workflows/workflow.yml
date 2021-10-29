@@ -62,9 +62,9 @@ jobs:
     needs: Docker-image
     steps:
     - name: download code
-        uses: actions/download-artifact@v2
-        with: 
-          name: code
-          path: .
-      - name: Execute component test
-        run: chmod +x ci/component-test.sh && GIT_COMMIT="GA-$GITHUB_SHA" && ci/component-test.sh
+      uses: actions/download-artifact@v2
+      with: 
+        name: code
+        path: .
+    - name: Execute component test
+      run: chmod +x ci/component-test.sh && GIT_COMMIT="GA-$GITHUB_SHA" && ci/component-test.sh
