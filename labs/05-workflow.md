@@ -41,7 +41,6 @@ Let's try to clean up our current build by utilizing workflows:
 
 ```YAML
 name: JAVA CI
-workflow:
 ```
 
 ___
