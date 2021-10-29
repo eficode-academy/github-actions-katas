@@ -15,7 +15,7 @@ We should give our docker image a meaningful tag, for example we could give it a
 This is what the two scripts: `ci/build-docker.sh` and `ci/push-docker.sh` expects, and they will read the name of the git commit from an environment variable named `GIT_COMMIT`, which we must define.
 
 ### Tasks
-- To start Docker credentials should be stored as secrets at Github Actions Repository. Please go to `Settings > Secrets > New repository secret` to add them. 
+- To start Docker credentials should be stored as repository secrets at Github Actions Repository. Please go to `Settings > Secrets > New repository secret` to add them. 
 
 ![Github Secrets](img/secret.png)
 
