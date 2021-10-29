@@ -3,7 +3,7 @@ name: Java CI
 on: push
 
 env: # Set the secret as an input
-  docker_username: ${{ secrets.DOCKER_USERNAME }}
+  docker_username: ${{ secrets.DOCKER_USER }}
   docker_password: ${{ secrets.DOCKER_TOKEN }}
 
 jobs:
