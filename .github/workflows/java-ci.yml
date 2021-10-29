@@ -1,5 +1,11 @@
 name: Java CI
+
 on: push
+
+env: # Set the secret as an input
+  docker_username: ${{ secrets.DOCKER_USERNAME }}
+  docker_password: ${{ secrets.DOCKER_TOKEN }}
+
 jobs:
 
   Clone-down:
@@ -48,9 +54,6 @@ jobs:
   Docker-image:
     runs-on: ubuntu-latest
     needs: [Build,Test]
-    env: # Set the secret as an input
-      docker_username: ${{ secrets.DOCKER_USERNAME }}
-      docker_password: ${{ secrets.DOCKER_TOKEN }}
     steps:
     - name: Download code
       uses: actions/download-artifact@v1
