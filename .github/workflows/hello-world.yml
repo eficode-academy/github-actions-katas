@@ -35,7 +35,7 @@ jobs:
           name: build
           path: .
 
-  Tests:
+  Test:
     needs: Clone-down
     runs-on: ubuntu-latest
     container: gradle:6-jdk11
@@ -49,7 +49,7 @@ jobs:
         run: bash ci/unit-test-app.sh
   Docker-image:
     runs-on: ubuntu-latest
-    needs: [Build,Tests]
+    needs: [Build,Test]
     steps:
       - name: Download a build artifact
         uses: actions/download-artifact@v2
@@ -64,3 +64,11 @@ jobs:
         run: |
               export GIT_COMMIT="GA-$GITHUB_SHA"
               bash ci/push-docker.sh
+  Component-test:
+    runs-on: ubuntu-latest
+    needs: [Docker-image]
+    steps:
+      - name: Execute component test
+        run: |
+            export GIT_COMMIT="GA-$GITHUB_SHA" 
+            bash ci/component-test.sh  
