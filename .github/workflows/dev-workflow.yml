@@ -2,10 +2,7 @@ name: JAVA_CI
 on:
   push:
     branches:
-      - gmain
-  pull_request:
-    branches:
-      - main
+      - "dev/**"
 
 env:
   docker_username: ${{ secrets.DOCKER_USERNAME }}
@@ -42,17 +39,4 @@ jobs:
           path: .
       - name: build docker
         run: chmod +x ci/build-docker.sh && export GIT_COMMIT="GA-$GITHUB_SHA" && bash ci/build-docker.sh
-      - name: push docker
-        run: chmod +x ci/push-docker.sh && export GIT_COMMIT="GA-$GITHUB_SHA" && bash ci/push-docker.sh
 
-  Component-test:
-    runs-on: self-hosted
-    needs: Docker-image
-    steps:
-    - name: download code
-      uses: actions/download-artifact@v2
-      with: 
-        name: code
-        path: .
-    - name: Execute component test
-      run: chmod +x ci/component-test.sh && GIT_COMMIT="GA-$GITHUB_SHA" && ci/component-test.sh
