@@ -1,5 +1,5 @@
 name: Workshop on push
-on: push
+on: workflow_dispatch
 jobs:
   Build:
     runs-on: ubuntu-latest
