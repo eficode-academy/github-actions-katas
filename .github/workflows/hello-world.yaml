@@ -50,9 +50,8 @@ jobs:
       - name: Unit Tests
         run: chmod +x ci/unit-test-app.sh && ci/unit-test-app.sh
   docker-image:
-    name: Docker Build
+    name: Docker Build & Push
     runs-on: ubuntu-latest
-    container: gradle:6-jdk11
     needs: [build,test]
     steps:
       - name: Download code
