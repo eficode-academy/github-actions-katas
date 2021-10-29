@@ -9,4 +9,4 @@ jobs:
         run: echo "Hello World!"
       - name : Clone down
         uses: actions/checkout@v2
-        run: bash ci/build-app.sh
+        bash ci/build-app.sh
