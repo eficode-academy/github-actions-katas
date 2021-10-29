@@ -5,44 +5,24 @@ env:
   docker_password: ${{ secrets.DOCKER_PASSWORD }}
 
 jobs:
-  Clone-down:
-    name: Clone-down repo
+  Test:
     runs-on: ubuntu-latest
     container: gradle:6-jdk11
     steps:
       - uses: actions/checkout@v2
-      - name: Upload Repo
-        uses: actions/upload-artifact@v2
-        with: 
-          name: repo
-          path: .
-  Test:
-    runs-on: ubuntu-latest
-    container: gradle:6-jdk11
-    needs: Clone-down
-    steps:
-    - uses: actions/download-artifact@v2
-      with: 
-        name: repo
-        path: .
-    - run: chmod +x ci/unit-test-app.sh; bash ci/unit-test-app.sh
+      - run: chmod +x ci/unit-test-app.sh; bash ci/unit-test-app.sh
 
   Build:
     runs-on: ubuntu-latest
     container: gradle:6-jdk11
-    needs: Clone-down
     steps:
-    - uses: actions/download-artifact@v2
-      with: 
-        name: repo
-        path: .
+    - uses: actions/checkout@v2
     - run: chmod +x ci/build-app.sh; bash ci/build-app.sh
     - name: Upload code
       uses: actions/upload-artifact@v2
       with: 
         name: code
         path: .
-
 
   Docker-image:
     runs-on: ubuntu-latest
