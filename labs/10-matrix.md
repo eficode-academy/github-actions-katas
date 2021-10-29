@@ -42,10 +42,12 @@ we would like to build our application on different versios of Java.
 
 ### Add a new job that builds on various versions
 
-- You can add a new file on `.github/workflows/` similar to the `matrix.yml`, which will only include `Clone-down`and `Build`job. 
+- You can add a new file on `.github/workflows/` similar to the `matrix.yml`, which will only include `Clone-down`and `Build` job. 
+
 <details>
 <summary> Build job </summary>
-```yaml
+
+```YAML
 name: Java CI
 on: push
 jobs:
@@ -77,7 +79,8 @@ jobs:
         with:
           name: code
           path: .
-```
+  ```
+
 </details>
 ____
 
