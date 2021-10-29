@@ -2,7 +2,7 @@ name: JAVA_CI
 on:
   push:
     branches:
-      - gmain
+      - main
   pull_request:
     branches:
       - main
