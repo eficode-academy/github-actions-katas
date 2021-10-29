@@ -38,15 +38,50 @@ In this example pipeline runs-on `ubuntu-latest` for 4 different containers: `"u
 
 
 ## Tasks
-we would like to test our component test on different versios of Java. 
+we would like to build our application on different versios of Java. 
 
 ### Add a new job that builds on various versions
 
-- You can add a new file on `.github/workflows/` similar to the `component-test.yml`.
-
+- You can add a new file on `.github/workflows/` similar to the `matrix.yml`, which will only include `Clone-down`and `Build`job. 
+<details>
+<summary> Build job </summary>
+```yaml
+name: Java CI
+on: push
+jobs:
+  Clone-down:
+    name: Clone down repo
+    runs-on: ubuntu-latest
+    container: gradle:6-jdk11
+    steps:
+    - uses: actions/checkout@v2
+    - name: Upload Repo
+      uses: actions/upload-artifact@v2
+      with:
+        name: code
+        path: .
+  Build:
+      runs-on: ubuntu-latest
+      needs: Clone-down
+      container: gradle:6-jdk11
+      steps:
+      - name: Download code
+        uses: actions/download-artifact@v2
+        with:
+          name: code
+          path: .
+      - name: Build with Gradle
+        run: chmod +x ci/build-app.sh && ci/build-app.sh
+      - name: Upload Repo
+        uses: actions/upload-artifact@v2
+        with:
+          name: code
+          path: .
+```
+</details>
 ___
 
-- Edit component test job to run  for different versions of Java. Add matrix for types of containers as: `["6-jdk8", "6-jdk11", "6-jdk17"]`. 
+- Edit build job to run  for different versions of Java. Add matrix for types of containers as: `["gradle:6-jdk8", "gradle:6-jdk11", "gradle:6-jdk17"]`. 
 
 
 ___
@@ -61,7 +96,42 @@ ___
 <summary> Solution</summary>
 
 ``` yaml  
-
+name: Java CI
+on: push
+jobs:
+  Clone-down:
+    name: Clone down repo
+    runs-on: ubuntu-latest
+    container: gradle:6-jdk11
+    steps:
+    - uses: actions/checkout@v2
+    - name: Upload Repo
+      uses: actions/upload-artifact@v2
+      with:
+        name: code
+        path: .
+  Build:
+    runs-on: ubuntu-latest
+    needs: Clone-down
+    strategy:
+      matrix:
+        container: ["gradle:6-jdk8", "gradle:6-jdk11", "gradle:6-jdk17"]
+    container:
+      image: ${{ matrix.container }}   
+    steps:
+    - name: Download code
+      uses: actions/download-artifact@v2
+      with:
+        name: code
+        path: .
+    - name: Build with Gradle
+      run: chmod +x ci/build-app.sh && ci/build-app.sh
+    - name: Upload Repo
+      uses: actions/upload-artifact@v2
+      with:
+        name: code
+        path: .
+ 
 ```
 </details>
 
