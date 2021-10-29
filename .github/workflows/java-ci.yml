@@ -60,20 +60,28 @@ jobs:
       with:
         name: code
         path: .
-    #- name: build docker
-    #  run: |
-    #    chmod +x ci/build-docker.sh
-    #    export GIT_COMMIT="GA-$GITHUB_SHA"
-    #    ci/build-docker.sh
-    #- name: push docker
-    #  run: chmod +x ci/push-docker.sh && export GIT_COMMIT="GA-$GITHUB_SHA" && ci/push-docker.sh
-    - name: Login to DockerHub
-      uses: docker/login-action@v1
+    - name: build docker
+      run: |
+        chmod +x ci/build-docker.sh
+        export GIT_COMMIT="GA-$GITHUB_SHA"
+        ci/build-docker.sh
+    - name: push docker
+      run: |
+        chmod +x ci/push-docker.sh
+        export GIT_COMMIT="GA-$GITHUB_SHA"
+        ci/push-docker.sh
+
+  Component-test:
+    runs-on: ubuntu-latest
+    needs: Docker-image
+    steps:
+    - name: Download code
+      uses: actions/download-artifact@v1
       with:
-        username: ${{ env.docker_username }}
-        password: ${{ env.docker_password }}
-    - name: Build and push
-      uses: docker/build-push-action@v2
-      with:
-        push: true
-        tags: ${{ env.docker_username }}/workshop:latest
+        name: code
+        path: .
+    - name: Execute component test
+      run: |
+        chmod +x ci/component-test.sh
+        GIT_COMMIT="GA-$GITHUB_SHA"
+        ci/component-test.sh
