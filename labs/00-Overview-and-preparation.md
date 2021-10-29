@@ -39,11 +39,12 @@ cd .github
 mkdir workflows
 touch .github/workflows/hello-world.yml
 ```
-- Set up git on your vm machine 
+- Set up git on your vm machine.
 ``` bash 
 git config --global user.email "you@example.com"
 git config --global user.name "Your Name"
 ```
+- Please push your changes to check the setup.
 
 Now we have set up the fundamentals to run a basic `hello world` build in Github Actions. However, running it would result in an error, as there is nothing in the file.
 
