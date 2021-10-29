@@ -46,6 +46,11 @@ jobs:
     runs-on: ubuntu-latest
     needs: [Build,Tests]
     steps:
+      - name: Download a build artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: code
+          path: .
       - name: Build Docker image
         run: |
               export GIT_COMMIT="GA-$GITHUB_SHA"
