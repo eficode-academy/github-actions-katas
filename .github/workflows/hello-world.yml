@@ -11,3 +11,5 @@ jobs:
         uses: actions/checkout@v2
       - name: Run script 
         run: bash ci/build-app.sh
+      - name: Test
+        run: bash ci/unit-test-app.sh
