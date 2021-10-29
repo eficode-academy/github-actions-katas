@@ -91,8 +91,8 @@ ____
 ```yaml
 
 strategy:
-      matrix:
-        container: ["gradle:6-jdk8", "gradle:6-jdk11", "gradle:6-jdk17"]
+  matrix:
+    container: ["gradle:6-jdk8", "gradle:6-jdk11", "gradle:6-jdk17"]
 
 ```
 
