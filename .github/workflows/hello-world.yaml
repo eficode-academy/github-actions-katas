@@ -17,6 +17,7 @@ jobs:
     name: Build
     runs-on: ubuntu-latest
     container: gradle:6-jdk11
+    needs: clone-down
     steps:
       - name: Download code
         uses: actions/download-artifact@v2
@@ -29,6 +30,7 @@ jobs:
     name: Unit Tests
     runs-on: ubuntu-latest
     container: gradle:6-jdk11
+    needs: clone-down
     steps:
       - name: Download code
         uses: actions/download-artifact@v2
