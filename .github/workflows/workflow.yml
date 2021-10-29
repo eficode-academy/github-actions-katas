@@ -1,36 +1,35 @@
 name: JAVA_CI
 on: push
-workflow:
-  jobs:
-    Clone-down:
-      name: Clone-down repo
-      runs-on: ubuntu-latest
-      container: gradle:6-jdk11
-      steps:
-        - uses: actions/checkout@v2
-        - name: Upload Repo
-          uses: actions/upload-artifact@v2
-          with: 
-            name: code
-            path: .
-    Test:
-      runs-on: ubuntu-latest
-      container: gradle:6-jdk11
-      needs: Clone-down
-      steps:
-      - uses: actions/download-artifact@v2
+jobs:
+  Clone-down:
+    name: Clone-down repo
+    runs-on: ubuntu-latest
+    container: gradle:6-jdk11
+    steps:
+      - uses: actions/checkout@v2
+      - name: Upload Repo
+        uses: actions/upload-artifact@v2
         with: 
           name: code
           path: .
-      - run: ci/unit-test-app.sh
+  Test:
+    runs-on: ubuntu-latest
+    container: gradle:6-jdk11
+    needs: Clone-down
+    steps:
+    - uses: actions/download-artifact@v2
+      with: 
+        name: code
+        path: .
+    - run: ci/unit-test-app.sh
 
-    Build:
-      runs-on: ubuntu-latest
-      container: gradle:6-jdk11
-      needs: Clone-down
-      steps:
-      - uses: actions/download-artifact@v2
-        with: 
-          name: code
-          path: .
-      - run: ci/build-app.sh
+  Build:
+    runs-on: ubuntu-latest
+    container: gradle:6-jdk11
+    needs: Clone-down
+    steps:
+    - uses: actions/download-artifact@v2
+      with: 
+        name: code
+        path: .
+    - run: ci/build-app.sh
