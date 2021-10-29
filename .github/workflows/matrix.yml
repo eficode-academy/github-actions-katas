@@ -1,0 +1,85 @@
+name: Java CI
+on:
+  pull_request:
+    branches:
+      - main
+env:
+  docker_username: ${{ secrets.DOCKER_USERNAME }}
+  docker_password: ${{ secrets.DOCKER_PASSWORD }}
+jobs:
+  Clone-down:
+    runs-on: ubuntu-latest
+    steps:
+      - name: my-step
+        run: echo "Hello World!"
+      - name : Clone down
+        uses: actions/checkout@v2
+      - name: Upload a build artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: code
+          path: .
+  Build:
+    needs: Clone-down
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        container: ["gradle:6-jdk8", "gradle:6-jdk11", "gradle:6-jdk17"]
+    container:
+      image: ${{ matrix.container }} 
+    steps:
+      - name: Download a build artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: code
+          path: .
+      - name: Run script 
+        run: bash ci/build-app.sh
+      - name: Upload a build artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: build
+          path: .
+
+  Test:
+    needs: Clone-down
+    runs-on: ubuntu-latest
+    container: gradle:6-jdk11
+    steps:
+      - name: Download a build artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: code
+          path: .
+      - name: Test
+        run: bash ci/unit-test-app.sh
+  Docker-image:
+    runs-on: ubuntu-latest
+    needs: [Build,Test]
+    steps:
+      - name: Download a build artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: build
+          path: .
+      - name: Build Docker image
+        run: |
+              export GIT_COMMIT="GA-$GITHUB_SHA"
+              bash ci/build-docker.sh
+      - name: Push Docker image
+        run: |
+              export GIT_COMMIT="GA-$GITHUB_SHA"
+              bash ci/push-docker.sh
+  Component-test:
+    runs-on: [self-hosted]
+    needs: [Docker-image]
+    steps:
+      - name: Download a build artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: code
+          path: .
+      - name: Execute component test
+        run: |
+            export GIT_COMMIT="GA-$GITHUB_SHA" 
+            bash ci/component-test.sh  
