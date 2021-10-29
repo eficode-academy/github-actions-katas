@@ -79,12 +79,12 @@ jobs:
           path: .
 ```
 </details>
-___
+____
 
 - Edit build job to run  for different versions of Java. Add matrix for types of containers as: `["gradle:6-jdk8", "gradle:6-jdk11", "gradle:6-jdk17"]`. 
 
 
-___
+_____
 - Remember to edit container name:
 
 ```yaml
