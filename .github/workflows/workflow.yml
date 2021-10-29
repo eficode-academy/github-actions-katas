@@ -38,10 +38,10 @@ jobs:
         path: .
     - run: chmod +x ci/build-app.sh; bash ci/build-app.sh
     - name: Upload code
-        uses: actions/upload-artifact@v2
-        with: 
-          name: code
-          path: .
+      uses: actions/upload-artifact@v2
+      with: 
+        name: code
+        path: .
 
 
   Docker-image:
