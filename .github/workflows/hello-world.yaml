@@ -13,3 +13,4 @@ jobs:
 
       - name: Test
         run: ci/unit-test-app.sh
+
