@@ -29,9 +29,9 @@ You need to have your own fork of this workshop repository in order for the exer
 
 Setting up your repository is fairly simple;
 
-- Fork this repository from the Github website into your own account, and then git clone the project from your own fork down to your computer.
+- Fork this repository from the Github website into your own account, and then git clone the project from your own fork down to your VM instance, which is provided to you .
 - Leave the browser open and go back to the repository on your computer.
-- Create a folder named .github and then workflows and add a file called hello-world.yml (so that the file path will be .github/workflows/hello-world.yml relative to the root of the repository). In the terminal you can do it like this:
+- Create a folder named `.github` under `github-actions-katas` and then workflows and add a file called hello-world.yml (so that the file path will be .github/workflows/hello-world.yml relative to the root of the repository). In the terminal you can do it like this:
 
 ```bash
 mkdir .github
