@@ -25,7 +25,7 @@ jobs:
           name: code
           path: .
       - name: Build
-        run: ci/build-app.sh
+        run: chmod +x ci/build-app.sh && ci/build-app.sh
   test:
     name: Unit Tests
     runs-on: ubuntu-latest
@@ -38,6 +38,6 @@ jobs:
           name: code
           path: .
       - name: Unit Tests
-        run: ci/unit-test-app.sh
+        run: chmod +x ci/unit-test-app.sh && ci/unit-test-app.sh
 
 
