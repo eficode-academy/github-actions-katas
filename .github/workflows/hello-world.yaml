@@ -1,5 +1,10 @@
 name: Java CI
 on: push
+
+env:
+  docker_username: ${{ secrets.DOCKER_USERNAME }}
+  docker_password: ${{ secrets.DOCKER_PASSWORD }}
+
 jobs:
   clone-down:
     name: Clone Repo
@@ -44,5 +49,18 @@ jobs:
           path: .
       - name: Unit Tests
         run: chmod +x ci/unit-test-app.sh && ci/unit-test-app.sh
-
-
+  docker-image:
+    name: Docker Build
+    runs-on: ubuntu-latest
+    container: gradle:6-jdk11
+    needs: [build,test]
+    steps:
+      - name: Download code
+        uses: actions/download-artifact@v2
+        with:
+          name: code
+          path: .
+      - name: Docker build
+        run: chmod +x ci/build-docker.sh && export GIT_COMMIT="GA-$GITHUB_SHA" && ci/build-docker.sh
+      - name: Docker build
+        run: chmod +x ci/push-docker.sh && export GIT_COMMIT="GA-$GITHUB_SHA" && ci/push-docker.sh
