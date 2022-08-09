@@ -27,6 +27,7 @@ You need to have your own fork of this workshop repository in order for the exer
 
 ### Tasks
 
+We are going to create the file that will be used to run the pipeline from, called `.github/workflows/hello-world.yml`.
 
 <details>
 <summary>:bulb: This requires git email and name to bee configured on your machine. If you have not done this, here are the commands to set it up</summary>
