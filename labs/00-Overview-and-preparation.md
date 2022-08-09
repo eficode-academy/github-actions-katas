@@ -27,24 +27,43 @@ You need to have your own fork of this workshop repository in order for the exer
 
 ### Tasks
 
-Setting up your repository is fairly simple;
 
-- Fork this repository from the Github website into your own account, and then git clone the project from your own fork down to your VM instance, which is provided to you .
-- Leave the browser open and go back to the repository on your computer.
-- Create a folder named `.github` under `github-actions-katas` and then workflows and add a file called hello-world.yml (so that the file path will be .github/workflows/hello-world.yml relative to the root of the repository). In the terminal you can do it like this:
+<details>
+<summary>:bulb: This requires git email and name to bee configured on your machine. If you have not done this, here are the commands to set it up</summary>
 
-```bash
-mkdir .github
-cd .github
-mkdir workflows
-touch .github/workflows/hello-world.yml
-```
-- Set up git on your vm machine.
+You need to provide your email and name to git with the following commands.
+
 ``` bash 
 git config --global user.email "you@example.com"
 git config --global user.name "Your Name"
 ```
-- Please push your changes to check the setup.
+
+</details>
+
+- Fork this repository from the Github website into your own account
+- Git clone the project from your own fork down to your VM instance, which is provided to you.
+- Leave the browser open and go back to the repository on your computer.
+- In your repository on the instance, make a folder called `.github` and inside that one, another folder called `workflows`.
+
+<details>
+<summary>:bulb: terminal commands to do it</summary>
+```bash
+mkdir .github
+cd .github
+mkdir workflows
+```
+</details>
+
+- inside that folder, add a file called hello-world.yml (The file path will be `.github/workflows/hello-world.yml` relative to the root of the repository). 
+
+<details>
+<summary>:bulb: terminal commands to do it</summary>
+```bash
+touch .github/workflows/hello-world.yml
+```
+</details>
+
+- Push your changes to github, and navigate to the repository to check that the file has been created.
 
 Now we have set up the fundamentals to run a basic `hello world` build in Github Actions. However, running it would result in an error, as there is nothing in the file.
 
