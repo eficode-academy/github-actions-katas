@@ -1,37 +1,70 @@
 # Building Docker Images
 
-Often we also want to have our application packaged as a docker image for easy distribution. Lucky for us, Github Actions has nice support for Docker built in.
+Next step is to have our application packaged as a docker image for easy distribution. 
 
-To try this on the project, we have made two scripts: `ci/build-docker.sh` and `ci/push-docker.sh`
-In order for this to work, two env. variables needs to be set: `docker_username` and `docker_password`. It can be done by adding below section on the top of the workflow file:
+We have some requirements for our pipeline step:
+
+- Should build our application as a docker image.
+- Should tag the image with both the git sha and "latest".
+- Should push the image to docker registry.
+
+In order for this to work, we need three environment variables:
+- `docker_username` the username for docker registry.
+- `docker_password` the password for docker registry.
+- `GIT_COMMIT`  the name of the git commit that is being built.
+
+You can set these environment variables as global variables in your workflow through the `env` section.
 
 ```YAML
 env:
-  docker_username: ${{ secrets.DOCKER_USERNAME }}
-  docker_password: ${{ secrets.DOCKER_PASSWORD }}
+  docker_username: <your docker username>
+  docker_password: <your docker password>
+  GIT_COMMIT: <your git commit>
 ```
 
-We should give our docker image a meaningful tag, for example we could give it a tag based on the git commit that triggered build.
-This is what the two scripts: `ci/build-docker.sh` and `ci/push-docker.sh` expects, and they will read the name of the git commit from an environment variable named `GIT_COMMIT`, which we must define.
+The two scripts: `ci/build-docker.sh` and `ci/push-docker.sh` expects all three environment variables to be set.
+
+## Build-in environment variables
+
+Many of the common information pices for a build is set in default environment variables.
+
+Examples of these are:
+
+- The name of the repository
+- The name of the branch
+- The SHA of the commit
+
+You can see the ones you can use directly inside a step here: https://docs.github.com/en/actions/learn-github-actions/environment-variables#default-environment-variables
+
+Github Actions also has a list of contexts.
+
+Contexts are a way to access information about workflow runs, runner environments, jobs, and steps. 
+Each context is an object that contains properties, which can be strings or other objects.
+You can see them here: https://docs.github.com/en/actions/learn-github-actions/contexts#about-contexts 
+
+The default environment variables that GitHub sets are available to every step in a workflow.
+Contexts are also available before the steps, as when defining the `env` section of the workflow. 
+
 
 ### Tasks
+
 - To start Docker credentials should be stored as repository secrets at Github Actions Repository. Please go to `Settings > Secrets > New repository secret` to add them. 
 
 ![Github Secrets](img/secret.png)
 
-___
-
-- Add a new job named `Docker-image` that requires the `Build` and `Test` jobs have been run.
+- Add a new job named `Docker-image` that requires the `Build` to be completed.
 
 ```YAML
   Docker-image:
     runs-on: ubuntu-latest
-    needs: [Build,Test]
+    needs: [Build]
 ```
-___
-- Add a new step to your `Build` job which uploads the build code, and then a step in `Docker-image` which downloads the build by using aritifact actions `actions/upload-artifact@v2` and `actions/download-artifact@v1`.
 
-___
+- Add a new step to your `Build` job which uploads the compiled code found in `app/build/libs/app-0.1-all.jar`. 
+
+_:bulb: if you forgot how to do it, head over to [storing artifacts](./04-storing-artifacts.md)_
+
+- Add a step in `Docker-image` which downloads the build.
 - Add `docker_username` and `docker_password` as environmental variables on top of the workflow file. 
 
 ```YAML
@@ -40,38 +73,25 @@ env:
   docker_password: ${{ secrets.DOCKER_PASSWORD }}
 ```
 
-___
-- Then run the `ci/build-docker.sh` and `ci/push-docker.sh` scripts with `export GIT_COMMIT="GA-$GITHUB_SHA"`.
+- Add GIT_COMMIT environment variable as well. 
 
-Where `ci/build-docker.sh` bash script will build docker based on Micronaut application tag. 
-```bash 
-#!/bin/bash
-[[ -z "${GIT_COMMIT}" ]] && Tag='local' || Tag="${GIT_COMMIT::8}"
-[[ -z "${docker_username}" ]] && DockerRepo='' || DockerRepo="${docker_username}/"
-docker build -t "${DockerRepo}micronaut-app:latest" -t "${DockerRepo}micronaut-app:1.0-$Tag" app/
-```
+Tip! it needs the same "wrapping" (`${{}}`) as the other environment variables, and can be found in the `github` context
 
-`ci/push-docker.sh` will login push your docker image to DockerHub.
-```bash
-#!/bin/bash
-echo "$docker_password" | docker login --username "$docker_username" --password-stdin
-docker push "$docker_username/micronaut-app:1.0-${GIT_COMMIT::8}" 
-docker push "$docker_username/micronaut-app:latest" &
-wait
-```
+- Run the `ci/build-docker.sh` and `ci/push-docker.sh` scripts.
+
 Ready steps looks like:
 ```YAML
     - name: build docker
-      run: chmod +x ci/build-docker.sh && export GIT_COMMIT="GA-$GITHUB_SHA" && ci/build-docker.sh
+      run: chmod +x ci/build-docker.sh && ci/build-docker.sh
     - name: push docker
-      run: chmod +x ci/push-docker.sh && export GIT_COMMIT="GA-$GITHUB_SHA" && ci/push-docker.sh
+      run: chmod +x ci/push-docker.sh && ci/push-docker.sh
 ```
 
 > Hint: Remember that the job needs to run on specified system and is based on the results from previous jobs.
 
-> Hint: You can find lots of information about `$GITHUB_SHA` and the other environment variables provided by Github Actions in https://docs.github.com/en/enterprise-server@2.22/actions/reference/environment-variables
+- See that the image is built and pushed to the docker hub registry.
 
----
+## Using actions instead of scrtipts
 
 The above job can be also done by using actions: `docker/login-action@v1` and `docker/build-push-action@v2`, what will provide the same functionality. You can find it in the example below:
 
@@ -90,7 +110,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: true
-          tags: my-org/my-image:latest
+          tags: $docker_username/micronaut-app:1.0-${GIT_COMMIT::8} 
 ```
 
 ### Solution 

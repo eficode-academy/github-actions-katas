@@ -1,6 +1,6 @@
 ## Workflow
 
-When you have larger or more complex projects, you’ll want separate jobs to do separate things (i.e. build or test).
+When you have larger or more complex projects, you’ll want separate jobs to do separate things in paralell.
 We will split the steps we have so far have created in single job to each their own distinct job.
 
 Up until now, we have had a job called `Build` both for the build and test, but that is not necessarily descriptive.
