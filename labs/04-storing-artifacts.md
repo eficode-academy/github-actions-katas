@@ -2,10 +2,11 @@
 
 It is possible to store artifacts in Github Actions. The `artifact` is the result of the build, in this case the compiled code.
 
-> This should not be mistaken for proper `artifact management`, but it is useful for making the artifacts built by the pipeline available.
+> This should not be mistaken for proper [artifact management](https://www.eficode.com/blog/artifactory-nexus-proget), but it is useful for making the artifacts built by the pipeline available.
 
-To deal with artifacts `"Github Actions" Actions`can be used, which can be found on [Github Marketplace](https://github.com/marketplace).
-To upload artifacts use the following syntax with `actions/upload-artifact@v2`:
+To deal with artifacts, a `Github Actions Action` can be used, which can be found on [Github Marketplace](https://github.com/marketplace).
+
+To upload artifacts use the following syntax with `actions/upload-artifact@v2` [Link to documentation](https://github.com/marketplace/actions/upload-a-build-artifact):
 
 ```YAML
 - name: Upload a Build Artifact
@@ -25,9 +26,15 @@ As artifacts can be uploaded it can also be downloaded from Github Actions with 
     path: path/to/download/artifact/
 ```
 
+[Link to documentation](https://github.com/actions/download-artifact)
+
 This information will be needed in next exercises.
 
-More information about storing artifacts: https://docs.github.com/en/actions/guides/storing-workflow-data-as-artifacts
+:bulb: 
+<details>
+    <summary> More information about storing artifacts </summary>
+  Github has an excelent guide on how you can use persistant storage over periods of builds here: https://docs.github.com/en/actions/guides/storing-workflow-data-as-artifacts
+</details>    
 
 ### Tasks
 
