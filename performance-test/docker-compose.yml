@@ -1,0 +1,12 @@
+version: '3.7'
+services:
+  test:
+    image: grafana/k6:0.37.0
+    depends_on:
+      - web
+    command: run -u 10 -d 30s /home/k6/script.js -q
+    volumes:
+      - "./performance-test/single-request.js:/home/k6/script.js"
+  web:
+    image: ${docker_username}micronaut-app:latest
+  

@@ -3,16 +3,12 @@
 Github actions provides a lot of minutes you can run your pipeline on their machines.
 But it can be that you want to run your pipeline locally as well.
 
-There are especially two real reasons for this:
+There are especially two reasons for this:
 
 * You want faster hardware to run your pipeline, shortening the feedback loop of the development process.
 * You have hardware requirements that needs to be met (special network card, USB peripheral, etc.).
 
 You still reap the benefits of a central CI/CD master, but have the possibility to run locally.
-
-# Task: local runner
-
-## Overview
 
 We want to take parts of your pipeline and run it locally, to see if that will speed up the process.
         

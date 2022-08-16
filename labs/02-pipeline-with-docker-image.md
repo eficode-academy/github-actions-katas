@@ -2,7 +2,10 @@
 
 Up until now, we have only made sure that Github Actions can reach the `hello-world.yaml` configuration file, but not really made it do anything useful.
 
-As a next step, we want Github Actions to actually clone our project, build the code and run the tests.
+As a next step, we want Github Actions to do two things:
+
+- clone our project
+- build the code using Gradle
 
 ### Tasks
 
@@ -12,8 +15,6 @@ As a next step, we want Github Actions to actually clone our project, build the 
 container: gradle:6-jdk11
 ```
 
-___
-
 - Under the `steps` part, insert a `- uses:` list item to the list (before the existing `- name: my-step` item) with action: `actions/checkout@v2`
 
 ```YAML
@@ -21,28 +22,29 @@ ___
   uses: actions/checkout@v2   
 ```
 
-___
+- Change the `run` command to run `ci/build-app.sh` as the command instead of `echo "Hello World!"`. 
 
-- Change the `run` command to just run `ci/build-app.sh` as the command. (In case of issues with access denied add `chmod +x ci/build-app.sh`.)
 
-Here you can see, what `build-app.sh`is doing. 
-```bash 
-#!/bin/bash
-gradle clean shadowjar -p app
-```
+<details>
+    <summary> :bulb: got issues with actions running the script? see here: </summary>
+
+In case of issues with access denied add `chmod +x ci/build-app.sh` before the execution, so the entire run script looks like this:
 
 ```YAML
  - run: chmod +x ci/build-app.sh && ci/build-app.sh
 ```
-___
+
+</details>
+
+If you want to see what `build-app.sh` is doing, look into [the script](../ci/build-app.sh). 
 
 - Commit and push the changes. Github Actions should automatically detect your new commit and build again. 
 
-### Solution
+- Look into the logs of Github Actions and see if the build was successful.
 
-If you strugle and need to see the whole ***Solution*** you can extend the section below. 
+
 <details>
-    <summary> Solution </summary>
+    <summary> :bulb: If you strugle and need to see the whole ***Solution*** you can extend the section below.  </summary>
 
 ```YAML
 on: push

@@ -1,18 +1,11 @@
-## Extend pipeline 
+## Extend pipeline
+
 After the application is build, the unit test should be performed to check if it works as expected. 
 
 ### Tasks
 
-Add a step running the unit test named `Test`, which will run the script `ci/unit-test-app.sh`. The script is testing Gradle application as:
-```bash
-#! /bin/bash
-gradle clean test -p app
-```
-
-```YAML
-- name: Test
-  run: chmod +x ci/unit-test-app.sh && ci/unit-test-app.sh
-```
+- Add a step running the unit test named `Test`, 
+- The step should run the script `ci/unit-test-app.sh`. If you want to know what the script is doing, look into [the script](../ci/unit-test-app.sh).
 
 ## Solution
 
