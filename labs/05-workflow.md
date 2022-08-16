@@ -1,7 +1,8 @@
 ## Workflow
 
 When you have larger or more complex projects, you’ll want separate jobs to do separate things in paralell.
-We will split the steps we have so far have created in single job to each their own distinct job.
+
+
 
 Up until now, we have had a job called `Build` both for the build and test, but that is not necessarily descriptive.
 The only reason we have done this, is because Github Actions **requires** you to have at least one job with the name fx. `Build`
@@ -45,13 +46,11 @@ name: JAVA CI
 
 ___
 
-- Divide your job into three jobs: `Clone-down`, `Test` and `Build`. `Clone-down` will checkout the repository, `Test` job runs the tests for code, `Build` will build the code and stores the results.
+- Divide your job into two jobs: `Clone-down` and `Build`. `Clone-down` will checkout the repository, `Build` will build the code, run the tests, and stores the results.
 
 ```YAML
 jobs: 
   Clone-down:
-    ...
-  Test:
     ...
   Build:
     ...
@@ -59,7 +58,7 @@ jobs:
 ```
 ___
 
-- `Test` and `Build` should be dependent on `Clone-down` job. Each of them also needs a running instance and container.
+- `Build` should be dependent on `Clone-down` job. Each of them also needs a running instance and container.
 
 ```YAML
 Clone-down:
@@ -94,18 +93,6 @@ jobs:
       with:
         name: code
         path: .
-  Test:
-      runs-on: ubuntu-latest
-      needs: Clone-down
-      container: gradle:6-jdk11
-      steps:
-      - name: Download code
-        uses: actions/download-artifact@v2
-        with:
-          name: code
-          path: .
-      - name: Test with Gradle
-        run: chmod +x ci/unit-test-app.sh && ci/unit-test-app.sh
   Build:
       runs-on: ubuntu-latest
       needs: Clone-down
@@ -118,6 +105,8 @@ jobs:
           path: .
       - name: Build with Gradle
         run: chmod +x ci/build-app.sh && ci/build-app.sh
+      - name: Test with Gradle
+        run: chmod +x ci/unit-test-app.sh && ci/unit-test-app.sh
       - name: Upload Repo
         uses: actions/upload-artifact@v2
         with:
