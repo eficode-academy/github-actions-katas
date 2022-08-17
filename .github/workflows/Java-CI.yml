@@ -17,11 +17,11 @@ jobs:
     needs: Clone-Down
     container: gradle:6-jdk11
     steps:
-    - name: Download code
-      uses: actions/download-artifact@v2
-      with:
-        name: code
-        path: .
+      - name: Download code
+        uses: actions/download-artifact@v2
+        with:
+          name: code
+          path: .
       - name: Build
         run: chmod +x ci/build-app.sh && ci/build-app.sh
       - name: Test
