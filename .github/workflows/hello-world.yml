@@ -11,6 +11,9 @@ jobs:
         run: ./ci/build-app.sh
       - name: Upload code
         uses: actions/upload-artifact@v2
+        with:
+          name: code
+          path: .
   unit-test:
     runs-on: ubuntu-latest
     container: gradle:6-jdk11
