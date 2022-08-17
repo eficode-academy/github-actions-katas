@@ -79,5 +79,5 @@ jobs:
           name: code
           path: .
       - name: Execute component test
-        run: chmod +x ci/performance-test.sh && ci/component-test.sh
+        run: chmod +x ci/performance-test.sh && ci/performance-test.sh
   
