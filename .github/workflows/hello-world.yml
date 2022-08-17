@@ -16,6 +16,10 @@ jobs:
     runs-on: ubuntu-latest
     container: gradle:6-jdk11
     needs: [Clone-down]
+    env:
+      docker_username: ${{ secrets.DOCKER_USERNAME }}
+      docker_password: ${{ secrets.DOCKER_PASSWORD }}
+      git_commit: ${{GITHUB_SHA}}
     steps:
       - name: Download Repo
         uses: actions/download-artifact@v2
@@ -32,10 +36,7 @@ jobs:
           name: build
           path: app/build/libs/app-0.1-all.jar  
       - name: Docker-image
-        env:
-          docker_username: ${{ secrets.DOCKER_USERNAME }}
-          docker_password: ${{ secrets.DOCKER_PASSWORD }}
-          git_commit: ${{GITHUB_SHA}}
+
       - name: build docker
         run: chmod +x ci/build-docker.sh && ci/build-docker.sh
       - name: push docker
