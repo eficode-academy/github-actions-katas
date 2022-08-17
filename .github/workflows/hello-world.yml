@@ -24,7 +24,7 @@ jobs:
           path: .
       - run: chmod +x ci/build-app.sh && ci/build-app.sh
   Test:
-    needs: Build
+    needs: Clone-down
     runs-on: ubuntu-latest
     container: gradle:6-jdk11
     steps:
@@ -34,4 +34,4 @@ jobs:
           name: code
           path: .
       - name: Test
-        run: chmod +x ci/unit-test.app.sh && ci/unit-test-app.sh
+        run: chmod +x ci/unit-test-app.sh && ci/unit-test-app.sh
