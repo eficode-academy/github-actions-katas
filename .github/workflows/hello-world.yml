@@ -18,16 +18,16 @@ jobs:
     needs: Clone-down
     steps:
     - name: Download code
-    - uses: actions/download-artifact@v2
+      uses: actions/download-artifact@v2
       with:
         name: code
         path: .
     - name: Build with Gradle
-    - run: chmod +x ci/build-app.sh && ci/build-app.sh
+      run: chmod +x ci/build-app.sh && ci/build-app.sh
     - name: Test with Gradle
-    - run: chmod +x ci/unit-test-app.sh && ci/unit-test-app.sh
+      run: chmod +x ci/unit-test-app.sh && ci/unit-test-app.sh
     - name: Upload repository
-    - uses: actions/download-artifact@v2
+      uses: actions/download-artifact@v2
       with:
         name: code
         path: .
