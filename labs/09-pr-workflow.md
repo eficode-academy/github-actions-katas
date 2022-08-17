@@ -77,7 +77,7 @@ on:
 ```
 
 </details>
-
+#
 - Try to make a couple of different branches that you push up to github and make pull requests on. It could be that you in one broke the unit tests to see that the CI system caught that, and another where you make your branch diverge from what is on master now, triggering the build-in github rules.
 
 > Note: When you make a pull request on your
