@@ -35,7 +35,11 @@ jobs:
         with: 
           name: code
           path: .    
-                   
+      - name: Upload Compiled Code
+        uses: actions/upload-artifact@v2
+        with: 
+          name: compiled-code
+          path: ./app/build           
   Docker-image:
     runs-on: ubuntu-latest
     needs: Build
@@ -45,6 +49,11 @@ jobs:
         with: 
           name: code
           path: .  
+      - name: Download Compiled Code
+        uses: actions/Download-artifact@v2
+        with: 
+          name: compiled-code
+          path: ./app/build            
       - name: Login to DockerHub
         uses: docker/login-action@v2
         with:
