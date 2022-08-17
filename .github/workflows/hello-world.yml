@@ -17,9 +17,9 @@ jobs:
           name: code
           path: .
   Build:
-    needs: Clone-down
     runs-on: ubuntu-latest
     container: gradle:6-jdk11
+    needs: [Clone-down]
     steps: 
       - name: Download code
         uses: actions/download-artifact@v2
@@ -35,9 +35,14 @@ jobs:
         with: 
           name: code
           path: . 
+      - name: Upload build
+        uses: actions/upload-artifact@v2
+        with: 
+          name: build
+          path: app/build/libs/app-0.1-all.jar 
   Docker-image:
     runs-on: ubuntu-latest
-    needs: [Build,Clone-down]
+    needs: [Build]
     steps: 
     - name: Download code
       uses: actions/download-artifact@v1
