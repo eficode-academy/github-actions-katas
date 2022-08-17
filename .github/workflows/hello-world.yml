@@ -2,7 +2,7 @@ name: JAVA CI
 on: push
 jobs:
   clone-down:
-    runs-on: ubuntu-latests
+    runs-on: ubuntu-latets
     container: gradle:6-jdk11
     steps:
       - name: clone-down
