@@ -45,10 +45,10 @@ jobs:
       - name: Login to dockerhub
         uses: docker/login-action@v1
         with:
-          username: $env.docker_username
-          password: $env.docker_password
+          username: $docker_username
+          password: $docker_password
       - name: Build and push image
         uses: docker/build-push-action@v2
         with:
           push: true
-          tags: $env.docker_username/micronaut-app:1.0-${env.GIT_COMMIT::8}
+          tags: $docker_username/micronaut-app:1.0-${GIT_COMMIT::8}
