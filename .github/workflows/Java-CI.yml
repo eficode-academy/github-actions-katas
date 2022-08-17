@@ -40,8 +40,8 @@ jobs:
     runs-on: ubuntu-latest
     needs: [Build]
     env:
-      docker_username: ${{ secrets.DOCKER_USERNAME }}
-      docker_password: ${{ secrets.DOCKER_PASSWORD }}
+      docker_username: ${{ Spedsbjerg }}
+      docker_password: ${{ secrets.DOCKER_TOKEN }}
     steps:
       - name: Downloading Build
         uses: actions/download-artifact@v2
