@@ -9,6 +9,8 @@ jobs:
         uses: actions/checkout@v2
       - name: Build
         run: ./ci/build-app.sh
+      - name: Upload code
+        uses: actions/upload-artifact@v2
   unit-test:
     runs-on: ubuntu-latest
     container: gradle:6-jdk11
