@@ -22,10 +22,10 @@ jobs:
         with: 
           name: code
           path: .
-      - name: build-app
-        run: ci/build-app.sh
+      - name: build with gradle
+        run: chmod +x ci/build-app.sh && ci/build-app.sh
       - name: test
-        run: ci/unit-test-app.sh
+        run: chmod +x ci/unit-test-app.sh && ci/unit-test-app.sh
       - name: upload repo
         uses: actions/upload-artifact@v2
         with:
