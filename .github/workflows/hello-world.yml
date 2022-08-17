@@ -1,4 +1,4 @@
-name: Java CI
+name: Java-CI
 on: push
 env:
   docker_username: ${{ secrets.DOCKER_USERNAME }}
@@ -54,7 +54,8 @@ jobs:
     - name: push docker
       run: chmod +x ci/push-docker.sh && ci/push-docker.sh
   Component-test:
-    needs: Docker-image
+    runs-on: ubuntu-latest
+    needs: [Docker-image]
     steps:
     - name: Download code
       uses: actions/download-artifact@v2
@@ -64,6 +65,8 @@ jobs:
     - name: execute test
       run: chmod +x ci/component-test.sh && ci/component-test.sh
   Performance-test:
+    runs-on: ubuntu-latest
+    needs: [Docker-image]
     steps:
     - name: Download code
       uses: actions/download-artifact@v2
