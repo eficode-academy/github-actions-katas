@@ -74,7 +74,7 @@ jobs:
           name: code
           path: .
       - name: Execute performance test
-        run: chmod +x ci/performance-test.sh && ci/performance-test.sh
+        run: chmod +x ci/performance-test.sh && ci/performance-test.sh 
 
 #  build-and-push:
 #    runs-on: ubuntu-latest
