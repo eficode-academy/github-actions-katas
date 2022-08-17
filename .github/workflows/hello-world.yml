@@ -57,7 +57,7 @@ jobs:
     needs: Docker-image
     runs:
     - name: execute test
-    run: chmod +x ci/component-test.sh && ci/component-test.sh
+      run: chmod +x ci/component-test.sh && ci/component-test.sh
   Performance-test:
     runs:
     - name: perf test
