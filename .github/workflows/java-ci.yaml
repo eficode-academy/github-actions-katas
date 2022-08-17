@@ -58,11 +58,6 @@ jobs:
         with:
           name: code
           path: .
-      - name: download jar
-        uses: actions/download-artifact@v2
-        with:
-          name: jar
-          path: .
       - name: build docker
         run: chmod +x ci/build-docker.sh && ci/build-docker.sh
       - name: push docker
