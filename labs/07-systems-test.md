@@ -30,7 +30,7 @@ If you strugle and need to see the whole ***Solution*** you can extend the secti
   
 ```YAML
   Component-test:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     needs: Docker-image
     steps:
     - name: Download code
