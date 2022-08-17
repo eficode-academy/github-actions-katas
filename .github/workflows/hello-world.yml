@@ -17,13 +17,18 @@ jobs:
     needs: clone-down
     container: gradle:6-jdk11
     steps:
-      - name: build
-        run: ci/build-app.sh
-      - name: test
-        run: ci/unit-test-app.sh
       - name: download Repo
         uses: actions/download-artifact@v2
         with: 
           name: code
-          path: .
-  
+          path: 
+      - name: build
+        run: ci/build-app.sh
+      - name: test
+        run: ci/unit-test-app.sh
+      - name: upload repo
+        uses: actions/upload-artifact@v2
+        with:
+          name: code
+          path: .  
+
