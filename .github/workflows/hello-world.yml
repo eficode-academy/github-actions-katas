@@ -7,6 +7,11 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: code
+          path: .
 
   build:
     runs-on: ubuntu-latest
@@ -14,6 +19,11 @@ jobs:
     needs:
       - clone
     steps:
+      - name: Dowmnload Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: code
+          path: .
       - name: Build App
         run: ci/build-app.sh
 
@@ -23,18 +33,10 @@ jobs:
     needs:
       - clone
     steps:
-      - name: Test
-        run: ci/unit-test-app.sh
-
-  create-artifact:
-    runs-on: ubuntu-latest
-    container: gradle:6-jdk11
-    needs:
-      - build
-      - test
-    steps:
-      - name: Create Artifact
+      - name: Dowmnload Artifact
         uses: actions/upload-artifact@v2
         with:
           name: code
           path: .
+      - name: Test
+        run: ci/unit-test-app.sh
