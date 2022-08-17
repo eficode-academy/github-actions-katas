@@ -76,25 +76,18 @@ jobs:
 
   push-docker-hub:
     runs-on: ubuntu-latest
-    needs:
-      - build
-      - test
+    needs: [ Build,Test ]
     steps:
-      - name: Dowmnload Artifact
-        uses: actions/download-artifact@v2
+      - name: Download code
+        uses: actions/download-artifact@v1
         with:
           name: code
           path: .
-      - name: Login to DockerHub
-        uses: docker/login-action@v1
-        with:
-          username: ${{ secrets.docker_username }}
-          password: ${{ secrets.docker_password }}
-      - name: Build and push
-        uses: docker/build-push-action@v2
-        with:
-          push: true
-          tags: ${{ secrets.docker_username }}/micronaut-app:1.0-${{ github.sha }}
+      - name: build docker
+        run: chmod +x ci/build-docker.sh && ci/build-docker.sh
+      - name: push docker
+        run:
+          chmod +x ci/push-docker.sh && ci/push-docker.sh
       - name: Upload Artifact
         uses: actions/upload-artifact@v2
         with:
