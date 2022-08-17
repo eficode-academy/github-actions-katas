@@ -55,10 +55,20 @@ jobs:
       run: chmod +x ci/push-docker.sh && ci/push-docker.sh
   Component-test:
     needs: Docker-image
-    runs:
+    steps:
+    - name: Download code
+      uses: actions/download-artifact@v2
+      with:
+        name: code
+        path: .
     - name: execute test
       run: chmod +x ci/component-test.sh && ci/component-test.sh
   Performance-test:
-    runs:
+    steps:
+    - name: Download code
+      uses: actions/download-artifact@v2
+      with:
+        name: code
+        path: .
     - name: perf test
       run: chmod +x ci/performance-test.sh  && ci/performance-test.sh
