@@ -20,7 +20,7 @@ jobs:
     runs-on: ubuntu-latest
     container: gradle:6-jdk11
     needs: [Clone-down]
-    steps: 
+    steps:
       - name: Download code
         uses: actions/download-artifact@v2
         with:
@@ -32,14 +32,14 @@ jobs:
         run: chmod +x ci/unit-test-app.sh && ci/unit-test-app.sh
       - name: Upload Repo
         uses: actions/upload-artifact@v2
-        with: 
+        with:
           name: code
           path: . 
       - name: Upload build
         uses: actions/upload-artifact@v2
-        with: 
+        with:
           name: build
-          path: app/build/libs/app-0.1-all.jar 
+          path: app/build/libs/app-0.1-all.jar
   Docker-image:
     runs-on: ubuntu-latest
     needs: [Build]
@@ -53,4 +53,3 @@ jobs:
       run: chmod +x ci/build-docker.sh && ci/build-docker.sh
     - name: push docker
       run: chmod +x ci/push-docker.sh && ci/push-docker.sh
-
