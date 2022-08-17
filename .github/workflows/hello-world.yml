@@ -23,6 +23,11 @@ jobs:
           name: code
           path: .
       - run: chmod +x ci/build-app.sh && ci/build-app.sh
+      - name: Upload code
+        uses: actions/upload-artifact@v2
+        with:
+          name: code
+          path: .
       - name: Upload jar
         uses: actions/upload-artifact@v2
         with:
@@ -51,18 +56,10 @@ jobs:
       - name: Download Repo
         uses: actions/download-artifact@v2
         with:
-          name: jar
+          name: code
           path: .
-      - name: Login to Dockerhub
-        uses: docker/login-action@v1
-        with:
-          username: ${{ env.docker_username }}
-          password: ${{ env.docker_password }}
-      - name: Setup
-        run: echo GIT_COMMIT=${GIT_COMMIT::8} >> $GITHUB_ENV
-      - name: Build and push
-        uses: docker/build-push-action@v2
-        with:
-          push: true
-          tags: ${{env.docker_username}}/micronaut-app:1.0${{ env.GIT_COMMIT }}
+      - name: build docker
+        run: chmod +x ci/build-docker.sh && ci/build-docker.sh
+      - name: push docker
+        run: chmod +x ci/push-docker.sh && ci/push-docker.sh
           
