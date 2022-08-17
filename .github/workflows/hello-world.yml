@@ -55,6 +55,6 @@ jobs:
         with:
           push: true
           tags: | 
-            $docker_username/micronaut-app:1.0-${{ github.sha }}
-            $docker_username/micronaut-app:latest
+            ${{ secrets.DOCKER_USERNAME }}/micronaut-app:1.0-${{ github.sha }}
+            ${{ secrets.DOCKER_USERNAME }}/micronaut-app:latest
           
