@@ -28,6 +28,11 @@ jobs:
           path: .
       - name: Build App
         run: chmod +x ci/build-app.sh && ci/build-app.sh
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: code
+          path: .
 
   test:
     runs-on: ubuntu-latest
@@ -46,8 +51,7 @@ jobs:
   component-test:
     runs-on: ubuntu-latest
     needs:
-      - test
-      - build
+      - push-docker-hub
     steps:
       - name: Dowmnload Artifact
         uses: actions/download-artifact@v2
@@ -60,8 +64,7 @@ jobs:
   performance-test:
     runs-on: ubuntu-latest
     needs:
-      - test
-      - build
+      - push-docker-hub
     steps:
       - name: Dowmnload Artifact
         uses: actions/download-artifact@v2
@@ -70,3 +73,30 @@ jobs:
           path: .
       - name: Performance Test
         run: chmod +x ci/performance-test.sh && GIT_COMMIT="GA-$GITHUB_SHA" && ci/performance-test.sh
+
+  push-docker-hub:
+    runs-on: ubuntu-latest
+    needs:
+      - build
+      - test
+    steps:
+      - name: Dowmnload Artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: code
+          path: .
+      - name: Login to DockerHub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ env.docker_username }}
+          password: ${{ env.docker_password }}
+      - name: Build and push
+        uses: docker/build-push-action@v2
+        with:
+          push: true
+          tags: $docker_username/micronaut-app:1.0-${GIT_COMMIT::8}
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: code
+          path: .
