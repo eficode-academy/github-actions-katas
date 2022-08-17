@@ -1,5 +1,7 @@
 name: Java CI
 on: push
+env:
+  GIT_COMMIT: ${{ github.sha }}
 jobs:
   clone:
     runs-on: ubuntu-latest
@@ -40,3 +42,18 @@ jobs:
           path: .
       - name: Test
         run: chmod +x ci/unit-test-app.sh && ci/unit-test-app.sh
+
+  component-test:
+    runs-on: ubuntu-latest
+    container: gradle:6-jdk11
+    needs:
+      - test
+      - build
+    steps:
+      - name: Dowmnload Artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: code
+          path: .
+      - name: Test
+        run: chmod +x ci/component-test.sh && GIT_COMMIT="GA-$GITHUB_SHA" && ci/component-test.sh
