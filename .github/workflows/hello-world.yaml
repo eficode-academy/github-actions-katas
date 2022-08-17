@@ -2,8 +2,8 @@ name: hello-world
 on: push
 jobs:
   my-job:
-    runs-on: "ubuntu:latest"
-    container: "gradle:6-jdk11"
+    runs-on: ubuntu-latest
+    container: gradle:6-jdk11
     steps:
       - name: Clone-down
         uses: actions/checkout@v2
