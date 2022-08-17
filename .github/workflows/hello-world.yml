@@ -31,7 +31,7 @@ jobs:
       - name: Test
         run: chmod +x ci/unit-test-app.sh && ci/unit-test-app.sh
       - name: Upload Repo
-        uses: actions/download-artifact@v2
+        uses: actions/upload-artifact@v2
         with: 
           name: code
           path: .    
