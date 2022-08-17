@@ -30,11 +30,11 @@ jobs:
           path: .
       - name: build  
         run: chmod +x ci/build-app.sh && ci/build-app.sh
-      - name: Upload Repo
+      - name: Upload jar
         uses: actions/upload-artifact@v2
         with:
-          name: jar
-          path: app/build/libs/app-0.1-all.jar
+          name: code
+          path: .
 
   test:
     runs-on: ubuntu-latest
