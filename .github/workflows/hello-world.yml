@@ -30,10 +30,15 @@ jobs:
       run: chmod +x ci/build-app.sh && ci/build-app.sh
     - name: Test with Gradle
       run: chmod +x ci/unit-test-app.sh && ci/unit-test-app.sh
-    - name: Upload repository
+    - name: Upload repository  
       uses: actions/upload-artifact@v2
       with:
-        name: jar code
+        name: code
+        path: .
+    - name: Upload jar
+      uses: actions/upload-artifact@v2
+      with:
+        name: build
         path: app/build/libs/app-0.1-all.jar
   Docker-image:
     runs-on: ubuntu-latest
