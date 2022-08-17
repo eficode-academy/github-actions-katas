@@ -37,7 +37,7 @@ jobs:
         path: .
   Docker-image:
     runs-on: ubuntu-latest
-    needs: [Build,Test]
+    needs: [Build]
     steps:
     - name: Download code
       uses: actions/download-artifact@v1
