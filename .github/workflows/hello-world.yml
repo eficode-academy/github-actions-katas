@@ -54,4 +54,7 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           push: true
-          tags: $docker_username/micronaut-app:latest
+          tags: | 
+            $docker_username/micronaut-app:1.0-${{ github.sha }}
+            $docker_username/micronaut-app:latest
+          
