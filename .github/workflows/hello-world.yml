@@ -16,4 +16,4 @@ jobs:
       - name: Clone-repo
         uses: actions/checkout@v2
       - name: Run unit tests
-        uses: ./ci/unit-test-app.sh
+        run: ./ci/unit-test-app.sh
