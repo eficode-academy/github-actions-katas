@@ -94,7 +94,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: true
-          tags: ${{ secrets.docker_username }}/micronaut-app:1.0-${${{ github.sha }}::8}
+          tags: ${{ secrets.docker_username }}/micronaut-app:1.0-${{ github.sha }}
       - name: Upload Artifact
         uses: actions/upload-artifact@v2
         with:
