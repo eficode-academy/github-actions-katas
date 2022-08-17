@@ -1,2 +1,2 @@
 #! /bin/bash
-gradle ad test -p app
+gradle test -p app
