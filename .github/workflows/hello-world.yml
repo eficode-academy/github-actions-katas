@@ -53,6 +53,6 @@ jobs:
       #    push: true
       #    tags: $docker_username/micronaut-app:1.0-${GIT_COMMIT::8}
       - name: build docker
-      run: chmod +x ci/build-docker.sh && ci/build-docker.sh
+        run: chmod +x ci/build-docker.sh && ci/build-docker.sh
       - name: push docker
-      run: chmod +x ci/push-docker.sh && ci/push-docker.sh
+        run: chmod +x ci/push-docker.sh && ci/push-docker.sh
