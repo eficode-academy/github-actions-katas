@@ -46,7 +46,7 @@ rules and then click on `add rule`.
 
 - Try to push to master to verify that you cannot.
 
-## Triggering the build on a PR
+### Triggering the build on a PR
 
 So how do we then get the CI server to run the tests on a PR?
 Right now our pipeline gets triggered by any push to any branch.
