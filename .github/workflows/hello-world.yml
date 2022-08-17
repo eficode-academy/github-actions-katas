@@ -56,13 +56,6 @@ jobs:
         with:
           name: code
           path: .
-          
-      - name: Download compiled code
-        uses: actions/download-artifact@v2
-        with:
-          name: build
-          path: app/build/libs/app-0.1-all.jar
-
       - name: build docker
         run: chmod +x ci/build-docker.sh && ci/build-docker.sh
 
