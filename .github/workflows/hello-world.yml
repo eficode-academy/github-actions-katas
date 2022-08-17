@@ -23,7 +23,7 @@ jobs:
           name: code
           path: .
       - name: Build
-        run: ci/build-app.sh      
+        run: sh ci/build-app.sh      
       - name: Test
-        run: ci/unit-test-app.sh             
+        run: sh ci/unit-test-app.sh             
   
