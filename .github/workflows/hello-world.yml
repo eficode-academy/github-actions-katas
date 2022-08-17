@@ -42,17 +42,17 @@ jobs:
         with:
           name: jar
           path: app/build/libs/app-0.1-all.jar
-      - name: Login to dockerhub
-        uses: docker/login-action@v1
-        with:
-          username: $docker_username
-          password: $docker_password
-      - name: Build and push image
-        uses: docker/build-push-action@v2
-        with:
-          push: true
-          tags: $docker_username/micronaut-app:1.0-${GIT_COMMIT::8}
-      #- name: build docker
-      #  run: chmod +x ci/build-docker.sh && ci/build-docker.sh
-      #- name: push docker
-      #  run: chmod +x ci/push-docker.sh && ci/push-docker.sh
+      #- name: Login to dockerhub
+      #  uses: docker/login-action@v1
+      #  with:
+      #    username: $docker_username
+      #    password: $docker_password
+      #- name: Build and push image
+      #  uses: docker/build-push-action@v2
+      #  with:
+      #    push: true
+      #    tags: $docker_username/micronaut-app:1.0-${GIT_COMMIT::8}
+      - name: build docker
+        run: chmod +x ci/build-docker.sh && ci/build-docker.sh
+      - name: push docker
+        run: chmod +x ci/push-docker.sh && ci/push-docker.sh
