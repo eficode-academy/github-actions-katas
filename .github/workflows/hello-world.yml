@@ -1,7 +1,7 @@
 name: hello-world
 on: push
 jobs:
-  my-job:
+  CI-pipeline-job:
     runs-on: ubuntu-latest
     container: gradle:6-jdk11
     steps:
@@ -10,3 +10,8 @@ jobs:
       - run: chmod +x ci/build-app.sh && ci/build-app.sh
       - name: Test
         run: chmod +x ci/unit-test-app.sh && ci/unit-test-app.sh
+      - name: Upload Repository
+        uses: actions/upload-artifact@v2
+        with:
+          name: code
+          path: .
