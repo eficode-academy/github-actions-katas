@@ -3,7 +3,7 @@ on: push
 jobs:
   my-job:
     runs-on: 
-      Container: gradle:6-jdk11
+    Container: gradle:6-jdk11
     steps:
       - name: Clone-down
         uses: actions/checkout@v2
