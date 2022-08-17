@@ -65,7 +65,6 @@ jobs:
         
   compose-test:
     runs-on: ubuntu-latest
-    container: gradle:6-jdk11
     needs: docker-image
     steps: 
       - name: download Repo
@@ -78,7 +77,6 @@ jobs:
 
   performance-test:
     runs-on: ubuntu-latest
-    container: gradle:6-jdk11
     needs: docker-image
     steps: 
       - name: download Repo
