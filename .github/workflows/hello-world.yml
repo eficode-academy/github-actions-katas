@@ -1,6 +1,6 @@
 name: Java CI
 on: push
-env: # Set the secret as an input
+env:
   docker_username: ${{ secrets.DOCKER_USERNAME }}
   docker_password: ${{ secrets.DOCKER_PASSWORD }}
   GIT_COMMIT: ${{ github.sha }}
@@ -35,6 +35,11 @@ jobs:
       with:
         name: code
         path: .
+    - name: Upload Jar
+      uses: actions/upload-artifact@v2
+      with:
+        name: jar
+        path: app/build/libs/app-0.1-all.jar
   Docker-image:
     runs-on: ubuntu-latest
     needs: [Build]
