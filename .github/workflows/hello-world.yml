@@ -21,8 +21,8 @@ jobs:
         uses: actions/download-artifact@v2
         with: 
           name: code
-          path: 
-      - name: build
+          path: .
+      - name: build-app
         run: ci/build-app.sh
       - name: test
         run: ci/unit-test-app.sh
