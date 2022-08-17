@@ -41,18 +41,18 @@ jobs:
           name: docker-code
           path: app/build/libs/app-0.1-all.jar    
   docker-image:
-  runs-on: ubuntu-latest
-  needs: [build]
-  steps:
-    - name: download-build
-      uses: actiions/download-artifact@v2
-      with:
-        name: docker-code
-        path: app/build/libs/app-0.1-all.jar    
-    - name: build docker
-      run: chmod +x ci/build-docker.sh && ci/build-docker.sh
-    - name: push docker
-      run: chmod +x ci/push-docker.sh && ci/push-docker.sh      
+    runs-on: ubuntu-latest
+    needs: [build]
+    steps:
+      - name: download-build
+        uses: actiions/download-artifact@v2
+        with:
+          name: docker-code
+          path: app/build/libs/app-0.1-all.jar    
+      - name: build docker
+        run: chmod +x ci/build-docker.sh && ci/build-docker.sh
+      - name: push docker
+        run: chmod +x ci/push-docker.sh && ci/push-docker.sh      
 
         
 
