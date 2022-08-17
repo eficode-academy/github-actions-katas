@@ -30,11 +30,16 @@ jobs:
         run: sh ci/build-app.sh      
       - name: Test
         run: sh ci/unit-test-app.sh
-      - name: Upload
+      - name: Upload Repo
         uses: actions/upload-artifact@v2
-        with: 
-          name: build
-          path: app/build/libs/app-0.1-all.jar  
+        with:
+          name: code
+          path: .
+      # - name: Upload
+      #   uses: actions/upload-artifact@v2
+      #   with: 
+      #     name: build
+      #     path: app/build/libs/app-0.1-all.jar  
   Docker-image:
     runs-on: ubuntu-latest
     needs: [Build]
