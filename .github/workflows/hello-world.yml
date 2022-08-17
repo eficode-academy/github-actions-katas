@@ -32,7 +32,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with: 
           name: compiled-code
-          path: ./app/build           
+          path: ./app/build   
       - name: Test
         run: chmod +x ci/unit-test-app.sh && ci/unit-test-app.sh
       - name: Upload Repo
