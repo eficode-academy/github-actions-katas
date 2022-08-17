@@ -1,11 +1,15 @@
 name: Build pipeline
 on: push
+env:
+  docker_username: ${{ secrets.DOCKER_USER_NAME }}
+  docker_password: ${{ secrets.DOCKER_PASSWORD }}
+  GIT_COMMIT: ${{ GITHUB_SHA }}
 jobs:
   build:
     runs-on: ubuntu-latest
     container: gradle:6-jdk11
     steps:
-      - name: Clone-repo
+      - name: Clone repo
         uses: actions/checkout@v2
       - name: Build
         run: ./ci/build-app.sh
@@ -14,11 +18,37 @@ jobs:
         with:
           name: code
           path: .
+      - name: upload jar
+        uses: actions/upload-artifact@v2
+        with:
+          name: jar
+          path: app/build/libs/app-0.1-all.jar
   unit-test:
     runs-on: ubuntu-latest
     container: gradle:6-jdk11
     steps:
-      - name: Clone-repo
+      - name: Clone repo
         uses: actions/checkout@v2
       - name: Run unit tests
         run: ./ci/unit-test-app.sh
+  build-and-push-docker-image:
+    runs-on: ubuntu-latest
+    needs: [build]
+    steps:
+      - name: Clone repo
+        uses: actions/checkout@v2
+      - name: Download jar
+        uses: actions/download-artifact
+        with:
+          name: jar
+          path: app/build/libs/app-0.1-all.jar
+      - name: Login to dockerhub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ env.docker_username }}
+          password: ${{ env.docker_password }}
+      - name: Build and push image
+        uses: docker/build-push-action@v2
+        with:
+          push: true
+          tags: $docker_username/micronaut-app:1.0-{GIT_COMMIT::8}
