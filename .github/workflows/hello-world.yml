@@ -54,4 +54,4 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/micronaut-app:latest
+          tags: $docker_username/micronaut-app:1.0-${GIT_COMMIT::8}
