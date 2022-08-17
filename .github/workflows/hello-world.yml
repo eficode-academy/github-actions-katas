@@ -38,7 +38,7 @@ jobs:
       - name: Clone repo
         uses: actions/checkout@v2
       - name: Download jar
-        uses: actions/download-artifact
+        uses: actions/download-artifact@v2
         with:
           name: jar
           path: app/build/libs/app-0.1-all.jar
