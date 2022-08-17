@@ -53,6 +53,11 @@ jobs:
     runs-on: ubuntu-latest
     needs: [Build]
     steps:
+      - name: download Repo
+        uses: actions/download-artifact@v2
+        with:
+          name: code
+          path: .
       - name: download jar
         uses: actions/download-artifact@v2
         with:
