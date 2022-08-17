@@ -31,6 +31,7 @@ jobs:
     - name: Test
       run: chmod +x ci/unit-test-app.sh && ci/unit-test-app.sh
     - name: Push Artifact (Code)
+      uses: actions/upload-artifact@v2
       with:
         name: code
         path: .
