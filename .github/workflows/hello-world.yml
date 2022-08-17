@@ -1,11 +1,12 @@
 #Build file for CI pipeline
 name: Java CI
 on:
-  pull_request:
-    types:
-      - opened
+  push:
     branches:
-      - 'main'
+      - "main"
+  pull_request:
+    branches:
+      - "main"
 env:
   docker_username: ${{ secrets.DOCKER_USERNAME }}
   docker_password: ${{ secrets.DOCKER_PASSWORD }}
