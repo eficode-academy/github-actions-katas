@@ -1,4 +1,4 @@
-name: hello-world
+name: Java CI
 on: push
 jobs:
   Clone-down:
@@ -6,9 +6,8 @@ jobs:
     runs-on: ubuntu-latest
     container: gradle:6-jdk11
     steps:
-      uses: actions/checkout@v2
+      - uses: actions/checkout@v2
       - name: Upload Repo
-        run: actions/checkout@v2
         uses: actions/upload-artifact@v2
         with:
           name: code
