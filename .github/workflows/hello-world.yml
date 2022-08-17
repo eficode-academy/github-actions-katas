@@ -1,5 +1,11 @@
 name: Build pipeline
-on: push
+on: 
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - main
 env:
   docker_username: ${{ secrets.DOCKER_USER_NAME }}
   docker_password: ${{ secrets.DOCKER_PASSWORD }}
