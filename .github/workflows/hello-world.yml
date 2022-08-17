@@ -50,7 +50,6 @@ jobs:
         run: chmod +x ci/push-docker.sh && ci/push-docker.sh
   Component-test:
     runs-on: ubuntu-latest
-    container: gradle:6-jdk11
     needs: Docker-image
     steps:
       - name: Download Repo
@@ -63,7 +62,6 @@ jobs:
   Performance-test:
     runs-on: ubuntu-latest
     needs: Docker-image
-    container: gradle:6-jdk11
     steps:
       - name: Download Repo
         uses: actions/download-artifact@v2
