@@ -44,11 +44,6 @@ jobs:
       with:
         name: code
         path: .
-    - name: Get Artifact (Jar)
-      uses: actions/download-artifact@v2
-      with:
-        name: jar
-        path: app/build/libs/app-0.1-all.jar
     - name: Build Docker Image
       run: chmod +x ci/build-docker.sh && ci/build-docker.sh
     - name: Push Docker Image
