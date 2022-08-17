@@ -54,8 +54,12 @@ jobs:
         with: 
           name: compiled-code
           path: ./build/libs         
+      - name: pwd
+        run: pwd          
       - name: LS R
-        run: ls -R    
+        run: ls -R
+      - name: LS R
+        run: ls -R ../                
       - name: Login to DockerHub
         uses: docker/login-action@v2
         with:
