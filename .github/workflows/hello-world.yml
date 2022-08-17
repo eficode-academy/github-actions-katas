@@ -20,6 +20,9 @@ jobs:
     steps:
       - name: Download repo
         uses: actions/download-artifact@v2
+        with:
+          name: code
+          path: .
       - name: my-step
         run: ci/build-app.sh
       - name: Test
