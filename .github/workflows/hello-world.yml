@@ -1,77 +1,11 @@
-name: Java-CI
+name: hello-world
 on: push
-env:
-  docker_username: ${{ secrets.DOCKER_USERNAME }}
-  docker_password: ${{ secrets.DOCKER_PASSWORD }}
-  GIT_COMMIT: ${{ github.sha }}
 jobs:
-  Clone-down:
-    name: Clone down repo
+  my-job:
     runs-on: ubuntu-latest
     container: gradle:6-jdk11
     steps:
-      - uses: actions/checkout@v2
-      - name: Upload Repo
-        uses: actions/upload-artifact@v2
-        with:
-          name: code
-          path: .
-  Build:
-    runs-on: ubuntu-latest
-    container: gradle:6-jdk11
-    needs: [Clone-down]
-    steps:
-      - name: Download code
-        uses: actions/download-artifact@v2
-        with:
-          name: code
-          path: .
+      - name: Clone-down
+        uses: actions/checkout@v2
       - name: my-step
         run: chmod +x ci/build-app.sh && ci/build-app.sh
-      - name: Test
-        run: chmod +x ci/unit-test-app.sh && ci/unit-test-app.sh
-      - name: Upload Repo
-        uses: actions/upload-artifact@v2
-        with:
-          name: code
-          path: . 
-      - name: Upload build
-        uses: actions/upload-artifact@v2
-        with:
-          name: build
-          path: app/build/libs/app-0.1-all.jar
-  Docker-image:
-    runs-on: ubuntu-latest
-    needs: [Build]
-    steps:
-    - name: Download code
-      uses: actions/download-artifact@v2
-      with:
-        name: code
-        path: .
-    - name: build docker
-      run: chmod +x ci/build-docker.sh && ci/build-docker.sh
-    - name: push docker
-      run: chmod +x ci/push-docker.sh && ci/push-docker.sh
-  Component-test:
-    runs-on: ubuntu-latest
-    needs: [Docker-image]
-    steps:
-    - name: Download code
-      uses: actions/download-artifact@v2
-      with:
-        name: code
-        path: .
-    - name: execute test
-      run: chmod +x ci/component-test.sh && ci/component-test.sh
-  Performance-test:
-    runs-on: ubuntu-latest
-    needs: [Docker-image]
-    steps:
-    - name: Download code
-      uses: actions/download-artifact@v2
-      with:
-        name: code
-        path: .
-    - name: perf test
-      run: chmod +x ci/performance-test.sh  && ci/performance-test.sh
