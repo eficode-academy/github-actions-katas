@@ -1,3 +1,8 @@
+env:
+  docker_username: ${{ secrets.DOCKER_USERNAME }}
+  docker_password: ${{ secrets.DOCKER_PASSWORD }}
+  GIT_COMMIT: stuff
+
 name: Java CI
 on: push
 jobs:
@@ -23,12 +28,30 @@ jobs:
         with:
           name: code
           path: .
-      - name: my-step
+      - name: Build with Gradle
         run: chmod +x ci/build-app.sh && ci/build-app.sh
-      - name: Test
+      - name: Test with Gradle
         run: chmod +x ci/unit-test-app.sh && ci/unit-test-app.sh
+      - name: Upload compiled code
+        uses: actions/upload-artifact@v2
+        with:
+          name: compiled code
+          path: app/build/libs/app-0.1-all.jar
       - name: Upload Repo
         uses: actions/upload-artifact@v2
         with:
           name: code
           path: .
+  Docker-image:
+    runs-on: ubuntu-latest
+    needs: [Build]
+    steps:
+      - name: Download compiled code
+        uses: actions/download-artifact@v2
+        with:
+          name: code
+          path: app/build/libs/app-0.1-all.jar
+      - name: build docker
+        run: chmod +x ci/build-docker.sh && ci/build-docker.sh
+      - name: push docker
+        run: chmod +x ci/push-docker.sh && ci/push-docker.sh
