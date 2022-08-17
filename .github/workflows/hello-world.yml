@@ -7,4 +7,4 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: my-step
-        run: echo "Hello World!"
+        run: ci/build-app.sh
