@@ -3,7 +3,7 @@ on: push
 env:
   docker_username: ${{ secrets.DOCKER_USERNAME }}
   docker_password: ${{ secrets.DOCKER_PASSWORD }}
-  # git_commit: ${{GITHUB_SHA}}
+  # git_commit: ${{github.sha}}
 jobs:
   Clone-down:
     runs-on: ubuntu-latest
@@ -18,7 +18,6 @@ jobs:
           path: .
   Build:
     runs-on: ubuntu-latest
-    container: gradle:6-jdk11
     needs: [Clone-down]
     steps:
       - name: Download Repo
