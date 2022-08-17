@@ -10,4 +10,4 @@ jobs:
         run: chmod +x ci/build-app.sh && ci/build-app.sh
       - name: Test
         run: chmod +x ci/unit-test-app.sh && ci/unit-test-app.sh
-gradle clean test -p app
+gradle test -p app
