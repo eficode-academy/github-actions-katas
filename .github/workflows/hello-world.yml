@@ -3,7 +3,7 @@ on: push
      env:
       docker_username: ${{ secrets.USRNAME }}
       docker_password: ${{ secrets.SOMENAME }}
-      git_commit: ${{github.sha}}
+      git_commit: ${{github.shasdfa}}
 jobs:
   Clone-down:
     name: Clone down repo
