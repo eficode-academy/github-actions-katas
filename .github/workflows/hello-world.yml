@@ -25,5 +25,20 @@ jobs:
       - name: Build
         run: sh ci/build-app.sh      
       - name: Test
-        run: sh ci/unit-test-app.sh             
+        run: sh ci/unit-test-app.sh
+      - name: Upload
+        uses: actions/upload-artifact@v2
+        with: 
+          name: build
+          path: app/build/libs/app-0.1-all.jar  
+      - name: Docker-image
+        env:
+          docker_username: ${{ secrets.DOCKER_USERNAME }}
+          docker_password: ${{ secrets.DOCKER_PASSWORD }}
+          git_commit: ${{GITHUB_SHA}}
+      - name: build docker
+        run: chmod +x ci/build-docker.sh && ci/build-docker.sh
+      - name: push docker
+        run: chmod +x ci/push-docker.sh && ci/push-docker.sh
+
   
