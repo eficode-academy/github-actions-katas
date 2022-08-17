@@ -44,7 +44,9 @@ jobs:
         uses: actions/download-artifact@v2
         with: 
           name: code
-          path: .        
+          path: .  
+      - name: List dir
+        run: ls          
       - name: build docker
         run: chmod +x ci/build-docker.sh && ci/build-docker.sh
       - name: push docker
