@@ -59,6 +59,6 @@ jobs:
     needs: [docker-image]
     steps:
       - name: docker-compose 
-        run: chmod +x ci/docker-compose.yml && GIT_COMMIT="GA-$GITHUB_SHA" && ci/docker-compose.yml
+        run: chmod +x ci/performance-test.sh && GIT_COMMIT="GA-$GITHUB_SHA" && ci/peformance-test.sh
 
 
