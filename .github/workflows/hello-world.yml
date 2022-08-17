@@ -65,9 +65,9 @@ jobs:
     steps:
       - name: download-code
         uses: actions/download-artifact@v1
-          with:
-            name: code
-            path: .
+        with:
+          name: code
+          path: .
       - name: docker-compose 
         run: chmod +x ci/performance-test.sh && GIT_COMMIT="GA-$GITHUB_SHA" && ci/performance-test.sh
 
