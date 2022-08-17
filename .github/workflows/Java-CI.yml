@@ -31,3 +31,24 @@ jobs:
         with:
           name: code
           path: .
+      - name: Uploading Build
+        uses: actions/upload-artifact@v2
+        with:
+          name: CompiledBuild
+          path: ./app/build/libs/app-0.1-all.jar
+  DockerSetup:
+    runs-on: ubuntu-latest
+    needs: [Build]
+    steps:
+      - name: Downloading Build
+        uses: actions/download-artifact@v2
+        with:
+          name: CompiledBuild
+          path: .
+      env:
+        docker_username: ${{ secrets.DOCKER_USERNAME }}
+        docker_password: ${{ secrets.DOCKER_PASSWORD }}
+      - name: build docker
+        run: chmod +x ci/build-docker.sh && ci/build-docker.sh
+      - name: push docker
+        run: chmod +x ci/push-docker.sh && ci/push-docker.sh
