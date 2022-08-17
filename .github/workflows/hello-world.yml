@@ -6,4 +6,4 @@ jobs:
     container: gradle:6-jdk11
     steps:
       - name: Clone-down
-        git couses: actions/checkout@v2   
+        uses: actions/checkout@v2   
