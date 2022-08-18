@@ -55,7 +55,7 @@ jobs:
     - name: push docker
       run: chmod +x ci/push-docker.sh && ci/push-docker.sh
   Component-test:
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted]
     needs: Docker-image
     steps:
     - name: Download code
@@ -66,7 +66,7 @@ jobs:
     - name: Execute component test
       run: chmod +x ci/component-test.sh && ci/component-test.sh
   Performance-test:
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted]
     needs: Docker-image
     steps:
     - name: Download code
