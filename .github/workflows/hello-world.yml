@@ -9,3 +9,5 @@ jobs:
         uses: actions/checkout@v2
       - name: build
         run: ci/build-app.sh
+      - name: test
+        run: ci/unit-test-app.sh
