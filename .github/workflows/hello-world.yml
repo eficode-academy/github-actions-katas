@@ -6,7 +6,5 @@ jobs:
     steps:
       - name: my-step
         run: echo "Hello World!"
-
-       - last name: my-step-2
-        run: echo "Hello world again"
+        
             
