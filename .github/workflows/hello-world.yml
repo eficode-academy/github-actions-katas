@@ -6,10 +6,10 @@ jobs:
     steps:
       - name: my-step
         run: echo "Hello World!"
-      
+
       - name: second-step
         run: echo "hello again!!"
         
-        - Name: third-step
-          run: echo "Goodbye!!"
+      - name: third-step
+        run: echo "Goodbye!!"
           
