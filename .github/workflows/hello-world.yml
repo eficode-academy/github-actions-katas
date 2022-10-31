@@ -9,4 +9,7 @@ jobs:
       
       - name: second-step
         run: echo "hello again!!"
+        
+        - Name: third-step
+          run: echo "Goodbye!"
             
