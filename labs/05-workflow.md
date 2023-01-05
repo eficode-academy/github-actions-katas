@@ -5,7 +5,6 @@ When you have larger or more complex projects, you’ll want separate jobs to do
 
 
 Up until now, we have had a job called `Build` both for the build and test, but that is not necessarily descriptive.
-The only reason we have done this, is because Github Actions **requires** you to have at least one job with the name fx. `Build`
 
 We define each job as a collection of `jobs` key:
 
@@ -30,7 +29,7 @@ jobs:
     needs: job-1
 ```
 
-This also ensures that `job-2 ` is not run if `job-1 ` fails. It is possible to add name to workflow fx. here: `name: workflow`.
+This also ensures that `job-2 ` is not run if `job-1 ` fails. It is possible to add a name to the workflow e.g. here: `name: workflow`.
 
 To ensure that all files from previous jobs are available at new one, we have to make sure to upload artifact at the end of the job and download it at the beginning of a new one. The way to do it can be found in previous exercise `04-storing-artifacts.md`.
 
