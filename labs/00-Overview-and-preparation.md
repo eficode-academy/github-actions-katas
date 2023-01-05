@@ -16,10 +16,10 @@ The purpose of this katas is to use the small java application to exemplify how 
 We ultimately want a pipeline that has the following jobs:
 
 - **Clone down:** makes the git clone, and prepares the repo for being distributed to the parallel steps
-- **Test:** runs the gradle test command found in [ci/unit-test-app.sh](ci/unit-test-app.sh)
-- **Build:** runs the gradle build command found in [ci/build-app.sh](ci/build-app.sh)
-- **Build docker:** runs both [building of the docker image](ci/build-docker.sh), and [pushes it up to the hub](ci/push-docker.sh)
-- **Component test:** runs a [docker-compose file](component-test/docker-compose.yml) with a [python test](component-test/test_app.py) to test the application.
+- **Test:** runs the gradle test command found in [ci/unit-test-app.sh](../ci/unit-test-app.sh)
+- **Build:** runs the gradle build command found in [ci/build-app.sh](../ci/build-app.sh)
+- **Build docker:** runs both [building of the docker image](../ci/build-docker.sh), and [pushes it up to the hub](../ci/push-docker.sh)
+- **Component test:** runs a [docker-compose file](../component-test/docker-compose.yml) with a [python test](../component-test/test_app.py) to test the application.
 
 ## Setup
 
