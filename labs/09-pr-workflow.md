@@ -29,7 +29,7 @@ rules and then click on `add rule`.
 - Go to `Branches` and add a branch protection rule.
 - Give it the pattern `main`.
 - `Require status checks to pass before merging`
-  Will block the pull request from merging untill
+  Will block the pull request from merging until
   the tests have passed.
 - `Require branches to be up to date before merging`
   The branch must be up to date with the base
