@@ -48,20 +48,24 @@ git config --global user.name "Your Name"
 
 <details>
 <summary>:bulb: terminal commands to do it</summary>
+
 ```bash
 mkdir .github
 cd .github
 mkdir workflows
 ```
+
 </details>
 
 - inside that folder, add a file called hello-world.yml (The file path will be `.github/workflows/hello-world.yml` relative to the root of the repository). 
 
 <details>
 <summary>:bulb: terminal commands to do it</summary>
+
 ```bash
 touch .github/workflows/hello-world.yml
 ```
+
 </details>
 
 - Push your changes to github, and navigate to the repository to check that the file has been created.
