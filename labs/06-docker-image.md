@@ -5,7 +5,7 @@ Next step is to have our application packaged as a docker image for easy distrib
 We have some requirements for our pipeline step:
 
 - Should build our application as a docker image.
-- Should tag the image with both the git sha and "latest".
+- Should tag the image with both the git sha and "latest". (Never use such general tags in real life!)
 - Should push the image to docker registry.
 
 In order for this to work, we need three environment variables:
