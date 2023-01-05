@@ -26,7 +26,7 @@ The two scripts: `ci/build-docker.sh` and `ci/push-docker.sh` expects all three 
 
 ## Build-in environment variables
 
-Many of the common information pices for a build is set in default environment variables.
+Many of the common information pieces for a build is set in default environment variables.
 
 Examples of these are:
 
