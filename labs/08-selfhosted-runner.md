@@ -8,7 +8,7 @@ There are especially two reasons for this:
 * You want faster hardware to run your pipeline, shortening the feedback loop of the development process.
 * You have hardware requirements that needs to be met (special network card, USB peripheral, etc.).
 
-You still reap the benefits of a central CI/CD master, but have the possibility to run locally.
+You still reap the benefits of a central CI/CD controller, but have the possibility to run locally.
 
 We want to take parts of your pipeline and run it locally, to see if that will speed up the process.
         
