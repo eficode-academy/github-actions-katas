@@ -41,7 +41,7 @@ jobs:
     needs: [build]
     steps:
     - name: Download lib
-      uses: actions/download-artifact@v2
+      uses: actions/download-artifact@v3
       with:
         name: code2
         path: .
@@ -51,7 +51,19 @@ jobs:
         username: ${{ env.docker_username }}
         password: ${{ env.docker_password }}
     - name: Build and push
-      uses: docker/build-push-action@v2
+      uses: docker/build-push-action@v3
       with:
         push: true
-        tags: $docker_username/micronaut-app:1.0-${GIT_COMMIT::8} 
+        tags: ${{env.docker_username}}/micronaut-app:1.0-${{github.sha}}
+  component-test:
+    runs-on: ubuntu-latest
+    needs: [docker-image]
+    steps:
+    - name: Execute component test
+      run: chmod +x ci/component-test.sh && ci/component-test.sh
+  performance-test:
+    runs-on: ubuntu-latest
+    needs: [docker-image]
+    steps:
+    - name: Execute performance test
+      run: chmod +x ci/performance-test.sh && ci/performance-test.sh
