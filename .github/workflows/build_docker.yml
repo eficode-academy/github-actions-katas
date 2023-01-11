@@ -8,4 +8,7 @@ jobs:
     steps:
     - name: Clone-down
       uses: actions/checkout@v2
-    - run:  chmod +x ci/build-app.sh && ci/build-app.sh
+    - name: Build application
+      run:  chmod +x ci/build-app.sh && ci/build-app.sh
+    - name: test
+      run: chmod +x ci/unit-test-app.sh && ci/unit-test-app.sh
