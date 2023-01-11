@@ -1,4 +1,4 @@
-# hello world work flow¨
+# hello world work flow
 name: hello-world
 on: push
 jobs:
