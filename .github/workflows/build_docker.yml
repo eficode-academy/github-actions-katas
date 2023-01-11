@@ -1,13 +1,28 @@
 # build work flow
-name: build-docker
+name: Java CI
 on: push
 jobs:
-  build:
+  clone-down:
     runs-on: ubuntu-latest
     container: gradle:6-jdk11
     steps:
     - name: Clone-down
       uses: actions/checkout@v2
+    - name: Upload repo
+      uses: actions/upload-artifact@v2
+      with:
+        name: code
+        path: .
+  build:
+    needs: clone-down
+    runs-on: ubuntu-latest
+    container: gradle:6-jdk11
+    steps:
+    - name: Download code
+      uses: actions/download-artifact@v2
+      with:
+        name: code
+        path: .
     - name: Build application
       run:  chmod +x ci/build-app.sh && ci/build-app.sh
     - name: Test
@@ -15,5 +30,5 @@ jobs:
     - name: Upload repo
       uses: actions/upload-artifact@v2
       with:
-        name: code
+        name: code2
         path: .
