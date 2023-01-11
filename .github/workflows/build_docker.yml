@@ -10,5 +10,10 @@ jobs:
       uses: actions/checkout@v2
     - name: Build application
       run:  chmod +x ci/build-app.sh && ci/build-app.sh
-    - name: test
+    - name: Test
       run: chmod +x ci/unit-test-app.sh && ci/unit-test-app.sh
+    - name: Upload repo
+      uses: actions/upload-artifact@v2
+      with:
+        name: code
+        path: .
