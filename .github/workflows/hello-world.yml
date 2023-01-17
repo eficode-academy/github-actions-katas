@@ -52,4 +52,4 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: true
-          tags: $docker_username/micronaut-app:1.0-${GIT_COMMIT::8}
+          tags: $docker_username/micronaut-app:1.0-${{ env.GIT_COMMIT }}
