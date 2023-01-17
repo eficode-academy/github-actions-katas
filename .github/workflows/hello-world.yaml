@@ -54,4 +54,26 @@ jobs:
         with:
           push: true
           context: app/
-          tags: ${{ env.docker_username }}/micronaut-app:1.0-${{ env.git_commit }}
+          tags: ${{ env.docker_username }}/micronaut-app:1.0-${{ env.git_commit }},${{ env.docker_username }}/micronaut-app:latest
+  Component-test:
+    runs-on: ubuntu-latest
+    needs: Docker-image
+    steps:
+    - name: Download code
+      uses: actions/download-artifact@v1
+      with:
+        name: code
+        path: .
+    - name: Execute component test
+      run: chmod +x ci/component-test.sh && ci/component-test.sh
+  Performance-test:
+    runs-on: ubuntu-latest
+    needs: Docker-image
+    steps:
+    - name: Download code
+      uses: actions/download-artifact@v1
+      with:
+        name: code
+        path: .
+    - name: Execute performance test
+      run: chmod +x ci/performance-test.sh && ci/performance-test.sh
