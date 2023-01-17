@@ -1,4 +1,4 @@
-name: Java CI
+name: Dev Workflow
 on:
   push:
     branches:
