@@ -1,5 +1,8 @@
 name: Java CI
-on: push
+on:
+  pull_request:
+    branches:
+      - main
 jobs:
   Clone-down:
     runs-on: ubuntu-latest
@@ -48,16 +51,16 @@ jobs:
         with:
           name: code
           path: .
+      - name: Install buildx
+        uses: docker/setup-buildx-action@v2
       - name: Login to Dockerhub
         uses: docker/login-action@v1
         with:
           username: ${{ secrets.DOCKER_USER }}
           password: ${{ secrets.DOCKER_PASSWORD }}
       - name: Build & Push image
-        uses: docker/build-push-action@v3.3.0
+        uses: docker/build-push-action@v3
         with:
-          buildkitd-flags: --debug
-          context: .
           push: true
           tags: ${{ secrets.DOCKER_USER }}/micronaut-app:latest
   Component-Test:
