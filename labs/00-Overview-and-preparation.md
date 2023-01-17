@@ -34,7 +34,7 @@ We are going to create the file that will be used to run the pipeline from, call
 
 You need to provide your email and name to git with the following commands.
 
-``` bash 
+``` bash
 git config --global user.email "you@example.com"
 git config --global user.name "Your Name"
 ```
@@ -57,7 +57,7 @@ mkdir workflows
 
 </details>
 
-- inside that folder, add a file called hello-world.yml (The file path will be `.github/workflows/hello-world.yml` relative to the root of the repository). 
+- inside that folder, add a file called hello-world.yml (The file path will be `.github/workflows/hello-world.yml` relative to the root of the repository).
 
 <details>
 <summary>:bulb: terminal commands to do it</summary>
@@ -79,12 +79,12 @@ So in the next section we will be creating the simplest possible workflow.
 The list here is the natural progression of the labs, but they are made so that they can be worked on independently.
 
 - [Making "hello world"](01-hello-world-pipeline.md)
-- [Pipeline with Dockerfile](02-pipeline-with-dockerfile.md)
+- [Pipeline with Dockerfile](02-pipeline-with-docker-image.md)
 - [Extending pipeline](03-extend-pipeline.md)
 - [Storing artifacts](04-storing-artifacts.md)
 - [Workflow](05-workflow.md)
 - [Dockerimage](06-docker-image.md)
-- [Component test](07-component-test.md)
+- [Component test](07-systems-test.md)
 - [Self hosted runner](08-selfhosted-runner.md)
 - [PR workflow](09-pr-workflow.md)
 - [Matrix](10-matrix.md)
