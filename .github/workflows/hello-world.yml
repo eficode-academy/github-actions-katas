@@ -11,7 +11,7 @@ jobs:
       - name: clone
         uses: actions/checkout@v3
       - name: upload
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: code
           path: .
@@ -21,7 +21,7 @@ jobs:
     container: gradle:6-jdk11
     steps:
       - name: download
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
         with:
           name: code
           path: .
@@ -30,7 +30,7 @@ jobs:
       - name: test
         run: chmod +x ci/unit-test-app.sh && ci/unit-test-app.sh
       - name: upload
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: build-output
           path: .
@@ -39,7 +39,7 @@ jobs:
     needs: build
     steps:
       - name: download
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
         with:
           name: build-output
           path: .
