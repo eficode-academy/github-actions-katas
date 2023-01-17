@@ -1,5 +1,9 @@
 name: Java CI
 on: push
+env:
+  docker_username: ${{ secrets.DOCKER_USERNAME }}
+  docker_password: ${{ secrets.DOCKER_PASSWORD }}
+  git_commit: ${{ github.sha }}
 jobs:
   Clone-down:
     name: Clone down repo
@@ -31,3 +35,23 @@ jobs:
         with:
           name: code
           path: .
+  Docker-image:
+    runs-on: ubuntu-latest
+    needs: [Build]
+    steps:
+      - name: Download code
+        uses: actions/download-artifact@v3
+        with:
+          name: code
+          path: .
+      - name: Login to DockerHub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ env.docker_username }}
+          password: ${{ env.docker_password }}
+      - name: Build and push
+        uses: docker/build-push-action@v3
+        with:
+          push: true
+          context: app/
+          tags: $docker_username/micronaut-app:1.0-${git_commit::8} 
