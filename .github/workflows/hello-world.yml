@@ -56,7 +56,6 @@ jobs:
       - name: Build & Push image
         uses: docker/build-push-action@v3.3.0
         with:
-          context: ./app/build/lib
           push: true
           tags: ${{ secrets.DOCKER_USER }}/micronaut-app:latest
   Component-Test:
