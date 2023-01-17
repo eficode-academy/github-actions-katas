@@ -3,7 +3,6 @@ on: push
 env:
   docker_username: ${{ secrets.DOCKER_USERNAME }}
   docker_password: ${{ secrets.DOCKER_PASSWORD }}
-  GIT_COMMIT: 5d488d9
 jobs:
   clone:
     runs-on: ubuntu-latest
@@ -52,4 +51,4 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: true
-          tags: $docker_username/micronaut-app:1.0-${{ env.GIT_COMMIT }}
+          tags: ${{ env.docker_username }}/micronaut-app:1.0-${{ env.GITHUB_SHA }}
