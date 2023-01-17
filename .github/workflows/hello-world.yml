@@ -2,7 +2,7 @@ name: hello-world
 on: push
 env:
   dockerhub_username: ${{ secrets.DOCKER_USERNAME }}
-  dockerhub_token: ${{ secrets.DOCKERHUB_ACCESS_KEY }}
+  dockerhub_password: ${{ secrets.DOCKERHUB_ACCESS_KEY }}
 jobs:
   clone:
     runs-on: ubuntu-latest
@@ -46,7 +46,7 @@ jobs:
         uses: docker/login-action@v1
         with:
           username: ${{ env.dockerhub_username }}
-          password: ${{ env.dockerhub_token }}
+          password: ${{ env.dockerhub_password }}
       - name: Build and push
         uses: docker/build-push-action@v2
         with:
