@@ -10,4 +10,4 @@ jobs:
       - name: Build     
         run: chmod +x ci/build-app.sh && ci/build-app.sh
       - name: Test
-        run: hmod +x ci/unit-test-app.sh && ci/unit-test-app.sh
+        run: chmod +x ci/unit-test-app.sh && ci/unit-test-app.sh
