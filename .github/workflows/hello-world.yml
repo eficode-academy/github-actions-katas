@@ -60,8 +60,9 @@ jobs:
       - name: Build & Push image
         uses: docker/build-push-action@v2
         with:
+          context: ./app/build/lib
           push: true
-          tags: ${{ secrets.DOCKER_USER }}/micronaut-app:1.0-${{ github.sha }}
+          tags: ${{ secrets.DOCKER_USER }}/micronaut-app:latest
   Component-Test:
     needs: [Build, Test]
     runs-on: ubuntu-latest
