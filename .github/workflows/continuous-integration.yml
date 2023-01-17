@@ -1,5 +1,10 @@
 name: continuous integration
-on: push
+on:
+  pull_request:
+    types:
+      - opened
+    branches:
+      - main
 env:
   dockerhub_username: ${{ secrets.DOCKER_USERNAME }}
   dockerhub_password: ${{ secrets.DOCKERHUB_ACCESS_KEY }}
