@@ -39,4 +39,25 @@ jobs:
           path: .
       - name: run unit tests
         run: chmod +x ci/unit-test-app.sh && ci/unit-test-app.sh
-    
+  Docker-image:
+    needs: [Build, Test]
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo ${{ vars.GITHUB_SHA }}
+      - name: Login to Dockerhub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_USER }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+      - name: Download code
+        uses: actions/download-artifact@v3
+        with:
+          name: code
+          path: .
+      - name: Build & Push image
+        uses: docker/build-push-action@v2
+        with:
+          push: true
+          tags: ${{ secrets.DOCKER_USER }}/micronaut-app:1.0-${{ vars.GITHUB_RUN_NUMBER }}
+
+  
