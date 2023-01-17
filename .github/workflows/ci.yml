@@ -1,5 +1,9 @@
 name: Java CI
 on: push
+env:
+  docker_username: ${{ secrets.DOCKER_USERNAME }}
+  docker_password: ${{ secrets.DOCKER_PASSWORD }}
+  GIT_COMMIT: ${{ github.sha }}
 jobs:
   Clone-down:
     name: Clone down repo
@@ -8,7 +12,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Upload Repo
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v2
         with:
           name: code
           path: .
@@ -18,7 +22,7 @@ jobs:
     container: gradle:6-jdk11
     steps:
       - name: Download code
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v2
         with:
           name: code
           path: .
@@ -31,3 +35,16 @@ jobs:
         with:
           name: code
           path: .
+  Docker-image:
+    runs-on: ubuntu-latest
+    needs: [Build,Test]
+    steps:
+      - name: Download code
+        uses: actions/download-artifact@v1
+        with:
+          name: code
+          path: .
+      - name: build docker
+        run: chmod +x ci/build-docker.sh && ci/build-docker.sh
+      - name: push docker
+        run: chmod +x ci/push-docker.sh && ci/push-docker.sh
