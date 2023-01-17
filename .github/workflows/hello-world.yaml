@@ -54,4 +54,4 @@ jobs:
         with:
           push: true
           context: app/
-          tags: $docker_username/micronaut-app:1.0-${git_commit::8} 
+          tags: ${{ env.docker_username }}/micronaut-app:1.0-${{ env.git_commit }}
