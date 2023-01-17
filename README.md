@@ -1,5 +1,7 @@
 # Github Actions katas
 
+Used for a workshop on github actions run by [`eficode`](https://github.com/eficode-academy).
+
 Look into the labs folder for exercises
 
 
