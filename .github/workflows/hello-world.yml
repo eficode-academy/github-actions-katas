@@ -26,7 +26,7 @@ jobs:
       - name: Test with Gradle
         run: chmod +x ci/unit-test-app.sh && ci/unit-test-app.sh
       - name: Upload Repo
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: code
           path: .
