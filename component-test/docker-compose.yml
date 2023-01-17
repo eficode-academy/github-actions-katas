@@ -7,4 +7,4 @@ services:
     depends_on:
       - web
   web:
-    image: ${docker_username}micronaut-app:latest
+    image: praqmasofus/micronaut-app:latest
