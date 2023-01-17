@@ -8,5 +8,5 @@ services:
     volumes:
       - "./performance-test/single-request.js:/home/k6/script.js"
   web:
-    image: ${docker_username}micronaut-app:latest
+    image: praqmasofus/micronaut-app:latest
   
