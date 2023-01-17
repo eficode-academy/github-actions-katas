@@ -1,6 +1,6 @@
 ## Storing artifacts
 
-It is possible to store artifacts in Github Actions. The `artifact` is the result of the build, in this case the compiled code.
+It is possible to store artifacts in GitHub Actions. The `artifact` is the result of the build, in this case the compiled code.
 
 > This should not be mistaken for proper [artifact management](https://www.eficode.com/blog/artifactory-nexus-proget), but it is useful for making the artifacts built by the pipeline available.
 
