@@ -13,7 +13,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: code
-          path: ./app
+          path: .
   build:
     needs: clone
     runs-on: ubuntu-latest
@@ -42,16 +42,10 @@ jobs:
         with:
           name: build-output
           path: .
-      - name: Login to DockerHub
-        uses: docker/login-action@v1
-        with:
-          username: ${{ env.dockerhub_username }}
-          password: ${{ env.dockerhub_password }}
-      - name: Build and push
-        uses: docker/build-push-action@v2
-        with:
-          push: true
-          tags: ${{ env.dockerhub_username }}/micronaut-app:1.0-${{ env.GITHUB_SHA }}
+      - name: build docker
+        run: chmod +x ci/build-docker.sh && ci/build-docker.sh
+      - name: push docker
+        run: chmod +x ci/push-docker.sh && ci/push-docker.sh
   component-test:
     runs on: ubuntu-latest
     needs: containerize
