@@ -1,5 +1,9 @@
 name: hello-world
 on: push
+env:
+  docker_username: ${{ secrets.DOCKER_USERNAME }}
+  docker_password: ${{ secrets.DOCKER_PASSWORD }}
+  GIT_COMMIT: 5d488d9
 jobs:
   clone:
     runs-on: ubuntu-latest
@@ -25,3 +29,21 @@ jobs:
         run: chmod +x ci/build-app.sh && ci/build-app.sh
       - name: test
         run: chmod +x ci/unit-test-app.sh && ci/unit-test-app.sh
+      - name: upload
+        uses: actions/upload-artifact@v2
+        with:
+          name: build-output
+          path: .
+  containerize:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: download
+        uses: actions/download-artifact@v2
+        with:
+          name: build-output
+          path: .
+      - name: build docker
+        run: chmod +x ci/build-docker.sh && ci/build-docker.sh
+      - name: push docker
+        run: chmod +x ci/push-docker.sh && ci/push-docker.sh
