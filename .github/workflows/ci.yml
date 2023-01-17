@@ -63,10 +63,11 @@ jobs:
     runs-on: ubuntu-latest
     needs: [ Docker-image ]
     steps:
-      - name: Execute component test
+
       - name: Download Code
         uses: actions/download-artifact@v1
         with:
           name: code
           path: .
+      - name: Execute component test
         run: chmod +x ci/performance-test.sh && GIT_COMMIT="GA-$GITHUB_SHA" && ci/performance-test.sh
