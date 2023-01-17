@@ -7,6 +7,12 @@ jobs:
     steps:
       - name: Clone-down
         uses: actions/checkout@v2
-      - run: chmod +x ci/build-app.sh && ci/build-app.sh
-      - name: Unit-tests
+      - name: Build code
+        run: chmod +x ci/build-app.sh && ci/build-app.sh
+      - name: Tests
         run: chmod +x ci/unit-test-app.sh && ci/unit-test-app.sh
+      - name: Upload Repo
+        uses: actions/upload-artifact@v2
+        with:
+          name: code
+          path: .
