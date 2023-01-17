@@ -1,4 +1,4 @@
-name: hello-world
+name: continuous integration
 on: push
 env:
   dockerhub_username: ${{ secrets.DOCKER_USERNAME }}
