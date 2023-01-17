@@ -15,6 +15,6 @@ public class HelloController{
     
     //Example of a function that can be tested through normal unit frameworks
     public String combineName( String name) {
-        return "Hello "+name;
+        return name + " Hello";
     }
 }
