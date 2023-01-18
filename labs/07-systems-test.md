@@ -34,7 +34,7 @@ If you strugle and need to see the whole ***Solution*** you can extend the secti
     needs: Docker-image
     steps:
     - name: Download code
-      uses: actions/download-artifact@v1
+      uses: actions/download-artifact@v3
       with:
         name: code
         path: .
@@ -45,7 +45,7 @@ If you strugle and need to see the whole ***Solution*** you can extend the secti
     needs: Docker-image
     steps:
     - name: Download code
-      uses: actions/download-artifact@v1
+      uses: actions/download-artifact@v3
       with:
         name: code
         path: .

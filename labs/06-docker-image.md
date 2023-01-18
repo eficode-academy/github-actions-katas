@@ -93,7 +93,7 @@ Ready steps looks like:
 
 ## Using actions instead of scrtipts
 
-The above job can be also done by using actions: `docker/login-action@v1` and `docker/build-push-action@v2`, what will provide the same functionality. You can find it in the example below:
+The above job can be also done by using actions: `docker/login-action@v2` and `docker/build-push-action@v3`, what will provide the same functionality. You can find it in the example below:
 
 ```yaml
 on: push
@@ -102,12 +102,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Login to DockerHub
-        uses: docker/login-action@v1
+        uses: docker/login-action@v2
         with:
           username: ${{ env.docker_username }}
           password: ${{ env.docker_password }}
       - name: Build and push
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v3
         with:
           push: true
           tags: $docker_username/micronaut-app:1.0-${GIT_COMMIT::8} 
@@ -131,9 +131,9 @@ jobs:
     runs-on: ubuntu-latest
     container: gradle:6-jdk11
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     - name: Upload Repo
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: code
         path: .
@@ -143,7 +143,7 @@ jobs:
     container: gradle:6-jdk11
     steps:
     - name: Download code
-      uses: actions/download-artifact@v2
+      uses: actions/download-artifact@v3
       with:
         name: code
         path: . 
@@ -152,16 +152,16 @@ jobs:
     - name: Test with Gradle
       run: chmod +x ci/unit-test-app.sh && ci/unit-test-app.sh
     - name: Upload Repo
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: code
         path: .
   Docker-image:
     runs-on: ubuntu-latest
-    needs: [Build,Test]
+    needs: [Build]
     steps:
     - name: Download code
-      uses: actions/download-artifact@v1
+      uses: actions/download-artifact@v3
       with:
         name: code
         path: .

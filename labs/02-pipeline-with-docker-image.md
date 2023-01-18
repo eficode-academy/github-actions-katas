@@ -15,11 +15,11 @@ As a next step, we want Github Actions to do two things:
 container: gradle:6-jdk11
 ```
 
-- Under the `steps` part, insert a `- uses:` list item to the list (before the existing `- name: my-step` item) with action: `actions/checkout@v2`
+- Under the `steps` part, insert a `- uses:` list item to the list (before the existing `- name: my-step` item) with action: `actions/checkout@v3`
 
 ```YAML
 - name: Clone-down
-  uses: actions/checkout@v2   
+  uses: actions/checkout@v3   
 ```
 
 - Change the `run` command to run `ci/build-app.sh` as the command instead of `echo "Hello World!"`. 
@@ -54,7 +54,7 @@ jobs:
     container: gradle:6-jdk11
     steps:
       - name: Clone-down
-        uses: actions/checkout@v2       
+        uses: actions/checkout@v3       
       - run: chmod +x ci/build-app.sh && ci/build-app.sh
  ```
 </details>
