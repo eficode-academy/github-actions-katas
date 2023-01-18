@@ -49,7 +49,7 @@ jobs:
     needs: [Build,Test]
     steps:
     - name: Download code
-      uses: actions/download-artifact@v1
+      uses: actions/download-artifact@v3
       with:
         name: code
         path: .
@@ -62,7 +62,7 @@ jobs:
     needs: Docker-image
     steps:
     - name: Download code
-      uses: actions/download-artifact@v1
+      uses: actions/download-artifact@v3
       with:
         name: code
         path: .

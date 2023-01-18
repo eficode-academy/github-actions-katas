@@ -161,7 +161,7 @@ jobs:
     needs: [Build]
     steps:
     - name: Download code
-      uses: actions/download-artifact@v1
+      uses: actions/download-artifact@v3
       with:
         name: code
         path: .
