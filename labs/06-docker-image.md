@@ -48,9 +48,9 @@ Contexts are also available before the steps, as when defining the `env` section
 
 ### Tasks
 
-- To start Docker credentials should be stored as repository secrets at Github Actions Repository. Please go to `Settings > Secrets > New repository secret` to add them. 
+<!-- - To start Docker credentials should be stored as repository secrets at Github Actions Repository. Please go to `Settings > Secrets > New repository secret` to add them. 
 
-![Github Secrets](img/secret.png)
+![Github Secrets](img/secret.png) -->
 
 - Add a new job named `Docker-image` that requires the `Build` to be completed.
 
@@ -69,8 +69,8 @@ _:bulb: if you forgot how to do it, head over to [storing artifacts](./04-storin
 
 ```YAML
 env:
-  docker_username: ${{ secrets.DOCKER_USERNAME }}
-  docker_password: ${{ secrets.DOCKER_PASSWORD }}
+  docker_username: ${{ github.actor }}
+  docker_password: ${{ secrets.GITHUB_TOKEN }}
 ```
 
 - Add GIT_COMMIT environment variable as well. 
@@ -89,7 +89,7 @@ Ready steps looks like:
 
 > Hint: Remember that the job needs to run on specified system and is based on the results from previous jobs.
 
-- See that the image is built and pushed to the docker hub registry.
+- See that the image is built and pushed to the GitHub container registry.
 
 ## Using actions instead of scrtipts
 
@@ -104,13 +104,15 @@ jobs:
       - name: Login to DockerHub
         uses: docker/login-action@v2
         with:
-          username: ${{ env.docker_username }}
-          password: ${{ env.docker_password }}
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
       - name: Build and push
         uses: docker/build-push-action@v3
         with:
+          context: app
           push: true
-          tags: $docker_username/micronaut-app:1.0-${GIT_COMMIT::8} 
+          tags: ghcr.io/${{ github.actor }}/micronaut-app:1.0-${{ github.sha }},ghcr.io/${{ github.actor }}/micronaut-app:latest
 ```
 
 ### Solution 
@@ -122,8 +124,8 @@ If you strugle and need to see the whole ***Solution*** you can extend the secti
 name: Java CI
 on: push
 env: # Set the secret as an input
-  docker_username: ${{ secrets.DOCKER_USERNAME }}
-  docker_password: ${{ secrets.DOCKER_PASSWORD }}
+  docker_username: ${{ github.actor }}
+  docker_password: ${{ secrets.GITHUB_TOKEN }}
   GIT_COMMIT: ${{ github.sha }}
 jobs:
   Clone-down:
@@ -176,7 +178,7 @@ jobs:
 
 ### Results
 
-You should be able to see your docker image on your DockerHub account as: 
+You should be able to see your docker image on your GitHub account as: 
 
-![Dockerhub](img/dockerhub.png)
+![GitHub Container Registry](img/github-container.png)
 
