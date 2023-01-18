@@ -58,8 +58,7 @@ If you strugle and need to see the whole ***Solution*** you can extend the secti
 <details>
     <summary> Solution </summary>
   
-  ```YAML
-  
+```YAML
 on: push
 jobs:
   Build:
@@ -77,7 +76,7 @@ jobs:
         with: 
           name: code
           path: .
-  ```
+```
   
 </details>
 
