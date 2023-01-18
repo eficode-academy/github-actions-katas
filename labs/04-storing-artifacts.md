@@ -6,21 +6,21 @@ It is possible to store artifacts in Github Actions. The `artifact` is the resul
 
 To deal with artifacts, a `Github Actions Action` can be used, which can be found on [Github Marketplace](https://github.com/marketplace).
 
-To upload artifacts use the following syntax with `actions/upload-artifact@v2` [Link to documentation](https://github.com/marketplace/actions/upload-a-build-artifact):
+To upload artifacts use the following syntax with `actions/upload-artifact@v3` [Link to documentation](https://github.com/marketplace/actions/upload-a-build-artifact):
 
 ```YAML
 - name: Upload a Build Artifact
-  uses: actions/upload-artifact@v2
+  uses: actions/upload-artifact@v3
   with:
     name: my-artifact
     path: path/to/artifact/
 ```
 
-As artifacts can be uploaded it can also be downloaded from Github Actions with help of `actions/download-artifact@v2` as:
+As artifacts can be uploaded it can also be downloaded from Github Actions with help of `actions/download-artifact@v3` as:
 
 ```YAML
 - name: Download a single artifact
-  uses: actions/download-artifact@v2
+  uses: actions/download-artifact@v3
   with:
     name: my-artifact
     path: path/to/download/artifact/
@@ -46,7 +46,7 @@ In order to achieve this we will simply save the state of the entire repository 
 
 ```YAML
     - name: Upload Repo
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with: 
         name: code
         path: .
@@ -66,13 +66,13 @@ jobs:
     container: gradle:6-jdk11
     steps:
       - name: Clone-down
-        uses: actions/checkout@v2       
+        uses: actions/checkout@v3       
       - name: Build application
         run: chmod +x ci/build-app.sh && ci/build-app.sh
       - name: Test
         run: chmod +x ci/unit-test-app.sh && ci/unit-test-app.sh
       - name: Upload Repo
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with: 
           name: code
           path: .

@@ -9,9 +9,9 @@ jobs:
     runs-on: ubuntu-latest
     container: gradle:6-jdk11
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     - name: Cache Gradle packages
-      uses: actions/cache@v2
+      uses: actions/cache@v3
       with:
         path: |
           ~/.gradle/caches
@@ -25,7 +25,7 @@ jobs:
     container: gradle:6-jdk11
     steps:
     - name: Cache Gradle packages
-      uses: actions/cache@v2
+      uses: actions/cache@v3
       with:
         path: |
           ~/.gradle/caches
@@ -39,7 +39,7 @@ jobs:
     container: gradle:6-jdk11
     steps:
     - name: Cache Gradle packages
-      uses: actions/cache@v2
+      uses: actions/cache@v3
       with:
         path: |
           ~/.gradle/caches
@@ -48,7 +48,7 @@ jobs:
     - name: Build with Gradle
       run: chmod +x ci/build-app.sh && ci/build-app.sh
     - name: Upload Repo
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: code
         path: .
@@ -57,7 +57,7 @@ jobs:
     needs: [Build,Test]
     steps:
     - name: Cache Gradle packages
-      uses: actions/cache@v2
+      uses: actions/cache@v3
       with:
         path: |
           ~/.gradle/caches
@@ -72,7 +72,7 @@ jobs:
     needs: Docker-image
     steps:
     - name: Cache Gradle packages
-      uses: actions/cache@v2
+      uses: actions/cache@v3
       with:
         path: |
           ~/.gradle/caches

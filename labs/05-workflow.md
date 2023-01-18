@@ -69,7 +69,7 @@ Clone-down:
 
 ___
 
-- Remember that to have information from previous job(s) the artifact with this information needs to be downloaded and respectively uploaded by using (`actions/upload-artifact@v2`and `actions/download-artifact@v2`).
+- Remember that to have information from previous job(s) the artifact with this information needs to be downloaded and respectively uploaded by using (`actions/upload-artifact@v3`and `actions/download-artifact@v3`).
 
 ## Solution
 
@@ -86,9 +86,9 @@ jobs:
     runs-on: ubuntu-latest
     container: gradle:6-jdk11
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     - name: Upload Repo
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: code
         path: .
@@ -98,7 +98,7 @@ jobs:
       container: gradle:6-jdk11
       steps:
       - name: Download code
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
         with:
           name: code
           path: .
@@ -107,7 +107,7 @@ jobs:
       - name: Test with Gradle
         run: chmod +x ci/unit-test-app.sh && ci/unit-test-app.sh
       - name: Upload Repo
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: code
           path: .

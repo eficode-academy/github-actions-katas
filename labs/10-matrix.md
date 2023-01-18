@@ -56,9 +56,9 @@ jobs:
     runs-on: ubuntu-latest
     container: gradle:6-jdk11
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     - name: Upload Repo
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: code
         path: .
@@ -68,14 +68,14 @@ jobs:
       container: gradle:6-jdk11
       steps:
       - name: Download code
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
         with:
           name: code
           path: .
       - name: Build with Gradle
         run: chmod +x ci/build-app.sh && ci/build-app.sh
       - name: Upload Repo
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: code
           path: .
@@ -117,9 +117,9 @@ jobs:
     runs-on: ubuntu-latest
     container: gradle:6-jdk11
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     - name: Upload Repo
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: code
         path: .
@@ -133,14 +133,14 @@ jobs:
       image: ${{ matrix.container }}   
     steps:
     - name: Download code
-      uses: actions/download-artifact@v2
+      uses: actions/download-artifact@v3
       with:
         name: code
         path: .
     - name: Build with Gradle
       run: chmod +x ci/build-app.sh && ci/build-app.sh
     - name: Upload Repo
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: code
         path: .
