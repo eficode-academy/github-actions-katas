@@ -24,6 +24,9 @@ jobs:
         with:
           name: code
           path: .
+   
+      - name: Fix Permissions
+        run: chmod +x ci/build-app.sh && chmod +x ci/unit-test-app.sh
 
       - name: Build App
         run: ci/build-app.sh
