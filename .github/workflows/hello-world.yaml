@@ -30,7 +30,7 @@ jobs:
         run: chmod +x ci/build-app.sh && ci/build-app.sh
       - name: Test with Gradle
         run: chmod +x ci/unit-test-app.sh && ci/unit-test-app.sh
-      - name: Upload Repo
+      - name: Upload Binary
         uses: actions/upload-artifact@v3
         with:
           name: binary
@@ -42,8 +42,13 @@ jobs:
       - name: Download code
         uses: actions/download-artifact@v3
         with:
-          name: binary
+          name: code
           path: .
+      - name: Download Binary
+        uses: actions/download-artifact@v3
+        with:
+          name: binary
+          path: app/build/libs/app-0.1-all.jar
       - name: build docker
         run: chmod +x ci/build-docker.sh && ci/build-docker.sh
       - name: push docker
