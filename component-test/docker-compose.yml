@@ -7,5 +7,4 @@ services:
     depends_on:
       - web
   web:
-    image: praqmasofus/micronaut-app:latest
-    #image: ghcr.io/${docker_username}micronaut-app:latest
+    image: ghcr.io/${docker_username}micronaut-app:latest
