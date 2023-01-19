@@ -8,7 +8,8 @@ jobs:
       - name: Clone-down
         uses: actions/checkout@v3
   Build:
-      needs: Clone-down
+    needs: Clone-down
+    steps:
       - name: Build-app
         run: chmod +x ci/build-app.sh && ci/build-app.sh
       - name: Test
