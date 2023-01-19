@@ -1,5 +1,11 @@
-name: Java CI
-on: push
+name: PR Workflow
+on: 
+  - push
+      branches: 
+        - main
+  - pull_request:
+      branches:
+        - main
 
 permissions:
   packages: write

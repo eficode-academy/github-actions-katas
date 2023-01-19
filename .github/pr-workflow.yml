@@ -1,0 +1,96 @@
+name: PR Workflow
+on: 
+  - push:
+      branches: 
+        - main
+  - pull_request:
+      branches:
+        - main
+
+permissions:
+  packages: write
+
+env:
+   docker_username: ${{ github.actor }}
+   docker_password: ${{ secrets.GITHUB_TOKEN }}
+   GIT_COMMIT: ${{ github.sha }}
+
+jobs:
+  checkout:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Upload Repo
+        uses: actions/upload-artifact@v3
+        with:
+          name: code
+          path: . 
+  
+  build: 
+    needs: checkout
+    runs-on: ubuntu-latest
+    container: gradle:6-jdk11
+    steps:
+ 
+      - name: Download code
+        uses: actions/download-artifact@v3
+        with:
+          name: code
+          path: .
+   
+      - name: Fix Permissions
+        run: chmod +x ci/*.sh
+
+      - name: Build App
+        run: ci/build-app.sh
+
+      - name: Unit Tests
+        run: ci/unit-test-app.sh
+
+      - name: Upload Repo
+        uses: actions/upload-artifact@v3
+        with:
+          name: code
+          path: .
+
+  docker-image:
+    needs: [build]
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Download code
+        uses: actions/download-artifact@v3
+        with:
+          name: code
+          path: .
+
+      - name: Fix Permissions
+        run: chmod +x ci/*.sh
+
+      - name: build docker
+        run: ci/build-docker.sh
+   
+      - name: push docker
+        run: ci/push-docker.sh
+
+  component-test:
+    needs: [docker-image]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Execute component test
+        run: chmod +x ci/component-test.sh && GIT_COMMIT="GA-$GITHUB_SHA" && ci/component-test.sh
+
+  perf-test:
+    needs: [docker-image]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Execute component test
+        run: chmod +x ci/performance-test.sh  && GIT_COMMIT="GA-$GITHUB_SHA" && ci/performance-test.sh 
