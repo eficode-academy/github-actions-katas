@@ -1,5 +1,7 @@
 name: Java CI
 on: push
+permissions:
+  packages: write
 env:
   docker_username: ${{ secrets.DOCKER_USERNAME }}
   docker_password: ${{ secrets.DOCKER_PASSWORD }}
