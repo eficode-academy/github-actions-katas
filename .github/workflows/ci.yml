@@ -1,11 +1,13 @@
 name: Java CI
 on: push
 
+permissions:
+  packages: write
+
 env:
    docker_username: ${{ github.actor }}
    docker_password: ${{ secrets.GITHUB_TOKEN }}
    GIT_COMMIT: ${{ github.sha }}
-
 
 jobs:
   checkout:
@@ -74,7 +76,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: 
       - name: Execute component test
         run: chmod +x ci/component-test.sh && GIT_COMMIT="GA-$GITHUB_SHA" && ci/component-test.sh
 
