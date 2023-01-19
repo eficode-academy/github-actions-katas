@@ -1,5 +1,11 @@
 name: hello-world
-on: push
+on:   
+push:
+  branches:
+    - main
+pull_request:
+  branches:
+    - main
 env: # Set the secret as an input
   docker_username: ${{ github.actor }}
   docker_password: ${{ secrets.GITHUB_TOKEN }}
