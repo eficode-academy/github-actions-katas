@@ -14,7 +14,7 @@ jobs:
           name: code
           path: .
   my-job:
-    name: 'My training job'
+    name: 'Build and test'
     runs-on: ubuntu-latest
     needs: clone-down
     container: gradle:6-jdk11
