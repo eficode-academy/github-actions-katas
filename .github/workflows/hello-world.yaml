@@ -3,14 +3,7 @@ on: [push, workflow_dispatch]
 jobs:
   my-job:
     runs-on: ubuntu-latest
+    container: gradle:6-jdk11
     steps:
       - name: my-step
-        run: echo "Hello World!"
-  my-second-job:
-    runs-on: ubuntu-latest
-    needs: my-job
-    steps:
-      - name: first
-        run: echo "first"
-      - name: second
-        run: echo "second"
+        run: ci/build-app.sh
