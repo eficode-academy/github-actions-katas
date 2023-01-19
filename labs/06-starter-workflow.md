@@ -94,9 +94,13 @@ Go back to Actions and click on build and then you should see the steps.
 - Assets that can be shared organization wide: 
   - starter workflows (as above)
   - secrets & variables
-    - Navigate to main organization page and click on settings
+
+- Navigate to main organization page and click on settings
+
 ![Screenshot variables & secrets](img/organization-settings-tab.png)
-    - Find the `Secrets and variables` section, expand, and click `Actions`
+
+- Find the `Secrets and variables` section, expand, and click `Actions`
+
 ![Screenshot variables & secrets](img/secrets-and-variables.png)
 
 ## Resources
