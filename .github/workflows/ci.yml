@@ -1,5 +1,12 @@
 name: Java CI
 on: push
+
+env:
+   docker_username: ${{ github.actor }}
+   docker_password: ${{ secrets.GITHUB_TOKEN }}
+   GIT_COMMIT: ${{ github.GITHUB_SHA }}
+
+
 jobs:
   checkout:
     runs-on: ubuntu-latest
@@ -26,7 +33,7 @@ jobs:
           path: .
    
       - name: Fix Permissions
-        run: chmod +x ci/build-app.sh && chmod +x ci/unit-test-app.sh
+        run: chmod +x ci/*.sh
 
       - name: Build App
         run: ci/build-app.sh
@@ -37,5 +44,22 @@ jobs:
       - name: Upload Built Repo
         uses: actions/upload-artifact@v3
         with: 
-          name: code
-          path: .
+          name: built-jar
+          path: app/build/libs/app-0.1-all.jar
+
+  docker-image:
+    needs: [build]
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: build-jar
+          path: . 
+
+      - name: build docker
+        run: ci/build-docker.sh
+   
+      - name: push docker
+        run: ci/push-docker.sh
