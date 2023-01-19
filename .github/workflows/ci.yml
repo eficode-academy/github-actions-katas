@@ -52,6 +52,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Download code
+        uses: actions/download-artifact@v3
+        with:
+          name: code
+          path: .
+
       - name: Download artifact
         uses: actions/download-artifact@v3
         with:
