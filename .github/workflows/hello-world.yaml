@@ -2,6 +2,7 @@ name: hello-world
 on: [push, workflow_dispatch]
 jobs:
   my-job:
+    name: 'My training job'
     runs-on: ubuntu-latest
     container: gradle:6-jdk11
     steps:
