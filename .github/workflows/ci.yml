@@ -4,7 +4,7 @@ on: push
 env:
    docker_username: ${{ github.actor }}
    docker_password: ${{ secrets.GITHUB_TOKEN }}
-   GIT_COMMIT: ${{ github.GITHUB_SHA }}
+   GIT_COMMIT: ${{ github.sha }}
 
 
 jobs:
@@ -40,12 +40,12 @@ jobs:
 
       - name: Unit Tests
         run: ci/unit-test-app.sh
-      
-      - name: Upload Built Repo
+
+      - name: Upload Repo
         uses: actions/upload-artifact@v3
-        with: 
-          name: built-jar
-          path: app/build/libs/app-0.1-all.jar
+        with:
+          name: code
+          path: .
 
   docker-image:
     needs: [build]
@@ -58,11 +58,8 @@ jobs:
           name: code
           path: .
 
-      - name: Download artifact
-        uses: actions/download-artifact@v3
-        with:
-          name: built-jar
-          path: . 
+      - name: Fix Permissions
+        run: chmod +x ci/*.sh
 
       - name: build docker
         run: ci/build-docker.sh
