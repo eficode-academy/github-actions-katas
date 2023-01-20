@@ -9,9 +9,9 @@
     - Promotes consistency
     - Serves as an exemplar for following best practices
 
-### Task
+### **Task**
 
-Let's dive 🤿 in and create an organization, a starter workflow, and then run it! 🏃‍♀️
+Let's dive in and create an organization, a starter workflow, and then run it!
 
 - Go to github.com and create a new organization from the `+` dropdown menu
 
@@ -19,14 +19,14 @@ Let's dive 🤿 in and create an organization, a starter workflow, and then run 
 - Select the free tier option ("create a free organization").
 - Set the organization name to anything you wish (must be unique across Github), and use your email for the contact.
 - Set `this organization belongs to` "My personal account".
-- Attempt to prove you're not a robot 🤖🖼️ (good luck).
+- Solve the captcha / robot detector test.
 - Accept the TOS and click next.
 - On the Welcome page click `skip this step` on the bottom.
 - Click the submit option on the bottom of the page to bypass the survey information.
 - Click the `Repository` tab.
 - Create a new repository.
-- Choose `.github` as the repository name (*required in order to make the 🪄 work*).
-- 📝 Set visibility to public 👀
+- Choose `.github` as the repository name (*required in order to make the magic work*).
+- 📝 Set visibility to public
 - Click the `Create repositiory` button on the bottom.
 - Create a directory named `workflow-templates`.
 
@@ -91,13 +91,49 @@ Go back to Actions and click on build and then you should see the steps.
 ---
 ## Organizational Sharing
 
-- Assets that can be shared organization wide: 
+  Assets that can be shared organization wide: 
   - starter workflows (as above)
-  - secrets & variables
-    - Navigate to main organization page and click on settings
-![Screenshot variables & secrets](img/organization-settings-tab.png)
+  - self-hosted runners (covered in the lab [here](09-selfhosted-runner.md)
+  - secrets & variables<br><br>
+    ### **Task - add a organization level variable or secret** 
+    - Navigate to main organization page and click on `Settings`
+  
+      ![Screenshot variables & secrets](img/organization-settings-tab.png)
+
     - Find the `Secrets and variables` section, expand, and click `Actions`
-![Screenshot variables & secrets](img/secrets-and-variables.png)
+
+      ![Screenshot variables & secrets](img/secrets-and-variables.png)
+    - Notice the top tab allows you to select between a secret (default) and a variable
+    - Click the *New organization secret* button
+    - Select a `Name` and `Value`, and observe that you can scope the secret to public (the default for some reason ), private, or selected repos within the organization
+    - Note that secrets are redacted (with `***`) from log outputs, so in order to verify access, try a workflow simlar to the following:
+
+      Verify secret access
+        ```YAML
+        name: Access Organization Secret
+          on:
+            push:
+          jobs:
+            test-secret:
+              runs-on: ubuntu-latest
+              steps:
+                - shell: bash
+                  env:
+                    KEEP_IT_SECRET: ${{ secrets.KEEP_IT_SAFE }}
+                  run: |
+                    if [ "$KEEP_IT_SECRET" = "12345" ]; then
+                      echo "I know your secret!"
+                    else
+                      echo "still trying to guess..."
+                    fi
+        ```
+      </details>
+      <br>
+      - sample log output
+
+      ![workflow secret output](img/workflow-secret.png)
+
+      - Note how even the hard-coded string "12345" is redacted from the output.
 
 ## Resources
 
@@ -105,4 +141,4 @@ Go back to Actions and click on build and then you should see the steps.
 
 [Using](https://docs.github.com/en/actions/using-workflows/using-starter-workflows) starter workflows
 
-[Organizational sharing](https://docs.github.com/en/actions/using-workflows/sharing-workflows-secrets-and-runners-with-your-organization) - workflows, variables, secrets
+[Organizational sharing](https://docs.github.com/en/actions/using-workflows/sharing-workflows-secrets-and-runners-with-your-organization) - workflows, self-hosted runners, secrets & variables
