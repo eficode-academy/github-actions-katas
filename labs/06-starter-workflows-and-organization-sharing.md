@@ -55,7 +55,7 @@ jobs:
 </details>
 
 <details>
-    <summary>Create a `/workflow-templates/my-org.properties.json` file</summary>
+    <summary>Create a `/workflow-templates/my-org-ci.properties.json` file</summary>
 
 ```JSON
 {
