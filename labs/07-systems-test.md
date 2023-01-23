@@ -12,7 +12,7 @@ Both requires your docker username and password as env, and a `ci/component-test
 
 ```YAML
 - name: Execute component test
-  run: chmod +x ci/component-test.sh && GIT_COMMIT="GA-$GITHUB_SHA" && ci/component-test.sh
+  run: chmod +x ci/component-test.sh && ci/component-test.sh
 ```
 
 - This job needs to be dependent on `Docker-image` job.

@@ -53,11 +53,14 @@ Contexts are also available before the steps, as when defining the `env` section
 ![Github Secrets](img/secret.png) -->
 
 - Add a new job named `Docker-image` that requires the `Build` to be completed.
+You need to add package write permissions so that your action can upload the container to the registry.
 
 ```YAML
   Docker-image:
     runs-on: ubuntu-latest
     needs: [Build]
+    permissions:
+      packages: write
 ```
 
 - Add a new step to your `Build` job which uploads the compiled code found in `app/build/libs/app-0.1-all.jar`. 
@@ -100,6 +103,8 @@ on: push
 jobs:
   build-and-push-latest:
     runs-on: ubuntu-latest
+    permissions:
+      packages: write
     steps:
       - name: Login to DockerHub
         uses: docker/login-action@v2
@@ -161,6 +166,8 @@ jobs:
   Docker-image:
     runs-on: ubuntu-latest
     needs: [Build]
+    permissions:
+      packages: write
     steps:
     - name: Download code
       uses: actions/download-artifact@v3
