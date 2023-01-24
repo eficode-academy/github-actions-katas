@@ -1,0 +1,64 @@
+name: Java CI
+on:
+  push:
+    branches:
+      - "dev/**"
+env: # Set the secret as an input
+  docker_username: ${{ github.actor }}
+  docker_password: ${{ secrets.GITHUB_TOKEN }}
+  GIT_COMMIT: ${{ github.sha }}
+jobs:
+  Clone-down:
+    name: Clone down repo
+    runs-on: ubuntu-latest
+    container: gradle:6-jdk11
+    steps:
+    - uses: actions/checkout@v3
+    - name: Upload Repo
+      uses: actions/upload-artifact@v3
+      with:
+        name: code
+        path: .
+  Build:
+      runs-on: ubuntu-latest
+      needs: Clone-down
+      container: gradle:6-jdk11
+      steps:
+      - name: Download code
+        uses: actions/download-artifact@v3
+        with:
+          name: code
+          path: .
+      - name: Build with Gradle
+        run: chmod +x ci/build-app.sh && ci/build-app.sh
+      - name: Test with Gradle
+        run: chmod +x ci/unit-test-app.sh && ci/unit-test-app.sh
+      - name: Upload Repo
+        uses: actions/upload-artifact@v3
+        with:
+          name: code
+          path: .
+  Docker-image:
+    runs-on: ubuntu-latest
+    needs: [Build]
+    permissions:
+      packages: write
+    steps:
+    - name: Download code
+      uses: actions/download-artifact@v3
+      with:
+        name: code
+        path: .
+    - name: build docker
+      run: chmod +x ci/build-docker.sh && ci/build-docker.sh
+  Performance-test:
+    runs-on: ubuntu-latest
+    needs: Docker-image
+    steps:
+    - name: Download code
+      uses: actions/download-artifact@v3
+      with:
+        name: code
+        path: .
+    - name: Execute performance test
+      run: chmod +x ci/performance-test.sh && ci/performance-test.sh
