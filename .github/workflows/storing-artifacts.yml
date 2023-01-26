@@ -2,6 +2,7 @@ name: Storing Artefacts
 on: push
 jobs:
   Clone-down:
+    runs-on: ubuntu-latest
     steps:
       - name: Clone down
         uses: actions/checkout@v3       
