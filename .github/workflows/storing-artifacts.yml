@@ -1,11 +1,11 @@
-name: pipeline-with-docker
+name: Storing Artefacts
 on: push
 jobs:
   Build:
     runs-on: ubuntu-latest
     container: gradle:6-jdk11
     steps:
-      - name: Clone-down
+      - name: Clone down
         uses: actions/checkout@v3       
       - name: Build application
         run: chmod +x ci/build-app.sh && ci/build-app.sh
