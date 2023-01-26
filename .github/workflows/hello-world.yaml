@@ -24,7 +24,7 @@ jobs:
           name: code
           path: .
       - name: Build application
-        run: chmod +x ci/unit-test-app.sh && ci/build-app.sh
+        run: chmod +x ci/build-app.sh && ci/build-app.sh
       - name: run unit-tests
         run: chmod +x ci/unit-test-app.sh && ci/unit-test-app.sh
 
