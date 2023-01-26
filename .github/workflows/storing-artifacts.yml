@@ -9,7 +9,10 @@ jobs:
   Build:
     runs-on: ubuntu-latest
     container: gradle:6-jdk11
-    steps:     
+    needs: Clone-down
+    steps:
+      - name: Clone down
+        uses: actions/checkout@v3     
       - name: Build application
         run: chmod +x ci/build-app.sh && ci/build-app.sh
       - name: Test
@@ -19,4 +22,4 @@ jobs:
         with: 
           name: code
           path: .
-    needs: Clone-down
+    
