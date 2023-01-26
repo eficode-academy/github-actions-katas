@@ -11,7 +11,7 @@ jobs:
         run: chmod +x ci/build-app.sh && ci/build-app.sh
       - name: Test
         run: chmod +x ci/unit-test-app.sh && ci/unit-test-app.sh
-      - name: Upload Repo
+      - name: Upload Repo as artifact
         uses: actions/upload-artifact@v3
         with: 
           name: code
