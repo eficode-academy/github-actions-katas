@@ -36,7 +36,7 @@ A line-by-line explanation of the above:
 
 ## Results
 
-You should see something like this in the logs of Github Actions: (Note: The logs can be a bit hard to find the first time :-), but give it a shot)
+You should see something like this in the logs of Github Actions: (Note: The logs can be a bit hard to find the first time, but give it a shot)
 
 ```bash
 #!/bin/sh -eo pipefail
