@@ -42,9 +42,10 @@ git config --global user.name "Your Name"
 </details>
 
 - Fork this repository from the Github website into your own account
-- Git clone the project from your own fork down to your VM instance, which is provided to you.
+- From now on _only_ use the forked repository.
+- From your fork, clone down that repository.
 - Leave the browser open and go back to the repository on your computer.
-- In your repository on the instance, make a folder called `.github` and inside that one, another folder called `workflows`.
+- In your repository, make a folder called `.github` and inside that one, another folder called `workflows`.
 
 <details>
 <summary>:bulb: terminal commands to do it</summary>
