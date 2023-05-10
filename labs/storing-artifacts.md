@@ -1,6 +1,8 @@
 ## Storing artifacts
 
-When running multiple jobs, the VM you get for each job is completely new. This means that the state of the repository is not persisted between jobs.
+When running multiple jobs, the VM you get for each job is completely new. 
+
+This means that the state of the repository is not persisted between jobs.
 
 It is possible to store your state (and therfore also artifacts) in Github Actions. 
 
