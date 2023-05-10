@@ -1,4 +1,4 @@
-## Pipeline with Dockerfile
+## Workflow with containers
 
 Up until now, we have only made sure that Github Actions can reach the `hello-world.yaml` configuration file, but not really made it do anything useful.
 
@@ -7,20 +7,33 @@ As a next step, we want Github Actions to do two things:
 - clone our project
 - build the code using Gradle
 
+## Learning Goals
+
+- Use actions to clone down the repository
+- Use containers to run the build
+
+## Exercise
+
+### Overview
+
+- Clone down the repository using an action
+- Instead of printing "Hello World!", now we want to use a docker image that has both JDK and Gradle installed
 ### Tasks
 
-- Instead of printing "Hello World!", now we want to use a docker image that has both JDK and Gradle installed. After section `runs-on:` add `container: gradle:6-jdk11`
+-  After section `runs-on:` add a newline with `container: gradle:6-jdk11`
 
 ```YAML
 container: gradle:6-jdk11
 ```
 
-- Under the `steps` part, insert a `- uses:` list item to the list (before the existing `- name: my-step` item) with action: `actions/checkout@v3`
+- Under the `steps` part, insert a `-name : Clone-down` list item to the list (before the existing `- name: my-step` item) with a ` uses: actions/checkout@v3` element as below.
 
 ```YAML
 - name: Clone-down
   uses: actions/checkout@v3   
 ```
+
+This will make the action clone down the repository.
 
 - Change the `run` command to run `ci/build-app.sh` as the command instead of `echo "Hello World!"`. 
 
@@ -47,6 +60,7 @@ If you want to see what `build-app.sh` is doing, look into [the script](../ci/bu
     <summary> :bulb: If you strugle and need to see the whole ***Solution*** you can extend the section below.  </summary>
 
 ```YAML
+name: hello-world
 on: push
 jobs:
   Build:

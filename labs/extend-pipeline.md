@@ -1,11 +1,19 @@
-## Extend pipeline
+# Extending the pipeline
 
 After the application is build, the unit test should be performed to check if it works as expected. 
+
+This part is made as a recap of the previous exercise, to remind you how to add a step to the pipeline.
+
+## Learning goals
+
+- Add a step to the pipeline
+
+## Exercise
 
 ### Tasks
 
 - Add a step running the unit test named `Test`, 
-- The step should run the script `ci/unit-test-app.sh`. If you want to know what the script is doing, look into [the script](../ci/unit-test-app.sh).
+- The step should `run` the script `ci/unit-test-app.sh`. If you want to know what the script is doing, look into [the script](../ci/unit-test-app.sh).
 
 ## Solution
 
@@ -60,3 +68,4 @@ BUILD SUCCESSFUL in 7s
 ```
 
 
+Great, now you have a pipeline that builds and tests your application :tada:

@@ -1,6 +1,22 @@
 # Github Actions katas
 
-Look into the labs folder for exercises
+## Introduction
+
+This repository contains a set of exercises to learn Github Actions.
+
+### Exercises
+
+* [Setup](./labs/setup.md)
+* [Hello World](./labs/hello-world-pipeline.md)
+* [Workflow with containers](./labs/workflow-with-containers.md)
+* [Extending the Pipeline](./labs/extend-pipeline.md)
+* [Storing Artifacts](./labs/storing-artifacts.md)
+* [Seperate your workflow](./labs/workflow.md)
+* [Systems test](./labs/systems-test.md)
+* [Selfhosted runners](./labs/selfhosted-runner.md)
+* [Pull Request based workflow](./labs/pr-workflow.md)
+* [Build app on multiple environments](./labs/matrix-builds)
+* [Reusing build cache ](./labs/build-cache.md)
 
 
 ## Resources

@@ -1,8 +1,6 @@
-## Workflow
+## Seperate your workflow
 
 When you have larger or more complex projects, you’ll want separate jobs to do separate things in paralell.
-
-
 
 Up until now, we have had a job called `Build` both for the build and test, but that is not necessarily descriptive.
 

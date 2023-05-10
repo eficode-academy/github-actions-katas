@@ -1,8 +1,12 @@
 ## Storing artifacts
 
-It is possible to store artifacts in Github Actions. The `artifact` is the result of the build, in this case the compiled code.
+When running multiple jobs, the VM you get for each job is completely new. This means that the state of the repository is not persisted between jobs.
 
-> This should not be mistaken for proper [artifact management](https://www.eficode.com/blog/artifactory-nexus-proget), but it is useful for making the artifacts built by the pipeline available.
+It is possible to store your state (and therfore also artifacts) in Github Actions. 
+
+An `artifact` could be the result of the build, in this case the compiled code.
+
+> This should not be mistaken for proper [artifact management](https://www.eficode.com/blog/artifactory-nexus-proget), or [release management](https://docs.github.com/en/repositories/releasing-projects-on-github/managing-releases-in-a-repository) but it is useful for making the artifacts built by the pipeline available.
 
 To deal with artifacts, a `Github Actions Action` can be used, which can be found on [Github Marketplace](https://github.com/marketplace).
 
@@ -36,11 +40,15 @@ This information will be needed in next exercises.
   Github has an excelent guide on how you can use persistant storage over periods of builds here: https://docs.github.com/en/actions/guides/storing-workflow-data-as-artifacts
 </details>    
 
-### Tasks
+## Exercise
 
-We want to add a step that builds all of the code, and then makes the compiled code available for other steps to use.
+### Overview
+
+We want to add a step that makes the repository including the compiled code available for other steps to use.
 
 In order to achieve this we will simply save the state of the entire repository after running the build script.
+
+### Tasks
 
 - Add step named `Upload Repo` to the existing job, which will upload an artifact with the name `code`, with the path `.` to use the current directory.
 

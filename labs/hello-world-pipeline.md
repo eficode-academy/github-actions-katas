@@ -1,8 +1,14 @@
-## Making "hello world"
+## Making your first "hello world" pipeline
 
 Github Actions is configured through the [YAML files](https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions).
 
 :bulb: The trickiest part of writing the configuration files is typically getting the indentation right.
+
+### learning goals
+
+- Understand the basic structure of a workflow file
+- Understand the basic structure of a job
+- Understand the basic structure of a step
 
 ### A basic example:
 
@@ -30,8 +36,21 @@ A line-by-line explanation of the above:
 
 ## Task
 
-- Paste the example into `.github/workflows/hello-world.yaml`.
+- Paste the above example into `.github/workflows/hello-world.yaml`.
 - Add and commit the file and push it to Github. 
+
+<details>
+<summary>:bulb: Git commands to do it</summary>
+
+```bash
+git add .github/workflows/hello-world.yml
+git commit -m "Add hello world workflow"
+git push
+
+```
+
+</details>
+
 - Go to Github Actions tab of the repository and check the action status.
 
 ## Results
@@ -44,4 +63,7 @@ echo 'Hello World!'
 
 Hello World!
 ```
-Congratulations! You have successfully created the first Github Actions workflow, and ran it successfully :tada:.
+
+Congratulations! 
+
+You have successfully created the first Github Actions workflow, and ran it successfully :tada:.

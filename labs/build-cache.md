@@ -1,5 +1,3 @@
-## Extras
-
 # Reusing build cache 
 
 Github Actions has a few different methods for reusing files and artifacts produced in a job, in downstream jobs or even in subsequent builds.
