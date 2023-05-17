@@ -93,18 +93,3 @@ Now we have set up the fundamentals to run a basic `hello world` build in Github
 
 So in the next section we will be creating the simplest possible workflow.
 
-## Table of content
-
-The list here is the natural progression of the labs, but they are made so that they can be worked on independently.
-
-- [Making "hello world"](01-hello-world-pipeline.md)
-- [Pipeline with Dockerfile](02-pipeline-with-docker-image.md)
-- [Extending pipeline](03-extend-pipeline.md)
-- [Storing artifacts](04-storing-artifacts.md)
-- [Workflow](05-workflow.md)
-- [Dockerimage](06-docker-image.md)
-- [Component test](07-systems-test.md)
-- [Self hosted runner](08-selfhosted-runner.md)
-- [PR workflow](09-pr-workflow.md)
-- [Matrix](10-matrix.md)
-- [Extras](XX-extras.md)
