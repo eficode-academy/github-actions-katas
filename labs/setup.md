@@ -4,7 +4,7 @@ This series of katas will go through the basic steps in github actions, making y
 
 ## Learning Goals
 
-- Forking the repository
+- Creating an instance of the template repository
 - Creating a workflow file
 
 ## Building a CI pipeline in GitHub Actions
@@ -30,7 +30,7 @@ We are not going to do it all in one go, but rather step by step.
 
 ### Overview
 
-In this exercise we are forking a repository, and creating a workflow file called `.github/workflows/hello-world.yml`.
+In this exercise we are creating your own instance of this templated repository, and creating a workflow file called `.github/workflows/hello-world.yml`.
 
 <details>
 <summary>:bulb: This requires git email and name to bee configured on your machine. If you have not done this, here are the commands to set it up</summary>
@@ -46,11 +46,16 @@ git config --global user.name "Your Name"
 
 ### Tasks
 
-- Fork this repository from the Github website into your own account.
+#### Creating a repository
 
-> :bulb: **From now on _only_ use the forked repository.**
+-  Go to Code tab of this repository and click `Use this template`
+-  Select your GitHub user as the owner and name the repository. Leave the repo public to have unlimited action minutes.
 
-- From your fork, clone down that repository to your machine.
+> :bulb: **From now on _only_ use the your own repository.**
+
+#### Creating the workflow
+
+- From your own repository, clone down that repository to your machine.
 - In your newly cloned down repository, make a folder called `.github` and inside that one, another folder called `workflows`.
 
 <details>
