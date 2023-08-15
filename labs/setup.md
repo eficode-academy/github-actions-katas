@@ -49,52 +49,70 @@ git config --global user.name "Your Name"
 #### Creating a repository
 
 -  Go to Code tab of this repository and click `Use this template`
+
+![Use this template](../img/template.png)
+
 -  Select your GitHub user as the owner and name the repository. Leave the repo public to have unlimited action minutes.
 
 > :bulb: **From now on _only_ use the your own repository.**
 
 #### Creating the workflow
 
-- From your own repository, clone down that repository to your machine.
-- In your newly cloned down repository, make a folder called `.github` and inside that one, another folder called `workflows`.
+All your workflow files will be located in the `.github/workflows` folder.
 
-<details>
-<summary>:bulb: terminal commands to do it</summary>
+- Click on the `Actions` tab and click `New workflow`
 
-```bash
-mkdir .github
-cd .github
-mkdir workflows
+- Select the `hello-world` template
+
+![hello-world](../img/hello-world.png)
+
+- The file should look like this:
+
+``` yaml
+# This is a basic workflow to help you get started with Actions
+
+name: CI
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the "main" branch
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v3
+
+      # Runs a single command using the runners shell
+      - name: Run a one-line script
+        run: echo Hello, world!
+
+      # Runs a set of commands using the runners shell
+      - name: Run a multi-line script
+        run: |
+          echo Add other actions to build,
+          echo test, and deploy your project.
 ```
 
-</details>
+- click `Commit changes` and commit to the main branch
+- Go to the `Actions` tab and see the workflow running
+- Click on the workflow and see the output of the workflow
 
-- inside that folder, add a file called hello-world.yml (The file path will be `.github/workflows/hello-world.yml` relative to the root of the repository).
+## Summary
 
-<details>
-<summary>:bulb: terminal commands to do it</summary>
-
-```bash
-touch .github/workflows/hello-world.yml
-```
-
-</details>
-
-- Push your changes to github, and navigate to the repository to check that the file has been created.
-
-<details>
-<summary>:bulb: Git commands to do it</summary>
-
-```bash
-git add .github/workflows/hello-world.yml
-git commit -m "Add hello world workflow"
-git push
-
-```
-
-</details>
-
-Now we have set up the fundamentals to run a basic `hello world` build in Github Actions. However, running it would result in an error, as there is nothing in the file.
-
-So in the next section we will be creating the simplest possible workflow.
+Congratulations! You have now created your first workflow!
+It does not do much, but in the next exercise we will start building on it.
 
