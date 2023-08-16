@@ -63,11 +63,13 @@ You need to add package write permissions so that your action can upload the con
       packages: write
 ```
 
-- Add a new step to your `Build` job which uploads the compiled code found in `app/build/libs/app-0.1-all.jar`. 
+- Add a new step to your `Build` job which uploads the compiled code found in `app/build/libs/app-0.1-all.jar`. This will enable you to download the jar file directly from GitHub actions webpage. 
 
 _:bulb: if you forgot how to do it, head over to [storing artifacts](./04-storing-artifacts.md)_
 
-- Add a step in `Docker-image` which downloads the build.
+In order for us to create and push the docker image, we need the CI scripts, the Dockerfile and the Artifact. All of them are present in the `code` artifact created in the last exercise.
+
+- Add a step in `Docker-image` which downloads the `code` artifact.
 - Add `docker_username` and `docker_password` as environmental variables on top of the workflow file. 
 
 ```YAML
@@ -163,6 +165,11 @@ jobs:
       with:
         name: code
         path: .
+    - name: Upload Jar
+      uses: actions/upload-artifact@v3
+      with:
+        name: Jar
+        path: app/build/libs/app-0.1-all.jar
   Docker-image:
     runs-on: ubuntu-latest
     needs: [Build]
