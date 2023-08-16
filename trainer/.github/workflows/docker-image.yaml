@@ -47,6 +47,8 @@ jobs:
   Docker-image:
     runs-on: ubuntu-latest
     needs: [Build,Test]
+    permissions:
+      packages: write
     steps:
     - name: Download code
       uses: actions/download-artifact@v3
@@ -54,6 +56,6 @@ jobs:
         name: code
         path: .
     - name: build docker
-      run: export GIT_COMMIT="GA-$GITHUB_SHA" && bash -xeu ci/build-docker.sh
+      run: export GIT_COMMIT="GA-$GITHUB_SHA" && bash -eux ci/build-docker.sh
     - name: push docker
-      run: export GIT_COMMIT="GA-$GITHUB_SHA" && bash -xeu ci/push-docker.sh
+      run: export GIT_COMMIT="GA-$GITHUB_SHA" && bash -eux ci/push-docker.sh
