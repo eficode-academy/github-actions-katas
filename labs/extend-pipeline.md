@@ -44,13 +44,9 @@ If you strugle and need to see the whole ***Solution*** you can extend the secti
 If the exercise is completed correctly. The output of `Test` step will look like: 
 
 ``` bash
-> Task :clean
-
-> Task :compileJava
-Note: Creating bean classes for 3 type elements
-
-> Task :processResources
-> Task :classes
+> Task :compileJava UP-TO-DATE
+> Task :processResources UP-TO-DATE
+> Task :classes UP-TO-DATE
 
 > Task :compileTestJava
 Note: Creating bean classes for 1 type elements
@@ -61,10 +57,10 @@ Note: Creating bean classes for 1 type elements
 
 Deprecated Gradle features were used in this build, making it incompatible with Gradle 7.0.
 Use '--warning-mode all' to show the individual deprecation warnings.
-See https://docs.gradle.org/6.9/userguide/command_line_interface.html#sec:command_line_warnings
+See https://docs.gradle.org/6.9.4/userguide/command_line_interface.html#sec:command_line_warnings
 
-BUILD SUCCESSFUL in 7s
-5 actionable tasks: 5 executed
+BUILD SUCCESSFUL in 6s
+4 actionable tasks: 2 executed, 2 up-to-date
 ```
 
 
