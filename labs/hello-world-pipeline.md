@@ -36,7 +36,7 @@ A line-by-line explanation of the above:
 
 ## Task
 
-- Paste the above example into `.github/workflows/hello-world.yaml`.
+- Replase the workflow you created in `.github/workflows/main.yml` with the above example.
 - Add and commit the file and push it to Github. 
 
 <details>
