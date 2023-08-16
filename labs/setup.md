@@ -62,7 +62,7 @@ All your workflow files will be located in the `.github/workflows` folder.
 
 - Click on the `Actions` tab and click `New workflow`
 
-- Select the `hello-world` template
+- Click on the "setup the workflow yourself" link
 
 ![hello-world](../img/hello-world.png)
 
