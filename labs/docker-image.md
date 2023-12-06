@@ -138,7 +138,7 @@ If you strugle and need to see the whole ***Solution*** you can extend the secti
     <summary> Solution </summary>
   
 ```YAML
-name: Java CI
+name: Hello world workflow
 on: push
 env: # Set the secret as an input
   docker_username: ${{ github.actor }}
