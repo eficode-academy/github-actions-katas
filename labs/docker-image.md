@@ -63,13 +63,23 @@ You need to add package write permissions so that your action can upload the con
       packages: write
 ```
 
-- Add a new step to your `Build` job which uploads the compiled code found in `app/build/libs/app-0.1-all.jar`. This will enable you to download the jar file directly from GitHub actions webpage. 
-
-_:bulb: if you forgot how to do it, head over to [storing artifacts](./04-storing-artifacts.md)_
-
 In order for us to create and push the docker image, we need the CI scripts, the Dockerfile and the Artifact. All of them are present in the `code` artifact created in the last exercise.
 
 - Add a step in `Docker-image` which downloads the `code` artifact.
+
+
+<details>
+    <summary> :bulb: Hint on how it looks like </summary>
+
+```YAML
+    - name: Download code
+      uses: actions/download-artifact@v3
+      with:
+        name: code
+        path: .
+```
+</details>
+
 - Add `docker_username` and `docker_password` as environmental variables on top of the workflow file. 
 
 ```YAML
@@ -98,7 +108,7 @@ Ready steps looks like:
 
 ## Using actions instead of scrtipts
 
-The above job can be also done by using actions: `docker/login-action@v2` and `docker/build-push-action@v3`, what will provide the same functionality. You can find it in the example below:
+The above job can be also done by using actions: `docker/login-action@v3` and `docker/build-push-action@v5`, what will provide the same functionality. You can find it in the example below:
 
 ```yaml
 on: push
@@ -109,13 +119,13 @@ jobs:
       packages: write
     steps:
       - name: Login to DockerHub
-        uses: docker/login-action@v2
+        uses: docker/login-action@v3
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
       - name: Build and push
-        uses: docker/build-push-action@v3
+        uses: docker/build-push-action@v5
         with:
           context: app
           push: true
@@ -135,41 +145,21 @@ env: # Set the secret as an input
   docker_password: ${{ secrets.GITHUB_TOKEN }}
   GIT_COMMIT: ${{ github.sha }}
 jobs:
-  Clone-down:
-    name: Clone down repo
-    runs-on: ubuntu-latest
-    container: gradle:6-jdk11
-    steps:
-    - uses: actions/checkout@v4
-    - name: Upload Repo
-      uses: actions/upload-artifact@v3
-      with:
-        name: code
-        path: .
   Build:
     runs-on: ubuntu-latest
-    needs: Clone-down
     container: gradle:6-jdk11
     steps:
-    - name: Download code
-      uses: actions/download-artifact@v3
-      with:
-        name: code
-        path: . 
-    - name: Build with Gradle
-      run: chmod +x ci/build-app.sh && ci/build-app.sh
-    - name: Test with Gradle
-      run: chmod +x ci/unit-test-app.sh && ci/unit-test-app.sh
-    - name: Upload Repo
-      uses: actions/upload-artifact@v3
-      with:
-        name: code
-        path: .
-    - name: Upload Jar
-      uses: actions/upload-artifact@v3
-      with:
-        name: Jar
-        path: app/build/libs/app-0.1-all.jar
+      - name: Clone-down
+        uses: actions/checkout@v4       
+      - name: Build application
+        run: chmod +x ci/build-app.sh && ci/build-app.sh
+      - name: Test
+        run: chmod +x ci/unit-test-app.sh && ci/unit-test-app.sh
+      - name: Upload Repo
+        uses: actions/upload-artifact@v3
+        with: 
+          name: code
+          path: .
   Docker-image:
     runs-on: ubuntu-latest
     needs: [Build]
