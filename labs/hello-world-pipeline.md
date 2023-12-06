@@ -12,27 +12,43 @@ Github Actions is configured through the [YAML files](https://docs.github.com/en
 
 ### A basic example:
 
-In order for us to make the first `hello world` pipeline, examine the following example, that makes the agent running the pipeline echo out "hello world":
+Now we want to diver a bit more into a pipeline.
+
+Examine the following example, that makes the agent running the pipeline echo out "hello world":
 
 
 ```yaml
-name: hello-world
-on: push
+name: Hello world workflow
+on: 
+  push:
+  workflow_dispatch:
 jobs:
   my-job:
     runs-on: ubuntu-latest
     steps:
-      - name: my-step
-        run: echo "Hello World!"
+      - run: |
+          echo "🎉 The job was triggered by event: ${{ github.event_name }}"
+          echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ."
+
+      - uses: actions/checkout@v3.3.0
+
+      - name: List files in the repository
+        run: |
+          echo "The repository ${{ github.repository }} contains the following files:"
+          tree
 ```
 
 A line-by-line explanation of the above:
 
-- Line 1: The `name` attribute provides useful organizational information when returning warnings, errors, and output. The name should be meaningful to you as an action within your build process.
-- Line 2: The `on` is the name of the GitHub event that triggers the workflow.
-- Line 3: The `jobs` level contains a collection of jobs that make up the workflow.
-- Line 4-5: The `my-job` is an example of the name for a job, `runs-on` describes on which operating system the pipeline should run.
-- Line 6-8: The `steps` collection is an ordered list of `run` directives. Each `run` directive is executed in the order in which it is declared.
+- **Line 1**: Specifies the name of the workflow, in this case, "Hello world workflow".
+- **Line 2-4**: The workflow is triggered by a `push` event or a manual trigger.
+- **Line 5**: Introduces the `jobs` section where all job definitions reside.
+- **Line 6-7**: Defines a job named `my-job` that runs on an Ubuntu VM.
+- **Line 8-11**: First step in `my-job` prints out the event that triggered the workflow and the reference of the branch using `github.event_name` and `github.ref`.
+- **Line 13**: Checks out the repository's content to the runner, enabling subsequent steps to access it.
+- **Line 15-18**: Lists and displays the directory structure of the checked-out repository using the `tree` command.
+
+This workflow is a basic example that provides insights into the event type, branch reference, and repository structure when code is pushed to it.
 
 ## Task
 
@@ -40,7 +56,7 @@ A line-by-line explanation of the above:
 - Add and commit the file and push it to Github. 
 
 <details>
-<summary>:bulb: Git commands to do it</summary>
+<summary>:bulb: Git commands to do it if you are using the terminal</summary>
 
 ```bash
 git add .github/workflows/hello-world.yml
@@ -64,6 +80,17 @@ echo 'Hello World!'
 Hello World!
 ```
 
+**Manually triggering the workflow**
+
+You can also trigger the workflow manually by clicking the `Run workflow` button.
+
+![run-workflow](img/run-workflow.png)
+
+- Click on the `Run workflow` button and click `Run workflow` again in the popup.
+- Go to the `Actions` tab and see the workflow running again, this time with the `workflow_dispatch` event.
+
+
+## Summary
 Congratulations! 
 
 You have successfully created the first Github Actions workflow, and ran it successfully :tada:.
