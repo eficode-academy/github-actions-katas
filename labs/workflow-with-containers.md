@@ -1,6 +1,6 @@
 ## Workflow with containers
 
-Up until now, we have only made sure that Github Actions can reach the `hello-world.yaml` configuration file, but not really made it do anything useful.
+Up until now, we have only made sure that Github Actions can reach the `main.yaml` configuration file, but not really made it do anything useful with our repository.
 
 As a next step, we want Github Actions to do two things:
 
@@ -18,19 +18,23 @@ As a next step, we want Github Actions to do two things:
 
 - Clone down the repository using an action
 - Instead of printing "Hello World!", now we want to use a docker image that has both JDK and Gradle installed
+
 ### Tasks
 
 -  After section `runs-on:` add a newline with `container: gradle:6-jdk11`
 
 ```YAML
-container: gradle:6-jdk11
+    runs-on: ubuntu-latest
+    container: gradle:6-jdk11
+    steps:
 ```
 
-- Under the `steps` part, insert a `-name : Clone-down` list item to the list (before the existing `- name: my-step` item) with a ` uses: actions/checkout@v3` element as below.
+- Under the `steps` part, insert a `-name : Clone-down` item to the list (before the existing `- name: my-step` item) with a ` uses: actions/checkout@v4` element as below.
 
 ```YAML
-- name: Clone-down
-  uses: actions/checkout@v3   
+    steps:
+      - name: Clone-down
+        uses: actions/checkout@v4 
 ```
 
 This will make the action clone down the repository.
@@ -68,7 +72,7 @@ jobs:
     container: gradle:6-jdk11
     steps:
       - name: Clone-down
-        uses: actions/checkout@v3       
+        uses: actions/checkout@v4   
       - run: chmod +x ci/build-app.sh && ci/build-app.sh
  ```
 </details>
@@ -108,3 +112,5 @@ BUILD SUCCESSFUL in 28s
 ```
 
 Congratulations, you have now build the java application!
+
+But we have some way to go yet, we want to build a docker image, and run some tests on it as well.

@@ -56,7 +56,7 @@ jobs:
     runs-on: ubuntu-latest
     container: gradle:6-jdk11
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: Upload Repo
       uses: actions/upload-artifact@v3
       with:
@@ -117,7 +117,7 @@ jobs:
     runs-on: ubuntu-latest
     container: gradle:6-jdk11
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: Upload Repo
       uses: actions/upload-artifact@v3
       with:

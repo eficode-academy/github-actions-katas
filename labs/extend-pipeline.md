@@ -29,7 +29,7 @@ If you strugle and need to see the whole ***Solution*** you can extend the secti
       container: gradle:6-jdk11
       steps:
         - name: Clone-down
-          uses: actions/checkout@v3       
+          uses: actions/checkout@v4       
         - name: Build application
           run: chmod +x ci/build-app.sh && ci/build-app.sh
         - name: Test
