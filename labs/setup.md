@@ -18,9 +18,7 @@ The purpose of these katas is to use the small java application to exemplify how
 
 We ultimately want a pipeline that has the following jobs:
 
-- **Clone down:** makes the git clone, and prepares the repo for being distributed to the parallel steps
-- **Test:** runs the gradle test command found in [ci/unit-test-app.sh](../ci/unit-test-app.sh)
-- **Build:** runs the gradle build command found in [ci/build-app.sh](../ci/build-app.sh)
+- **Build and test:** Clones down and run the gradle build command found in [ci/build-app.sh](../ci/build-app.sh), and thereafter runs the gradle test command found in [ci/unit-test-app.sh](../ci/unit-test-app.sh)
 - **Build docker:** runs both [building of the docker image](../ci/build-docker.sh), and [pushes it up to the hub](../ci/push-docker.sh)
 - **Component test:** runs a [docker-compose file](../component-test/docker-compose.yml) with a [python test](../component-test/test_app.py) to test the application.
 - **Performance test:** runs a [docker-compose file](../performance-test/docker-compose.yml) with a [k6 performance tester](../performance-test/single-request.js) to test the application.
@@ -30,10 +28,10 @@ We are not going to do it all in one go, but rather step by step.
 
 ### Overview
 
-In this exercise we are creating your own instance of this templated repository, and creating a workflow file called `.github/workflows/hello-world.yml`.
+In this exercise we are creating your own instance of this templated repository, and creating a workflow.
 
 <details>
-<summary>:bulb: This requires git email and name to bee configured on your machine. If you have not done this, here are the commands to set it up</summary>
+<summary>:bulb: If you want to clone this down on your machine, you need to have git set up there. Here are the commands to set it up</summary>
 
 You need to provide your email and name to git with the following commands.
 
@@ -41,6 +39,8 @@ You need to provide your email and name to git with the following commands.
 git config --global user.email "you@example.com"
 git config --global user.name "Your Name"
 ```
+
+When you do a git clone, then you will be asked for your username and password. If you want to avoid that, you can set up an ssh key. [Here is a guide on how to do that](https://help.github.com/en/github/authenticating-to-github/connecting-to-github-with-ssh).  It will take you 5-10 minutes though, so if you are in a hurry, just use the username and password.
 
 </details>
 
@@ -54,11 +54,11 @@ git config --global user.name "Your Name"
 
 -  Select your GitHub user as the owner and name the repository. Leave the repo public to have unlimited action minutes.
 
-> :bulb: **From now on _only_ use the your own repository.**
+> :bulb: **From this point forward, all actions should be performed in the repository you just created, not the template repository**
 
 #### Creating the workflow
 
-All your workflow files will be located in the `.github/workflows` folder.
+As a general rule, all your workflow files will be located in the `.github/workflows` folder.
 
 - Click on the `Actions` tab and click `New workflow`
 
@@ -66,7 +66,7 @@ All your workflow files will be located in the `.github/workflows` folder.
 
 ![hello-world](../img/hello-world.png)
 
-- The file should look like this:
+- The file `.github/workflows/main.yaml` should have the following workflow:
 
 ``` yaml
 # This is a basic workflow to help you get started with Actions
