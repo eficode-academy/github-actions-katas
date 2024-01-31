@@ -7,8 +7,7 @@ This repository contains a set of exercises to learn Github Actions.
 ### Exercises
 
 * [Setup](./labs/setup.md)
-* [Hello World](./labs/hello-world-pipeline.md)
-* [Workflow with containers](./labs/workflow-with-containers.md)
+* [Build app](./labs/build-app.md)
 * [Extending the Pipeline](./labs/extend-pipeline.md)
 * [Storing Artifacts](./labs/storing-artifacts.md)
 * [Building Docker images](./labs/docker-image.md)
