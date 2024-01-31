@@ -45,7 +45,7 @@ jobs:
     steps:
       - name: Clone down repository
         uses: actions/checkout@v4       
-      - run: chmod +x ci/build-app.sh && ci/build-app.sh
+      - run: ci/build-app.sh
 ```
 
 A line-by-line explanation of the above:
