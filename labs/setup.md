@@ -5,25 +5,8 @@ This series of katas will go through the basic steps in github actions, making y
 ## Learning Goals
 
 - Creating an instance of the template repository
-- Creating a workflow file
+- Creating a workflow file seeing Github Actions in action
 
-## Building a CI pipeline in GitHub Actions
-
-In this workshop we will be using a small java service which uses Gradle to build the application.
-
-The application is found in the `app` directory, though the details of the implementation are not interesting for the purposes of these katas.
-There are a number of shell scripts that help with building the application, these are located in the `ci` directory.
-
-The purpose of these katas is to use the small java application to exemplify how to use Github Actions to build, test and package your applications.
-
-We ultimately want a pipeline that has the following jobs:
-
-- **Build and test:** Clones down and run the gradle build command found in [ci/build-app.sh](../ci/build-app.sh), and thereafter runs the gradle test command found in [ci/unit-test-app.sh](../ci/unit-test-app.sh)
-- **Build docker:** runs both [building of the docker image](../ci/build-docker.sh), and [pushes it up to the hub](../ci/push-docker.sh)
-- **Component test:** runs a [docker-compose file](../component-test/docker-compose.yml) with a [python test](../component-test/test_app.py) to test the application.
-- **Performance test:** runs a [docker-compose file](../performance-test/docker-compose.yml) with a [k6 performance tester](../performance-test/single-request.js) to test the application.
-
-We are not going to do it all in one go, but rather step by step.
 ## Exercise
 
 ### Overview

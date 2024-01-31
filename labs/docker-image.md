@@ -138,7 +138,7 @@ If you strugle and need to see the whole ***Solution*** you can extend the secti
     <summary> Solution </summary>
   
 ```YAML
-name: Hello world workflow
+name: Main workflow
 on: push
 env: # Set the secret as an input
   docker_username: ${{ github.actor }}
@@ -149,17 +149,12 @@ jobs:
     runs-on: ubuntu-latest
     container: gradle:6-jdk11
     steps:
-      - name: Clone-down
+      - name: Clone down repository
         uses: actions/checkout@v4       
       - name: Build application
-        run: chmod +x ci/build-app.sh && ci/build-app.sh
+        run: ci/build-app.sh
       - name: Test
-        run: chmod +x ci/unit-test-app.sh && ci/unit-test-app.sh
-      - name: Upload Repo
-        uses: actions/upload-artifact@v3
-        with: 
-          name: code
-          path: .
+        run: ci/unit-test-app.sh
   Docker-image:
     runs-on: ubuntu-latest
     needs: [Build]
@@ -172,9 +167,9 @@ jobs:
         name: code
         path: .
     - name: build docker
-      run: chmod +x ci/build-docker.sh && ci/build-docker.sh
+      run: ci/build-docker.sh
     - name: push docker
-      run: chmod +x ci/push-docker.sh && ci/push-docker.sh
+      run: ci/push-docker.sh
 ```
 
 </details>
