@@ -1,3 +1,4 @@
+name: Main workflow
 on: push
 jobs:
   Build:
@@ -6,4 +7,4 @@ jobs:
     steps:
       - name: Clone-down
         uses: actions/checkout@v4       
-      - run: chmod +x ci/build-app.sh && ci/build-app.sh
+      - run: ci/build-app.sh

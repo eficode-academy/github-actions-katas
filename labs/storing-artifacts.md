@@ -1,40 +1,34 @@
 ## Storing artifacts
 
-When running multiple jobs, the VM you get for each job is completely new. 
+When running multiple jobs, the runner you get for each job is completely new. 
 
 This means that the state of the repository is not persisted between jobs.
 
-It is possible to store your state (and therfore also artifacts) in Github Actions. 
-
-An `artifact` could be the result of the build, in this case the compiled code.
-
-> This should not be mistaken for proper [artifact management](https://www.eficode.com/blog/artifactory-nexus-proget), or [release management](https://docs.github.com/en/repositories/releasing-projects-on-github/managing-releases-in-a-repository) but it is useful for making the artifacts built by the pipeline available.
+> :bulb: This should not be mistaken for proper [artifact management](https://www.eficode.com/blog/artifactory-nexus-proget), or [release management](https://docs.github.com/en/repositories/releasing-projects-on-github/managing-releases-in-a-repository) but it is useful for making the artifacts built by the pipeline available.
 
 To deal with artifacts, a `Github Actions Action` can be used, which can be found on [Github Marketplace](https://github.com/marketplace).
 
-To upload artifacts use the following syntax with `actions/upload-artifact@v3` [Link to documentation](https://github.com/marketplace/actions/upload-a-build-artifact):
+To upload artifacts use the following syntax with `actions/upload-artifact@v4` [Link to documentation](https://github.com/marketplace/actions/upload-a-build-artifact):
 
 ```YAML
-- name: Upload a Build Artifact
-  uses: actions/upload-artifact@v3
-  with:
-    name: my-artifact
-    path: path/to/artifact/
+- name: Upload a Build Artifact # Name of the step
+  uses: actions/upload-artifact@v4 # Action to use
+  with: # Parameters for the action
+    name: my-artifact # Name of the artifact to upload. Optional. Default is 'artifact
+    path: path/to/artifact/ # A file, directory or wildcard pattern that describes what to upload. Required.
 ```
 
-As artifacts can be uploaded it can also be downloaded from Github Actions with help of `actions/download-artifact@v3` as:
+As artifacts can be uploaded it can also be downloaded from Github Actions with help of `actions/download-artifact@v4` as:
 
 ```YAML
-- name: Download a single artifact
-  uses: actions/download-artifact@v3
-  with:
-    name: my-artifact
-    path: path/to/download/artifact/
+- name: Download a single artifact # Name of the step
+  uses: actions/download-artifact@v4 # Action to use
+  with: # Parameters for the action
+    name: my-artifact # Name of the artifact to download. Optional. If unspecified, all artifacts for the run are downloaded.
+    path: path/to/download/artifact/     # Destination path. Supports basic tilde expansion.  # Optional. Default is $GITHUB_WORKSPACE
 ```
 
-[Link to documentation](https://github.com/actions/download-artifact)
-
-This information will be needed in next exercises.
+You can find more information around the different parameters via the [link to documentation for download action](https://github.com/actions/download-artifact).
 
 :bulb: 
 <details>
@@ -69,20 +63,21 @@ If you strugle and need to see the whole ***Solution*** you can extend the secti
     <summary> Solution </summary>
   
 ```YAML
+name: Main workflow
 on: push
 jobs:
   Build:
     runs-on: ubuntu-latest
     container: gradle:6-jdk11
     steps:
-      - name: Clone-down
+      - name: Clone down repository
         uses: actions/checkout@v4       
       - name: Build application
-        run: chmod +x ci/build-app.sh && ci/build-app.sh
+        run: ci/build-app.sh
       - name: Test
-        run: chmod +x ci/unit-test-app.sh && ci/unit-test-app.sh
+        run: ci/unit-test-app.sh
       - name: Upload Repo
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with: 
           name: code
           path: .
