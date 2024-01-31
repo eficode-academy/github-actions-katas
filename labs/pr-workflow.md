@@ -102,7 +102,7 @@ We want to run a slightly shorter workflow, excluding the component test, and th
 
 ### tasks
 
-- Copy the `workflows/pr-workflow.yml` file to a new file called `workflows/dev-workflow.yml`.
+- Copy your workflow file to a new file called `workflows/dev-workflow.yml`.
 - Change the `on` field to:
 
 ``` yaml

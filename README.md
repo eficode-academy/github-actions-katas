@@ -7,17 +7,18 @@ This repository contains a set of exercises to learn Github Actions.
 ### Exercises
 
 * [Setup](./labs/setup.md)
-* [Hello World](./labs/hello-world-pipeline.md)
-* [Workflow with containers](./labs/workflow-with-containers.md)
+* [Build app](./labs/build-app.md)
 * [Extending the Pipeline](./labs/extend-pipeline.md)
 * [Storing Artifacts](./labs/storing-artifacts.md)
 * [Building Docker images](./labs/docker-image.md)
 * [Systems test](./labs/systems-test.md)
-* [Seperate your workflow](./labs/workflow.md)
-* [Selfhosted runners](./labs/selfhosted-runner.md)
+* [Reusable workflows](./labs/reusable.md)
 * [Pull Request based workflow](./labs/pr-workflow.md)
-* [Build app on multiple environments](./labs/matrix-builds)
+* [Build app on multiple environments](./labs/matrix-builds.md)
+
+### Rough exercises (not yet ready)
 * [Reusing build cache ](./labs/build-cache.md)
+* [Selfhosted runners](./labs/selfhosted-runner.md)
 
 
 ## Resources

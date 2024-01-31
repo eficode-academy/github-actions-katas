@@ -5,8 +5,8 @@ Next step is to have our application packaged as a docker image for easy distrib
 We have some requirements for our pipeline step:
 
 - Should build our application as a docker image.
-- Should tag the image with both the git sha and "latest". (Never use such general tags in real life!)
-- Should push the image to docker registry.
+- Should tag the image with both the git sha and "latest". (Do not use such general tags in real life!)
+- Should push the image to Githubs docker registry.
 
 In order for this to work, we need three environment variables:
 - `docker_username` the username for docker registry.
@@ -48,10 +48,6 @@ Contexts are also available before the steps, as when defining the `env` section
 
 ### Tasks
 
-<!-- - To start Docker credentials should be stored as repository secrets at Github Actions Repository. Please go to `Settings > Secrets > New repository secret` to add them. 
-
-![Github Secrets](img/secret.png) -->
-
 - Add a new job named `Docker-image` that requires the `Build` to be completed.
 You need to add package write permissions so that your action can upload the container to the registry.
 
@@ -73,7 +69,7 @@ In order for us to create and push the docker image, we need the CI scripts, the
 
 ```YAML
     - name: Download code
-      uses: actions/download-artifact@v3
+      uses: actions/download-artifact@v4
       with:
         name: code
         path: .
@@ -83,32 +79,41 @@ In order for us to create and push the docker image, we need the CI scripts, the
 - Add `docker_username` and `docker_password` as environmental variables on top of the workflow file. 
 
 ```YAML
-env:
-  docker_username: ${{ github.actor }}
-  docker_password: ${{ secrets.GITHUB_TOKEN }}
+name: Main workflow
+on: push
+env: # Set the secret as an input
+  docker_username: ${{ github.actor }} 
+  docker_password: ${{ secrets.GITHUB_TOKEN }} #Nees to be set to be made available to the workflow
+jobs:
+  Build:
 ```
 
-- Add GIT_COMMIT environment variable as well. 
+- Add GIT_COMMIT environment variable as well, that should contain the commit sha of the repository.
 
-Tip! it needs the same "wrapping" (`${{}}`) as the other environment variables, and can be found in the `github` context
+> Tip! it needs the same "wrapping" (`${{}}`) as the other environment variables, and can be found in the `github` [context](https://docs.github.com/en/actions/learn-github-actions/contexts#about-contexts).
 
 - Run the `ci/build-docker.sh` and `ci/push-docker.sh` scripts.
 
 Ready steps looks like:
 ```YAML
     - name: build docker
-      run: chmod +x ci/build-docker.sh && ci/build-docker.sh
+      run: bash ci/build-docker.sh
     - name: push docker
-      run: chmod +x ci/push-docker.sh && ci/push-docker.sh
+      run: bash ci/push-docker.sh
 ```
 
-> Hint: Remember that the job needs to run on specified system and is based on the results from previous jobs.
+> Hint: The reason we have bash first is to bypass the file permissions. If you don't do this, you will get a permission denied error.
 
-- See that the image is built and pushed to the GitHub container registry.
+- Submit your changes, and see that the image is built and pushed to the GitHub container registry.
+
+> Tip! You can find the image under the `Packages` tab on your profile.
 
 ## Using actions instead of scrtipts
 
 The above job can be also done by using actions: `docker/login-action@v3` and `docker/build-push-action@v5`, what will provide the same functionality. You can find it in the example below:
+
+<details>
+<summary> Doing the same using Actions </summary>
 
 ```yaml
 on: push
@@ -132,47 +137,11 @@ jobs:
           tags: ghcr.io/${{ github.actor }}/micronaut-app:1.0-${{ github.sha }},ghcr.io/${{ github.actor }}/micronaut-app:latest
 ```
 
-### Solution 
-If you strugle and need to see the whole ***Solution*** you can extend the section below. 
-<details>
-    <summary> Solution </summary>
-  
-```YAML
-name: Main workflow
-on: push
-env: # Set the secret as an input
-  docker_username: ${{ github.actor }}
-  docker_password: ${{ secrets.GITHUB_TOKEN }}
-  GIT_COMMIT: ${{ github.sha }}
-jobs:
-  Build:
-    runs-on: ubuntu-latest
-    container: gradle:6-jdk11
-    steps:
-      - name: Clone down repository
-        uses: actions/checkout@v4       
-      - name: Build application
-        run: ci/build-app.sh
-      - name: Test
-        run: ci/unit-test-app.sh
-  Docker-image:
-    runs-on: ubuntu-latest
-    needs: [Build]
-    permissions:
-      packages: write
-    steps:
-    - name: Download code
-      uses: actions/download-artifact@v3
-      with:
-        name: code
-        path: .
-    - name: build docker
-      run: ci/build-docker.sh
-    - name: push docker
-      run: ci/push-docker.sh
-```
-
 </details>
+
+### Solution 
+
+If you strugle and need to see the whole ***Solution*** you can click this [link](../trainer/.github/workflows/docker-image.yaml)
 
 
 ### Results

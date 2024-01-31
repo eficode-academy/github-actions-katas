@@ -1,4 +1,20 @@
-## Storing artifacts
+# Storing artifacts
+
+## Learning goal
+
+- Create multiple jobs
+- Use the Upload and download artifact action
+- Use Superlinter to lint your sourcecode
+
+### Super linter
+
+Super-linter is a tool that can be used to lint your sourcecode. It is a combination of multiple linters, and can be used to lint multiple languages.
+
+It's invoced as a github action, and can be found on [Github Marketplace](https://github.com/super-linter/super-linter).
+
+In this exercise we will use it to lint our sourcecode in a separate job.
+
+### Upload and download artifacts
 
 When running multiple jobs, the runner you get for each job is completely new. 
 
@@ -40,28 +56,24 @@ You can find more information around the different parameters via the [link to d
 
 ### Overview
 
-We want to add a step that makes the repository including the compiled code available for other steps to use.
-
-In order to achieve this we will simply save the state of the entire repository after running the build script.
+- Create a linter job
+- Use the `actions/upload-artifact` and `actions/download-artifact`
+- Use `uper-linter/super-linter/slim` to lint your sourcecode
 
 ### Tasks
 
-- Add step named `Upload Repo` to the existing job, which will upload an artifact with the name `code`, with the path `.` to use the current directory.
+- Add step named `Upload repo` to the existing job, which will upload an artifact with the name `code`, with the path `.` to use the current directory.
 
 ```YAML
-    - name: Upload Repo
-      uses: actions/upload-artifact@v3
-      with: 
-        name: code
-        path: .
+      - uses: actions/upload-artifact@v4
+        with: 
+          name: code
+          path: .
 ```
 
-
-### Solution
-If you strugle and need to see the whole ***Solution*** you can extend the section below. 
 <details>
-    <summary> Solution </summary>
-  
+<summary>complete solution</summary>
+
 ```YAML
 name: Main workflow
 on: push
@@ -76,19 +88,99 @@ jobs:
         run: ci/build-app.sh
       - name: Test
         run: ci/unit-test-app.sh
-      - name: Upload Repo
+      - name: Upload repo
         uses: actions/upload-artifact@v4
         with: 
           name: code
           path: .
 ```
-  
+
 </details>
 
-## Results 
+Push that up to your repository and check the actions tab.
 
 If all works out fine, your newest build should show something like, where you can find your uploaded artifact:
 ![Uploading artifact](img/storing-artifact.png)
+
+#### Super-linter
+
+We will now create a new job, which will use super-linter to lint our sourcecode.
+
+- add a new job named `Linting` to your workflow
+- Like the other job it will run on `ubuntu-latest`
+- It `needs` the `Build` step. Add a line under `runs-on` with `needs: [Build]`
+- It will have two steps, `Download code` and `run linting`
+  - `Download code` uses the `actions/download-artifact@v4` action to download the artifact `code` to the current directory `.`
+  - `run linting` uses the `super-linter/super-linter/slim` action to lint the code. It needs two environment variables to work:
+    - `DEFAULT_BRANCH` which should be set to `main`
+    - `GITHUB_TOKEN` which should be set to `${{ secrets.GITHUB_TOKEN }}`
+
+<details>
+<summary>complete solution</summary>
+
+```YAML
+  Linting:
+    runs-on: ubuntu-latest
+    needs: [Build]
+    steps:
+      - name: Download code
+        uses: actions/download-artifact@v4
+        with:
+          name: code
+          path: .
+      - name: run linting
+        uses: super-linter/super-linter/slim@v5 
+        env:
+          DEFAULT_BRANCH: main
+          # To report GitHub Actions status checks
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+```
+</details>
+
+Push that up to your repository and check the actions tab.
+
+Ohh no! the linting failed! What happened?
+
+The log should show something like this:
+
+```
+2024-01-31 10:50:44 [INFO]   ----------------------------------------------
+2024-01-31 10:50:44 [INFO]   ----------------------------------------------
+2024-01-31 10:50:44 [INFO]   The script has completed
+2024-01-31 10:50:44 [INFO]   ----------------------------------------------
+2024-01-31 10:50:44 [INFO]   ----------------------------------------------
+2024-01-31 10:50:44 [ERROR]   ERRORS FOUND in BASH:[3]
+2024-01-31 10:50:45 [ERROR]   ERRORS FOUND in DOCKERFILE_HADOLINT:[1]
+2024-01-31 10:50:45 [ERROR]   ERRORS FOUND in GITHUB_ACTIONS:[2]
+2024-01-31 10:50:45 [ERROR]   ERRORS FOUND in GOOGLE_JAVA_FORMAT:[5]
+2024-01-31 10:50:46 [ERROR]   ERRORS FOUND in JAVA:[5]
+2024-01-31 10:50:46 [ERROR]   ERRORS FOUND in JAVASCRIPT_STANDARD:[1]
+2024-01-31 10:50:46 [ERROR]   ERRORS FOUND in JSCPD:[1]
+2024-01-31 10:50:47 [ERROR]   ERRORS FOUND in MARKDOWN:[12]
+2024-01-31 10:50:47 [ERROR]   ERRORS FOUND in NATURAL_LANGUAGE:[9]
+2024-01-31 10:50:47 [ERROR]   ERRORS FOUND in PYTHON_BLACK:[1]
+2024-01-31 10:50:47 [ERROR]   ERRORS FOUND in PYTHON_FLAKE8:[1]
+2024-01-31 10:50:48 [ERROR]   ERRORS FOUND in PYTHON_ISORT:[1]
+2024-01-31 10:50:48 [FATAL]   Exiting with errors found!
+```
+
+It seems like we have some linting errors in our code. As this is not a python/bash/javascript course, we will not fix them, but silence the linter with another environment variable.
+
+- Add the environment variable `DISABLE_ERRORS` to the `run linting` step, and set it to `true`
+
+```YAML
+      - name: run linting
+        uses: super-linter/super-linter/slim@v5 
+        env:
+          DEFAULT_BRANCH: main
+          # To report GitHub Actions status checks
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DISABLE_ERRORS: true  
+```
+
+Push that up to your repository and see that the linting now passes, even though we have errors in our code.
+
+Congratulations! You have now created a workflow with multiple jobs, and used artifacts to share data between them.
 
 ### Resources
 
