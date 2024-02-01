@@ -98,7 +98,9 @@ You want to run tests on your development branches as well, even if you are not 
 
 For that we need to add another workflow to the repository.
 
-We want to run a slightly shorter workflow, excluding the component test, and the push of docker images. We want to run in on all branches that has the prefix `dev/`.
+We want to run a slightly shorter workflow, excluding the component and performance tests, and the push of docker images. 
+
+We want to run in on all branches that has the prefix `dev/`.
 
 ### tasks
 
@@ -112,7 +114,7 @@ on:
       - "dev/**"
 ```
 
-- delete the `Component-test:` job from the `jobs` section.
+- delete the `Component-test:` job and the `Performance-test:` jab from the `jobs` section.
 - delete the `name: push docker` step from the `Docker-image` job.
 
 ## Trying it out
