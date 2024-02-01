@@ -1,0 +1,14 @@
+name: matrix-example
+on: [workflow_dispatch]
+
+jobs:
+  job:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        container: ["ubuntu:bionic", "fedora:31", "opensuse/leap:42.3", "centos:8"]
+    container:
+      image: ${{ matrix.container }}      
+    steps:
+      - name: check os
+        run: cat /etc/os-release
