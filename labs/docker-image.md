@@ -88,6 +88,12 @@ jobs:
   Build:
 ```
 
+> :bulb: The `docker_username` should be set to the `github.actor`. If your username is having capital letters, you need to type it in manually as Docker will not accept capital letters in the repository name.
+```YAML
+#  docker_username: ${{ github.actor }} 
+docker_username: elmeri #instead of Elmeri
+```
+
 - Add GIT_COMMIT environment variable as well, that should contain the commit sha of the repository.
 
 > Tip! it needs the same "wrapping" (`${{}}`) as the other environment variables, and can be found in the `github` [context](https://docs.github.com/en/actions/learn-github-actions/contexts#about-contexts).
