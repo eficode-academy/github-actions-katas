@@ -31,7 +31,7 @@ To use cache at the consequtive jobs, the same code (from above example) has to 
 
 Limitations on using caching: 
 * Github will delete all unaccessed caches for 7 days.
-* There is no limit on how many caches can be stored in the repository as long as it is below 5GB. 
+* There is no limit on how many caches can be stored, however if the total space used by the repository exceeds 10GB GitHub will start deleting the oldest caches. 
 
 # Tasks 
 
