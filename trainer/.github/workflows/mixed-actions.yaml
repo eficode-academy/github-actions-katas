@@ -1,0 +1,24 @@
+name: Mixed actions
+on: [workflow_dispatch]
+jobs:
+  github-action:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v3 # from https://github.com/marketplace/actions/checkout
+  verified-action:
+    runs-on: ubuntu-latest
+    steps:
+      - name: install dapr
+        uses: dapr/setup-dapr@v1 # from https://github.com/marketplace/actions/dapr-tool-installer
+        with:
+          version: 1.2.0 # default is 1.2.0
+          id: install
+  non-verified-action:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Close issues
+      uses: mxie/close-outdated-issues-action@main    # from https://github.com/mxie/close-outdated-issues-action/blob/main/README.md
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        days-before: 30

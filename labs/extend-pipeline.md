@@ -21,7 +21,7 @@ If you strugle and need to see the whole ***Solution*** you can extend the secti
 <details>
     <summary> Solution </summary>
   
-  ```YAML
+```YAML
 name: Main workflow
 on: push
 jobs:
@@ -35,8 +35,7 @@ jobs:
         run: ci/build-app.sh
       - name: Test
         run: ci/unit-test-app.sh
-
-  ```
+```
 
 </details>
 
