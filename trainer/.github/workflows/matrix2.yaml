@@ -1,0 +1,18 @@
+name: Matrix workflow
+on: push
+jobs:
+  Build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        container: ["gradle:6-jdk8", "gradle:6-jdk11", "gradle:6-jdk17"]
+    container:
+      image: ${{ matrix.container }}   
+
+    steps:
+      - name: Clone down repository
+        uses: actions/checkout@v4       
+      - name: Build application
+        run: ci/build-app.sh
+      - name: Test
+        run: ci/unit-test-app.sh

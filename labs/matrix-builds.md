@@ -12,27 +12,30 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node: [6, 8, 10]
+        node: [8, 10, 12]
     steps:
-      - uses: actions/setup-node@v2
+      - uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node }}
 ```
-Here, job will run three seperate jobs for different versions of Node 6, 8 and 10. 
+With this, the job will run three seperate jobs for different versions of NodeJS; 8, 10 and 12. 
 There can be similar solution for container based pipelines: 
 
 ```YAML
+name: matrix-example
+on: [workflow_dispatch]
+
 jobs:
   job:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        container: ["ubuntu:bionic", "fedora:31", "opensuse/leap:42.3", "centos8"]
+        container: ["ubuntu:bionic", "fedora:31", "opensuse/leap:42.3", "centos:8"]
     container:
       image: ${{ matrix.container }}      
-     steps:
-      - name: checkout
-        uses: actions/checkout@v1
+    steps:
+      - name: check os
+        run: cat /etc/os-release
 ```
 In this example pipeline runs-on `ubuntu-latest` for 4 different containers: `"ubuntu:bionic", "fedora:31", "opensuse/leap:42.3", "centos8"`. This way we can skip repeating the workflows.
 
@@ -48,37 +51,19 @@ we would like to build our application on different versios of Java.
 <summary> Build job </summary>
 
 ```YAML
-name: Java CI
+name: Matrix workflow
 on: push
 jobs:
-  Clone-down:
-    name: Clone down repo
+  Build:
     runs-on: ubuntu-latest
     container: gradle:6-jdk11
     steps:
-    - uses: actions/checkout@v4
-    - name: Upload Repo
-      uses: actions/upload-artifact@v3
-      with:
-        name: code
-        path: .
-  Build:
-      runs-on: ubuntu-latest
-      needs: Clone-down
-      container: gradle:6-jdk11
-      steps:
-      - name: Download code
-        uses: actions/download-artifact@v3
-        with:
-          name: code
-          path: .
-      - name: Build with Gradle
-        run: chmod +x ci/build-app.sh && ci/build-app.sh
-      - name: Upload Repo
-        uses: actions/upload-artifact@v3
-        with:
-          name: code
-          path: .
+      - name: Clone down repository
+        uses: actions/checkout@v4       
+      - name: Build application
+        run: ci/build-app.sh
+      - name: Test
+        run: ci/unit-test-app.sh
   ```
 
 </details>
@@ -109,42 +94,24 @@ _____
 <summary> Solution</summary>
 
 ``` yaml  
-name: Java CI
+name: Matrix workflow
 on: push
 jobs:
-  Clone-down:
-    name: Clone down repo
-    runs-on: ubuntu-latest
-    container: gradle:6-jdk11
-    steps:
-    - uses: actions/checkout@v4
-    - name: Upload Repo
-      uses: actions/upload-artifact@v3
-      with:
-        name: code
-        path: .
   Build:
     runs-on: ubuntu-latest
-    needs: Clone-down
     strategy:
       matrix:
         container: ["gradle:6-jdk8", "gradle:6-jdk11", "gradle:6-jdk17"]
     container:
       image: ${{ matrix.container }}   
+
     steps:
-    - name: Download code
-      uses: actions/download-artifact@v3
-      with:
-        name: code
-        path: .
-    - name: Build with Gradle
-      run: chmod +x ci/build-app.sh && ci/build-app.sh
-    - name: Upload Repo
-      uses: actions/upload-artifact@v3
-      with:
-        name: code
-        path: .
- 
+      - name: Clone down repository
+        uses: actions/checkout@v4       
+      - name: Build application
+        run: ci/build-app.sh
+      - name: Test
+        run: ci/unit-test-app.sh
 ```
 </details>
 
