@@ -67,7 +67,7 @@ If you want to see what `build-app.sh` is doing, look into [the script](../ci/bu
 
 ## Task
 
-- Replase the workflow you created in `.github/workflows/main.yml` with the above example.
+- Replace the workflow you created in `.github/workflows/main.yml` with the above example.
 - Add and commit the file and push it to Github. 
 
 <details>
