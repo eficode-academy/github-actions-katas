@@ -1,4 +1,3 @@
-version: '3.7'
 services:
   test:
     image: grafana/k6:0.37.0
