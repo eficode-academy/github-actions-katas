@@ -34,7 +34,7 @@ rules and then click on `add rule`.
 - `Require branches to be up to date before merging`
   The branch must be up to date with the base
   branch before merging.
-- Add the following jobs to the `Status checks that are required` selection: `Test`,`Build`,`Docker-image`. In that way, no one can push to main without having the tests pass.
+- Add the following jobs to the `Status checks that are required` selection: `Build`,`Docker-image`. In that way, no one can push to main without having the tests pass.
 - `Do not allow bypassing the above settings ` Makes the rules apply
   to everyone (yes, you too!).
 - OPTIONAL: `Require linear history` requires the
