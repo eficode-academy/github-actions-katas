@@ -58,7 +58,7 @@ You can find more information around the different parameters via the [link to d
 
 - Create a linter job
 - Use the `actions/upload-artifact` and `actions/download-artifact`
-- Use `uper-linter/super-linter/slim` to lint your sourcecode
+- Use `super-linter/super-linter/slim` to lint your sourcecode
 
 ### Tasks
 
