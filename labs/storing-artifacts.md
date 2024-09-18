@@ -10,7 +10,7 @@
 
 Super-linter is a tool that can be used to lint your sourcecode. It is a combination of multiple linters, and can be used to lint multiple languages.
 
-It's invoced as a github action, and can be found on [Github Marketplace](https://github.com/super-linter/super-linter).
+It's invoked as a github action, and can be found on [Github Marketplace](https://github.com/super-linter/super-linter).
 
 In this exercise we will use it to lint our sourcecode in a separate job.
 
