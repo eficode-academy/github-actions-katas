@@ -114,7 +114,7 @@ Ready steps looks like:
 
 > Tip! You can find the image under the `Packages` tab on your profile.
 
-## Using actions instead of scrtipts
+## Using actions instead of scripts
 
 The above job can be also done by using actions: `docker/login-action@v3` and `docker/build-push-action@v5`, what will provide the same functionality. You can find it in the example below:
 
