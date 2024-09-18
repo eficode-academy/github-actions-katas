@@ -89,17 +89,6 @@ See that the build runs green and outputs this in the step log:
 
 ```bash
 Run ./ci/build-app.sh
-
-Welcome to Gradle 6.9!
-
-Here are the highlights of this release:
- - This is a small backport release.
- - Java 16 can be used to compile when used with Java toolchains
- - Dynamic versions can be used within plugin declarations
- - Native support for Apple Silicon processors
-
-For more details see https://docs.gradle.org/6.9/release-notes.html
-
 Starting a Gradle Daemon (subsequent builds will be faster)
 > Task :clean UP-TO-DATE
 
@@ -112,9 +101,9 @@ Note: Creating bean classes for 3 type elements
 
 Deprecated Gradle features were used in this build, making it incompatible with Gradle 7.0.
 Use '--warning-mode all' to show the individual deprecation warnings.
-See https://docs.gradle.org/6.9/userguide/command_line_interface.html#sec:command_line_warnings
+See https://docs.gradle.org/6.9.4/userguide/command_line_interface.html#sec:command_line_warnings
 
-BUILD SUCCESSFUL in 28s
+BUILD SUCCESSFUL in 15s
 4 actionable tasks: 3 executed, 1 up-to-date
 ```
 
