@@ -5,7 +5,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: checkout
-        uses: actions/checkout@v3 # from https://github.com/marketplace/actions/checkout
+        uses: actions/checkout@v4 # from https://github.com/marketplace/actions/checkout
   verified-action:
     runs-on: ubuntu-latest
     steps:
