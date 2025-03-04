@@ -1,6 +1,6 @@
 ## Systems test
 
-After having our releaseable component (our docker file), we can now run our system tests to promote the artifact.
+After having our releaseable component (our docker image), we can now run our system tests to promote the artifact.
 
 In the repository we have made two different system tests; component test and performance test.
 
