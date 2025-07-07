@@ -251,9 +251,6 @@ Your new `Test` job should look like this:
     container: gradle:6-jdk11
     needs: Build 
     steps:
-      - name: Clone repository
-        uses: actions/checkout@v4
-
       - name: Download build artifact
         uses: actions/download-artifact@v4
         with: 
