@@ -259,7 +259,7 @@ Your new `Test` job should look like this:
           include-hidden-files: true
 
       - name: Run unit tests
-        run: ./ci/unit-test-app.sh
+        run: ci/unit-test-app.sh
 ```
 
 Finally, let's fix the `Linting` job. Linting only needs the source code; it doesn't depend on the build at all. We can make it run in parallel to save time.
