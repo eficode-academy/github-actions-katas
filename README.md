@@ -27,3 +27,4 @@ This repository contains a set of exercises to learn Github Actions.
 * [List of starter workflow files for many different languages](https://github.com/actions/starter-workflows/tree/main/ci)
 * [A curated list of awesome things related to GitHub Actions](https://github.com/sdras/awesome-actions)
 * [Githubs own Hands On Labs](https://github.com/ps-actions-sandbox/ActionsFundamentals)
+
