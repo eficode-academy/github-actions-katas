@@ -182,7 +182,123 @@ It seems like we have some linting errors in our code. As this is not a python/b
 
 Push that up to your repository and see that the linting now passes, even though we have errors in our code.
 
-Congratulations! You have now created a workflow with multiple jobs, and used artifacts to share data between them.
+Congratulations! 🎉 You have now created a workflow with multiple jobs, and used artifacts to share data between them.
+
+
+## Extra Exercise: Reorganizing Your Workflow
+
+However, while the current setup is a great start for understanding artifacts, but we can make it more efficient and align it with best practices. 
+
+We'll modify the workflow to:
+
+- Separate build and test into their own dedicated jobs.
+
+- Have the linting job check out the code directly so it can run in parallel, speeding things up. 🚀
+
+- Make the build job upload only the necessary build artifact, not the entire source code.
+
+The goal is to transform your current two-job workflow into a more efficient three-job structure: `build`, `test`, and `lint`.
+
+### Tasks
+
+Modify your current workflow to only build the application and upload the resulting build artifact.
+
+- Remove the `Test` step.
+
+- Change the `Upload repo` step to `Upload build artifact`.
+
+<details>
+<summary>complete solution</summary>
+
+```YAML
+  Build:
+    name: Build
+    runs-on: ubuntu-latest
+    container: gradle:6-jdk11
+    steps:
+      - name: Clone repository
+        uses: actions/checkout@v4
+
+      - name: Build application
+        run: ci/build-app.sh
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with: 
+          name: code
+          path: .
+          include-hidden-files: true
+```
+
+</details>
+
+Now, create a completely new job for testing. This job will run after the `Build` job is finished and will test the artifact that was created.
+
+Add a new job named `Test`.
+
+Make it dependent on the build job using `needs: Build`.
+
+Add a step to `Download build artifact` created by the `Build` job.
+
+Add the `Run unit tests` step that we removed from the original `Build` job.
+
+Your new `Test` job should look like this:
+
+```YAML
+  Test:
+    name: Test
+    runs-on: ubuntu-latest
+    container: gradle:6-jdk11
+    needs: Build 
+    steps:
+      - name: Clone repository
+        uses: actions/checkout@v4
+
+      - name: Download build artifact
+        uses: actions/download-artifact@v4
+        with: 
+          name: code
+          path: .
+          include-hidden-files: true
+
+      - name: Run unit tests
+        run: ./ci/unit-test-app.sh
+```
+❓Why do we still check out the code? ❓ 
+
+The test runner script (ci/unit-test-app.sh) and other configuration files are part of the repository, so we still need access to them. The key is that we're running the tests against the downloaded artifact, ensuring we test what was actually built.
+
+Finally, let's fix the `Linting` job. Linting only needs the source code; it doesn't depend on the build at all. We can make it run in parallel to save time.
+
+Remove the `needs: [Build]` line. This is the most important change, as it allows the job to start at the same time as build.
+
+Replace the `Download code` step with a `Clone repository` step using `actions/checkout@v4`. 
+
+Your lint job should now be much cleaner.
+
+<details>
+<summary>complete solution</summary>
+
+```YAML
+  Linting:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clone repository
+        uses: actions/checkout@v4
+
+      - name: Run linting
+        uses: super-linter/super-linter/slim@v7
+        env:
+          DEFAULT_BRANCH: main
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DISABLE_ERRORS: true
+```
+
+</details>
+
+Congratulations! 🎉 Push the updated workflow file to your repository. You now have a professional, efficient, and easy-to-understand CI/CD pipeline. ⭐
+
 
 ### Resources
 
