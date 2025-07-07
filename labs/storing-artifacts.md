@@ -261,9 +261,6 @@ Your new `Test` job should look like this:
       - name: Run unit tests
         run: ./ci/unit-test-app.sh
 ```
-❓Why do we still check out the code? ❓ 
-
-The test runner script (ci/unit-test-app.sh) and other configuration files are part of the repository, so we still need access to them. The key is that we're running the tests against the downloaded artifact, ensuring we test what was actually built.
 
 Finally, let's fix the `Linting` job. Linting only needs the source code; it doesn't depend on the build at all. We can make it run in parallel to save time.
 
@@ -294,7 +291,7 @@ Your lint job should now be much cleaner.
 
 </details>
 
-Congratulations! 🎉 Push the updated workflow file to your repository. You now have a professional, efficient, and easy-to-understand CI/CD pipeline. ⭐
+Congratulations! 🎉 Push the updated workflow file to your repository. You now have an efficient and easy-to-understand CI/CD pipeline. ⭐
 
 
 ### Resources
