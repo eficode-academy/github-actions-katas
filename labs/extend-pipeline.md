@@ -1,6 +1,6 @@
 # Extending the pipeline
 
-After the application is build, the unit test should be performed to check if it works as expected. 
+After the application is built, the unit test should be performed to check if it works as expected. 
 
 This part is made as a recap of the previous exercise, to remind you how to add a step to the pipeline.
 
@@ -17,7 +17,7 @@ This part is made as a recap of the previous exercise, to remind you how to add 
 
 ## Solution
 
-If you strugle and need to see the whole ***Solution*** you can extend the section below. 
+If you need to see the whole ***Solution*** you can extend the section below. 
 <details>
     <summary> Solution </summary>
   
@@ -41,7 +41,7 @@ jobs:
 
 ## Results 
 
-If the exercise is completed correctly. The output of `Test` step will look like: 
+If the exercise is completed correctly, the output of `Test` step will look like:
 
 ``` bash
 > Task :compileJava UP-TO-DATE
@@ -62,6 +62,5 @@ See https://docs.gradle.org/6.9.4/userguide/command_line_interface.html#sec:comm
 BUILD SUCCESSFUL in 6s
 4 actionable tasks: 2 executed, 2 up-to-date
 ```
-
 
 Great, now you have a pipeline that builds and tests your application :tada:
