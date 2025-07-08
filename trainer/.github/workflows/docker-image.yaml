@@ -1,55 +1,89 @@
 name: Main workflow
 on: push
-env: # Set the secret as an input
+env:
   docker_username: ${{ github.actor }} 
   docker_password: ${{ secrets.GITHUB_TOKEN }} #Nees to be set to be made available to the workflow
   GIT_COMMIT: ${{ github.sha }}
+
 jobs:
-  Build:
+  lint:
+    name: "Lint Code"
+    runs-on: ubuntu-latest
+    steps:
+      - name: "⤵Clone repository"
+        uses: actions/checkout@v4
+
+      - name: "Run linter"
+        uses: super-linter/super-linter/slim@v7
+        env:
+          DEFAULT_BRANCH: main
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DISABLE_ERRORS: true
+
+  build:
+    name: "Build Application"
     runs-on: ubuntu-latest
     container: gradle:6-jdk11
     steps:
-      - name: Clone down repository
-        uses: actions/checkout@v4       
-      - name: Build application
+      - name: "Clone repository"
+        uses: actions/checkout@v4
+
+      - name: "Grant execute permission to build script"
+        run: chmod +x ci/build-app.sh
+
+      - name: "Build application"
         run: ci/build-app.sh
-      - name: Test
-        run: ci/unit-test-app.sh
-      - name: Upload repo
+
+      - name: "Upload build output artifact"
         uses: actions/upload-artifact@v4
-        with: 
+        with:
           name: code
           path: .
-  Linting:
+
+  test:
+    name: "Run Unit Tests"
     runs-on: ubuntu-latest
-    needs: [Build]
+    needs: build 
+    container: gradle:6-jdk11
     steps:
-      - name: Download code
+      - name: "Clone repository"
+        uses: actions/checkout@v4
+
+      - name: "Download build output"
         uses: actions/download-artifact@v4
         with:
           name: code
           path: .
-      - name: run linting
-        uses: super-linter/super-linter/slim@v7 
-        env:
-          DEFAULT_BRANCH: main
-          # To report GitHub Actions status checks
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          DISABLE_ERRORS: true      
-  Docker-image:
+
+      - name: "Grant execute permission to test script"
+        run: chmod +x ci/unit-test-app.sh
+
+      - name: "Run tests"
+        run: ci/unit-test-app.sh
+
+  publish:
+    name: "🐳 Build and Push Docker Image"
     runs-on: ubuntu-latest
-    needs: [Build]
+    needs: [test, lint]
     permissions:
       packages: write
     steps:
-    - name: Download code
-      uses: actions/download-artifact@v4
-      with:
-        name: code
-        path: .
-    - name: ls
-      run: ls -la ci
-    - name: build docker
-      run: bash ci/build-docker.sh
-    - name: push docker
-      run: bash ci/push-docker.sh
+      - name: "Clone repository"
+        uses: actions/checkout@v4
+
+      - name: "Download build output"
+        uses: actions/download-artifact@v4
+        with:
+          name: code
+          path: .
+
+      - name: "Grant execute permission to Docker scripts"
+        run: |
+          chmod +x ci/build-docker.sh
+          chmod +x ci/push-docker.sh
+
+      - name: "Build Docker image"
+        run: ci/build-docker.sh
+
+      - name: "Push Docker image"
+        run: ci/push-docker.sh
