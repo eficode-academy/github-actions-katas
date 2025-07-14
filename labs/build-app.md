@@ -30,7 +30,7 @@ We are not going to do it all in one go, but rather step by step.
 
 ### A basic example:
 
-Now we want to diver a bit more into a pipeline.
+Now we want to dive a bit more into a pipeline.
 
 Examine the following example, that makes the agent running the pipeline check out the repository, and run a script that builds our application:
 
