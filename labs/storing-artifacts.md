@@ -10,7 +10,7 @@
 
 Super-linter is a tool that can be used to lint your sourcecode. It is a combination of multiple linters, and can be used to lint multiple languages.
 
-It's invoked as a github action, and can be found on [Github Marketplace](https://github.com/super-linter/super-linter).
+It's invoked as a GitHub action, and can be found on [GitHub Marketplace](https://github.com/super-linter/super-linter).
 
 In this exercise we will use it to lint our sourcecode in a separate job.
 
@@ -22,7 +22,7 @@ This means that the state of the repository is not persisted between jobs.
 
 > :bulb: This should not be mistaken for proper [artifact management](https://www.eficode.com/blog/artifactory-nexus-proget), or [release management](https://docs.github.com/en/repositories/releasing-projects-on-github/managing-releases-in-a-repository) but it is useful for making the artifacts built by the pipeline available.
 
-To deal with artifacts, a `Github Actions Action` can be used, which can be found on [Github Marketplace](https://github.com/marketplace).
+To deal with artifacts, a `GitHub Actions Action` can be used, which can be found on [GitHub Marketplace](https://github.com/marketplace).
 
 To upload artifacts use the following syntax with `actions/upload-artifact@v4` [Link to documentation](https://github.com/marketplace/actions/upload-a-build-artifact):
 
@@ -118,7 +118,7 @@ We will now create a new job, which will use super-linter to lint our sourcecode
     - `GITHUB_TOKEN` which should be set to `${{ secrets.GITHUB_TOKEN }}`
 
 <details>
-<summary>complete solution</summary>
+<summary>Complete solution</summary>
 
 ```YAML
   Linting:
@@ -139,7 +139,7 @@ We will now create a new job, which will use super-linter to lint our sourcecode
 ```
 </details>
 
-Push that up to your repository and check the actions tab.
+Push that up to your repository and check the Actions tab.
 
 Ohh no! the linting failed! What happened?
 

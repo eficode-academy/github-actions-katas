@@ -1,19 +1,21 @@
 # Building Docker Images
 
-Next step is to have our application packaged as a docker image for easy distribution. 
+Next step is to have our application packaged as a Docker image for easy distribution. 
 
 We have some requirements for our pipeline step:
 
-- Should build our application as a docker image.
+- Should build our application as a Docker image.
 - Should tag the image with both the git sha and "latest". (Do not use such general tags in real life!)
-- Should push the image to Githubs docker registry.
+- Should push the image to GitHub's Docker registry, the GitHub Container Registry (ghcr.io).
 
 In order for this to work, we need three environment variables:
-- `docker_username` the username for docker registry.
-- `docker_password` the password for docker registry.
+- `docker_username` the username for Docker registry.
+- `docker_password` the password for Docker registry.
 - `GIT_COMMIT`  the name of the git commit that is being built.
 
 You can set these environment variables as global variables in your workflow through the `env` section.
+
+Make sure you use the variables with lowercase names, as that is how the application expects them.
 
 ```YAML
 env:
@@ -36,7 +38,7 @@ Examples of these are:
 
 You can see the ones you can use directly inside a step here: https://docs.github.com/en/actions/learn-github-actions/environment-variables#default-environment-variables
 
-Github Actions also has a list of contexts.
+GitHub Actions also has a list of contexts.
 
 Contexts are a way to access information about workflow runs, runner environments, jobs, and steps. 
 Each context is an object that contains properties, which can be strings or other objects.
@@ -116,7 +118,7 @@ Ready steps looks like:
 
 ## Using actions instead of scripts
 
-The above job can be also done by using actions: `docker/login-action@v3` and `docker/build-push-action@v5`, what will provide the same functionality. You can find it in the example below:
+The above job can be also done by using actions: `docker/login-action@v3` and `docker/build-push-action@v5`, which will provide the same functionality. You can find it in the example below:
 
 <details>
 <summary> Doing the same using Actions </summary>
@@ -147,12 +149,12 @@ jobs:
 
 ### Solution 
 
-If you strugle and need to see the whole ***Solution*** you can click this [link](../trainer/.github/workflows/docker-image.yaml)
+If you need to see the whole ***Solution*** you can click this [link](../trainer/.github/workflows/docker-image.yaml)
 
 
 ### Results
 
-You should be able to see your docker image on your GitHub account as: 
+You should be able to see your Docker image on your GitHub account as:
 
 ![GitHub Container Registry](img/github-container.png)
 

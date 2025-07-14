@@ -1,17 +1,17 @@
 # Github Actions Katas
 
-This series of katas will go through the basic steps in github actions, making you able to make CI builds in the end.
+This series of katas will go through the basic steps in GitHub actions, making you able to make CI builds in the end.
 
 ## Learning Goals
 
 - Creating an instance of the template repository
-- Creating a workflow file seeing Github Actions in action
+- Creating a workflow file seeing GitHub Actions in action
 
 ## Exercise
 
 ### Overview
 
-In this exercise we are creating your own instance of this templated repository, and creating a workflow.
+In this exercise we are creating your own instance of this templated repository and a workflow.
 
 <details>
 <summary>:bulb: If you want to clone this down on your machine, you need to have git set up there. Here are the commands to set it up</summary>
@@ -98,4 +98,3 @@ jobs:
 
 Congratulations! You have now created your first workflow!
 It does not do much, but in the next exercise we will start building on it.
-
