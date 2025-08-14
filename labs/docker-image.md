@@ -1,6 +1,6 @@
 # Building Docker Images
 
-Next step is to have our application packaged as a docker image for easy distribution. 
+Next step is to have our application packaged as a docker image for easy distribution.
 
 We have some requirements for our pipeline step:
 
@@ -9,13 +9,14 @@ We have some requirements for our pipeline step:
 - Should push the image to Githubs docker registry.
 
 In order for this to work, we need three environment variables:
+
 - `docker_username` the username for docker registry.
 - `docker_password` the password for docker registry.
 - `GIT_COMMIT`  the name of the git commit that is being built.
 
 You can set these environment variables as global variables in your workflow through the `env` section.
 
-```YAML
+```yaml
 env:
   docker_username: <your docker username>
   docker_password: <your docker password>
@@ -34,24 +35,23 @@ Examples of these are:
 - The name of the branch
 - The SHA of the commit
 
-You can see the ones you can use directly inside a step here: https://docs.github.com/en/actions/learn-github-actions/environment-variables#default-environment-variables
+You can see the ones you can use directly inside a step here: <https://docs.github.com/en/actions/learn-github-actions/environment-variables#default-environment-variables>
 
 Github Actions also has a list of contexts.
 
-Contexts are a way to access information about workflow runs, runner environments, jobs, and steps. 
+Contexts are a way to access information about workflow runs, runner environments, jobs, and steps.
 Each context is an object that contains properties, which can be strings or other objects.
-You can see them here: https://docs.github.com/en/actions/learn-github-actions/contexts#about-contexts 
+You can see them here: <https://docs.github.com/en/actions/learn-github-actions/contexts#about-contexts>
 
 The default environment variables that GitHub sets are available to every step in a workflow.
-Contexts are also available before the steps, as when defining the `env` section of the workflow. 
-
+Contexts are also available before the steps, as when defining the `env` section of the workflow.
 
 ### Tasks
 
 - Add a new job named `Docker-image` that requires the `Build` to be completed.
 You need to add package write permissions so that your action can upload the container to the registry.
 
-```YAML
+```yaml
   Docker-image:
     runs-on: ubuntu-latest
     needs: [Build]
@@ -63,36 +63,58 @@ In order for us to create and push the docker image, we need the CI scripts, the
 
 - Add a step in `Docker-image` which downloads the `code` artifact.
 
-
 <details>
-    <summary> :bulb: Hint on how it looks like </summary>
+  <summary> :bulb: Hint on how it looks like </summary>
 
-```YAML
-    - name: Download code
-      uses: actions/download-artifact@v4
-      with:
-        name: code
-        path: .
-```
+  ```yaml
+      - name: Download code
+        uses: actions/download-artifact@v4
+        with:
+          name: code
+          path: .
+  ```
+
 </details>
 
-- Add `docker_username` and `docker_password` as environmental variables on top of the workflow file. 
+- Add `docker_username` and `docker_password` as environmental variables on top of the workflow file.
 
-```YAML
+```yaml
 name: Main workflow
 on: push
 env: # Set the secret as an input
   docker_username: ${{ github.actor }} 
-  docker_password: ${{ secrets.GITHUB_TOKEN }} #Nees to be set to be made available to the workflow
+  docker_password: ${{ secrets.GITHUB_TOKEN }} # Must be made available to the workflow
 jobs:
   Build:
 ```
 
-> :bulb: The `docker_username` should be set to the `github.actor`. If your username is having capital letters, you need to type it in manually as Docker will not accept capital letters in the repository name.
-```YAML
+> :bulb: The `docker_username` should be set to the `github.actor`.
+>
+> *If* your username contains capital letters, you need to type it in manually as Docker will not accept capital letters in the repository name:
+
+```yaml
+
 #  docker_username: ${{ github.actor }} 
 docker_username: elmeri #instead of Elmeri
 ```
+
+<details>
+  <summary>Checking for uppercase in docker_username</summary>
+
+  ```yaml
+    - name: Validate Docker username is all lowercase
+      id: validate_lower
+      run: |
+        if [[ "${{ env.docker_username }}" =~ [A-Z] ]]; then
+          echo "::error::Validation Failed: Docker username '${{ env.docker_username }}' cannot contain uppercase characters."
+          exit 1
+        else
+          echo "Docker username format is valid."
+        fi
+      shell: bash
+  ```
+
+</details>
 
 - Add GIT_COMMIT environment variable as well, that should contain the commit sha of the repository.
 
@@ -101,7 +123,8 @@ docker_username: elmeri #instead of Elmeri
 - Run the `ci/build-docker.sh` and `ci/push-docker.sh` scripts.
 
 Ready steps looks like:
-```YAML
+
+```yaml
     - name: build docker
       run: bash ci/build-docker.sh
     - name: push docker
@@ -145,14 +168,12 @@ jobs:
 
 </details>
 
-### Solution 
+### Solution
 
-If you strugle and need to see the whole ***Solution*** you can click this [link](../trainer/.github/workflows/docker-image.yaml)
-
+If you struggle and need to see the whole ***Solution*** you can click this [trainer's docker-image.yaml](../trainer/.github/workflows/docker-image.yaml)
 
 ### Results
 
-You should be able to see your docker image on your GitHub account as: 
+You should be able to see your docker image on your GitHub account as:
 
 ![GitHub Container Registry](img/github-container.png)
-
