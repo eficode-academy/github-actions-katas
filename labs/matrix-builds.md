@@ -20,7 +20,7 @@ jobs:
           node-version: ${{ matrix.node }}
 ```
 
-With this, the job will run three seperate jobs for different versions of NodeJS; 8, 10 and 12.
+With this, the job will run three separate jobs for different versions of NodeJS; 8, 10 and 12.
 There can be similar solution for container based pipelines:
 
 ```YAML
@@ -44,7 +44,7 @@ In this example pipeline runs-on `ubuntu-latest` for 4 different containers: `"u
 
 ## Tasks
 
-we would like to build our application on different versios of Java.
+we would like to build our application on different versions of Java.
 
 ### Add a new job that builds on various versions
 

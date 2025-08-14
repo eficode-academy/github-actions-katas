@@ -17,7 +17,7 @@ This part is made as a recap of the previous exercise, to remind you how to add 
 
 ## Solution
 
-If you strugle and need to see the whole ***Solution*** you can extend the section below.
+If you struggle and need to see the whole ***Solution*** you can extend the section below.
 <details>
     <summary> Solution </summary>
   

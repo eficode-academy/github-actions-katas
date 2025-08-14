@@ -28,7 +28,7 @@ Let's dive in and create an organization, a starter workflow, and then run it!
 - Create a new repository.
 - Choose `.github` as the repository name (*required in order to make the magic work*).
 - 📝 Set visibility to public
-- Click the `Create repositiory` button on the bottom.
+- Click the `Create repository` button on the bottom.
 - Create a directory named `workflow-templates`.
 
 <details>
@@ -111,7 +111,7 @@ Go back to Actions and click on build and then you should see the steps.
 - Notice the top tab allows you to select between a secret (default) and a variable
 - Click the *New organization secret* button
 - Select a `Name` and `Value`, and observe that you can scope the secret to public (the default for some reason ), private, or selected repos within the organization
-- Note that secrets are redacted (with `***`) from log outputs, so in order to verify access, try a workflow simlar to the following:
+- Note that secrets are redacted (with `***`) from log outputs, so in order to verify access, try a workflow similar to the following:
 
   Verify secret access `/.github/workflows/test-secret.yaml`
 

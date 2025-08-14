@@ -1,8 +1,8 @@
 # Pull Request based workflow
 
-> Note: In this exercise we use the term "main" to refer to the main stabilization branch, or the default branch. This can also have the name "trunk" or "master", but all is refering back to the same thing.
+> Note: In this exercise we use the term "main" to refer to the main stabilization branch, or the default branch. This can also have the name "trunk" or "master", but all is referring back to the same thing.
 
-The defacto-standard workflow now-adays is the
+The defacto-standard workflow nowadays is the
 Pull Request workflow (also known as the
 [GitHub flow](https://guides.github.com/introduction/flow/))
 
@@ -40,7 +40,7 @@ rules and then click on `add rule`.
 - OPTIONAL: `Require linear history` requires the
   PR branch to be rebased with the target branch,
   so a linear history can be obtained.
-  [Further explanaition here](https://www.bitsnbites.eu/a-tidy-linear-git-history/).
+  [Further explanation here](https://www.bitsnbites.eu/a-tidy-linear-git-history/).
   This is a very strict way of using git, and is
   only here for inspiration for experiments.
 
@@ -59,7 +59,7 @@ The way the pipelines gets triggered is by using the `on` field in the workflow.
 
 - Take a look at the [documentation on what events that can trigger a pipeline](https://docs.github.com/en/actions/reference/events-that-trigger-workflows).
 
-- By using the resource above, make the pipleine only trigger on pushes and PR's to `main` branch.
+- By using the resource above, make the pipeline only trigger on pushes and PR's to `main` branch.
 
 <details>
 <summary> Hint if you get stuck</summary>

@@ -1,6 +1,6 @@
 # Systems test
 
-After having our releaseable component (our docker image), we can now run our system tests to promote the artifact.
+After having our releasable component (our docker image), we can now run our system tests to promote the artifact.
 
 In the repository we have made two different system tests; component test and performance test.
 
@@ -26,7 +26,7 @@ Both requires your docker username as envs in order to work.
 
 ### Solution
 
-If you strugle and need to see the whole ***Solution*** you can extend the section below.
+If you struggle and need to see the whole ***Solution*** you can extend the section below.
 
 <details>
     <summary> Solution </summary>

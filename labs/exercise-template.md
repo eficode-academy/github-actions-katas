@@ -13,7 +13,7 @@ Here you will provide the bare minimum of information people need to solve the e
 You can have several subsections if needed.
 
 <details>
-<summary>:bulb: If an explanaition becomes too long, the more detailed parts can be encapsulated in a drop down section</summary>
+<summary>:bulb: If an explanation becomes too long, the more detailed parts can be encapsulated in a drop down section</summary>
 </details>
 
 ## Exercise

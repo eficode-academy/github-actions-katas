@@ -28,18 +28,18 @@ The example for gradle can be seen below.
       ${{ runner.os }}-gradle-
 ```
 
-To use cache at the consequtive jobs, the same code (from above example) has to be added as a step.
+To use cache at the consecutive jobs, the same code (from above example) has to be added as a step.
 
 Limitations on using caching:
 
-* Github will delete all unaccessed caches for 7 days.
+* Github will delete all un-accessed caches for 7 days.
 * There is no limit on how many caches can be stored, however if the total space used by the repository exceeds 10GB GitHub will start deleting the oldest caches.
 
 ## Tasks
 
 In this exercise the artifacts management in the existing pipeline will be changed to use caching instead as follow:
 
-1. Create a new Github Actions file under `./github/workflows/caching.yaml` with exact copy of the pipelimne from exercise 7.
+1. Create a new Github Actions file under `./github/workflows/caching.yaml` with exact copy of the pipeline from exercise 7.
 2. Instead of using upload and download artifacts at each job, use caching with an above example for Gradle.
 3. Should artifact be uploaded at the end of the workflow?
 

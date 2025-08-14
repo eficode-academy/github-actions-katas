@@ -49,7 +49,7 @@ You can find more information around the different parameters via the [link to d
 :bulb:
 <details>
     <summary> More information about storing artifacts </summary>
-  Github has an excelent guide on how you can use persistant storage over periods of builds here: https://docs.github.com/en/actions/guides/storing-workflow-data-as-artifacts
+  Github has an excellent guide on how you can use persistent storage over periods of builds here: https://docs.github.com/en/actions/guides/storing-workflow-data-as-artifacts
 </details>
 
 ## Exercise
