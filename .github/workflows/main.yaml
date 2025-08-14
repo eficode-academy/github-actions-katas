@@ -9,19 +9,12 @@ jobs:
     runs-on: ubuntu-latest
     container: gradle:6-jdk11
     steps:
-      # - name: Check for lowercase characters in docker_username
-      #   run: |
-      #     if [[ "${{ env.docker_username }}" =~ [a-z] ]]; then
-      #       echo "Your docker_username contains lowercase characters, please use hardcoded, all lowercase as instructed in the docker-image lab"
-      #       exit 1
-      #     fi
-      - name: Check for lowercase characters in docker_username
+      - name: Check for Upper characters in docker_username
         if: ${{ env.docker_username }} =~ [a-z]
         uses: actions/github-script@v3
         with:
           script: |
-              core.setFailed('Your docker_username contains lowercase characters, please use hardcoded, all lowercase as instructed in the docker-image lab')
-
+            core.setFailed('Your docker_username contains Uppercase characters')
       - name: Clone down repository
         uses: actions/checkout@v4
       - name: Build application
