@@ -1,4 +1,4 @@
-## Systems test
+# Systems test
 
 After having our releaseable component (our docker image), we can now run our system tests to promote the artifact.
 
@@ -26,7 +26,7 @@ Both requires your docker username as envs in order to work.
 
 ### Solution
 
-If you strugle and need to see the whole ***Solution*** you can extend the section below. 
+If you strugle and need to see the whole ***Solution*** you can extend the section below.
 
 <details>
     <summary> Solution </summary>
@@ -57,4 +57,3 @@ If you strugle and need to see the whole ***Solution*** you can extend the secti
 ```
   
 </details>
-

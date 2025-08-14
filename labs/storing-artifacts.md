@@ -16,7 +16,7 @@ In this exercise we will use it to lint our sourcecode in a separate job.
 
 ### Upload and download artifacts
 
-When running multiple jobs, the runner you get for each job is completely new. 
+When running multiple jobs, the runner you get for each job is completely new.
 
 This means that the state of the repository is not persisted between jobs.
 
@@ -46,11 +46,11 @@ As artifacts can be uploaded it can also be downloaded from Github Actions with 
 
 You can find more information around the different parameters via the [link to documentation for download action](https://github.com/actions/download-artifact).
 
-:bulb: 
+:bulb:
 <details>
     <summary> More information about storing artifacts </summary>
   Github has an excelent guide on how you can use persistant storage over periods of builds here: https://docs.github.com/en/actions/guides/storing-workflow-data-as-artifacts
-</details>    
+</details>
 
 ## Exercise
 
@@ -137,6 +137,7 @@ We will now create a new job, which will use super-linter to lint our sourcecode
           # To report GitHub Actions status checks
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
+
 </details>
 
 Push that up to your repository and check the actions tab.
@@ -145,7 +146,7 @@ Ohh no! the linting failed! What happened?
 
 The log should show something like this:
 
-```
+```bash
 2024-01-31 10:50:44 [INFO]   ----------------------------------------------
 2024-01-31 10:50:44 [INFO]   ----------------------------------------------
 2024-01-31 10:50:44 [INFO]   The script has completed
@@ -186,4 +187,4 @@ Congratulations! You have now created a workflow with multiple jobs, and used ar
 
 ### Resources
 
-https://docs.github.com/en/actions/guides/storing-workflow-data-as-artifacts
+<https://docs.github.com/en/actions/guides/storing-workflow-data-as-artifacts>

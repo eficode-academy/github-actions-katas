@@ -1,10 +1,10 @@
-## Building the application
+# Building the application
 
 Github Actions is configured through the [YAML files](https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions).
 
 :bulb: The trickiest part of writing the configuration files is typically getting the indentation right.
 
-### learning goals
+## learning goals
 
 - Understand the basic structure of a workflow file
 - Understand the basic structure of a job
@@ -28,12 +28,11 @@ We ultimately want a pipeline that has the following jobs:
 
 We are not going to do it all in one go, but rather step by step.
 
-### A basic example:
+### A basic example
 
 Now we want to diver a bit more into a pipeline.
 
 Examine the following example, that makes the agent running the pipeline echo out "hello world":
-
 
 ```yaml
 name: Main workflow
@@ -60,15 +59,14 @@ A line-by-line explanation of the above:
 - **Line 9**: Uses the action `actions/checkout@v4`, to clone down the repository's content to the runner, enabling subsequent steps to access it.
 - **Line 10**: Runs the `build-app.sh` script found in the `ci` directory of the repository.
 
-
 This workflow is a basic example that provides insights into the event type, branch reference, and repository structure when code is pushed to it.
 
-If you want to see what `build-app.sh` is doing, look into [the script](../ci/build-app.sh). 
+If you want to see what `build-app.sh` is doing, look into [the script](../ci/build-app.sh).
 
 ## Task
 
 - Replace the workflow you created in `.github/workflows/main.yml` with the above example.
-- Add and commit the file and push it to Github. 
+- Add and commit the file and push it to Github.
 
 <details>
 <summary>:bulb: Git commands to do it if you are using the terminal</summary>
@@ -84,7 +82,8 @@ git push
 
 - Go to Github Actions tab of the repository and check the action status.
 
-### Results 
+### Results
+
 See that the build runs green and outputs this in the step log:
 
 ```bash

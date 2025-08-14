@@ -27,7 +27,7 @@ You can have several subsections if needed.
 <details>
 <summary>More Details</summary>
 
-**take the same bullet names as above and put them in to illustrate how far the student have gone**
+### Repeat the same bullet names as above and put them in to illustrate how far the student have gone
 
 - all actions that you believe the student should do, should be in a bullet
 

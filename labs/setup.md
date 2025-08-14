@@ -31,11 +31,11 @@ When you do a git clone, then you will be asked for your username and password. 
 
 #### Creating a repository
 
--  Go to Code tab of this repository and click `Use this template`
+- Go to Code tab of this repository and click `Use this template`
 
 ![Use this template](../img/template.png)
 
--  Select your GitHub user as the owner and name the repository. Leave the repo public to have unlimited action minutes.
+- Select your GitHub user as the owner and name the repository. Leave the repo public to have unlimited action minutes.
 
 > :bulb: **From this point forward, all actions should be performed in the repository you just created, not the template repository**
 
@@ -98,4 +98,3 @@ jobs:
 
 Congratulations! You have now created your first workflow!
 It does not do much, but in the next exercise we will start building on it.
-
