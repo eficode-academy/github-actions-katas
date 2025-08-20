@@ -1,8 +1,8 @@
 # Pull Request based workflow
 
-> Note: In this exercise we use the term "main" to refer to the main stabilization branch, or the default branch. This can also have the name "trunk" or "master", but all is refering back to the same thing.
+> Note: In this exercise we use the term "main" to refer to the main stabilization branch, or the default branch. This can also have the name "trunk" or "master", but all is referring back to the same thing.
 
-The defacto-standard workflow now-adays is the
+The defacto-standard workflow nowadays is the
 Pull Request workflow (also known as the
 [GitHub flow](https://guides.github.com/introduction/flow/))
 
@@ -23,7 +23,7 @@ in
 under `settings->Branches`, Branch protection
 rules and then click on `add rule`.
 
-### Tasks
+### Tasks for branch protection
 
 - Go to your repository on GitHub enter settings.
 - Go to `Branches` and add a branch protection rule.
@@ -35,12 +35,12 @@ rules and then click on `add rule`.
   The branch must be up to date with the base
   branch before merging.
 - Add the following jobs to the `Status checks that are required` selection: `Build`,`Docker-image`. In that way, no one can push to main without having the tests pass.
-- `Do not allow bypassing the above settings ` Makes the rules apply
+- `Do not allow bypassing the above settings` Makes the rules apply
   to everyone (yes, you too!).
 - OPTIONAL: `Require linear history` requires the
   PR branch to be rebased with the target branch,
   so a linear history can be obtained.
-  [Further explanaition here](https://www.bitsnbites.eu/a-tidy-linear-git-history/).
+  [Further explanation here](https://www.bitsnbites.eu/a-tidy-linear-git-history/).
   This is a very strict way of using git, and is
   only here for inspiration for experiments.
 
@@ -53,13 +53,13 @@ Right now our pipeline gets triggered by any push to any branch.
 
 We want our pipeline to trigger on both pushes and pull requests towards main only.
 
-The way thar pipelines gets triggered is by using the `on` field in the workflow.
+The way the pipelines gets triggered is by using the `on` field in the workflow.
 
-### Tasks
+### Tasks for triggering builds
 
 - Take a look at the [documentation on what events that can trigger a pipeline](https://docs.github.com/en/actions/reference/events-that-trigger-workflows).
 
-- By using the resource above, make the pipleine only trigger on pushes and PR's to `main` branch.
+- By using the resource above, make the pipeline only trigger on pushes and PR's to `main` branch.
 
 <details>
 <summary> Hint if you get stuck</summary>
@@ -98,11 +98,11 @@ You want to run tests on your development branches as well, even if you are not 
 
 For that we need to add another workflow to the repository.
 
-We want to run a slightly shorter workflow, excluding the component and performance tests, and the push of docker images. 
+We want to run a slightly shorter workflow, excluding the component and performance tests, and the push of docker images.
 
 We want to run in on all branches that has the prefix `dev/`.
 
-### tasks
+### Tasks
 
 - Copy your workflow file to a new file called `workflows/dev-workflow.yml`.
 - Change the `on` field to:
@@ -127,4 +127,4 @@ out, to see what it feels like.
 
 ## Further reading
 
-- https://docs.github.com/en/actions/reference/events-that-trigger-workflows
+- <https://docs.github.com/en/actions/reference/events-that-trigger-workflows>

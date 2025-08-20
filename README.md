@@ -17,9 +17,9 @@ This repository contains a set of exercises to learn Github Actions.
 * [Build app on multiple environments](./labs/matrix-builds.md)
 
 ### Rough exercises (not yet ready)
-* [Reusing build cache ](./labs/build-cache.md)
-* [Selfhosted runners](./labs/selfhosted-runner.md)
 
+* [Reusing build cache](./labs/build-cache.md)
+* [Selfhosted runners](./labs/selfhosted-runner.md)
 
 ## Resources
 
