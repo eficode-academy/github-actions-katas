@@ -1,6 +1,6 @@
 # Extending the pipeline
 
-After the application is build, the unit test should be performed to check if it works as expected.
+After the web service is built, we want to run the unit tests to check if it works as expected.
 
 This part is made as a recap of the previous exercise, to remind you how to add a step to the pipeline.
 
@@ -12,12 +12,15 @@ This part is made as a recap of the previous exercise, to remind you how to add 
 
 ### Tasks
 
-- Add a step running the unit test named `Test`,
-- The step should `run` the script `ci/unit-test-app.sh`. If you want to know what the script is doing, look into [the script](../ci/unit-test-app.sh).
+- Open the file `.github/workflows/main.yml`.
+- In the job named `Build`, after the step named `Build application`, add a new step named `Test`.
+- The step should `run` the script `ci/unit-test-app.sh`. If you want to know what the script is doing,
+  look into [the script](../ci/unit-test-app.sh).
 
 ## Solution
 
-If you struggle and need to see the whole ***Solution*** you can extend the section below.
+If you need to see the whole _*Solution*_ you can extend the section below.
+
 <details>
     <summary> Solution </summary>
   
@@ -41,7 +44,7 @@ jobs:
 
 ## Results
 
-If the exercise is completed correctly. The output of `Test` step will look like:
+If the exercise is completed correctly, the output of `Test` step will look similar to this:
 
 ``` bash
 > Task :compileJava UP-TO-DATE
@@ -63,4 +66,4 @@ BUILD SUCCESSFUL in 6s
 4 actionable tasks: 2 executed, 2 up-to-date
 ```
 
-Great, now you have a pipeline that builds and tests your application :tada:
+Great, now you have a pipeline that builds and tests your web service :tada:
