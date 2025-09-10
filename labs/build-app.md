@@ -12,12 +12,14 @@ Github Actions is configured through the [YAML files](https://docs.github.com/en
 
 ## Building a CI pipeline in GitHub Actions
 
-In this workshop we will be using a small java service which uses Gradle to build the application.
+In this workshop we will use a small Java web service which is built and tested using Gradle.
 
-The application is found in the `app` directory, though the details of the implementation are not interesting for the purposes of these katas.
-There are a number of shell scripts that help with building the application, these are located in the `ci` directory.
+The details of the implementation are not relevant for the purposes of these exercises. We will
+instead focus on how to build a CI pipeline using GitHub Actions, that builds, tests and packages
+the webservice.
 
-The purpose of these katas is to use the small java application to exemplify how to use Github Actions to build, test and package your applications.
+The application is found in the `app` directory. Scripts to build, test and package the web service
+are found in the `ci` directory.
 
 We ultimately want a pipeline that has the following jobs:
 
@@ -30,9 +32,7 @@ We are not going to do it all in one go, but rather step by step.
 
 ### A basic example
 
-Now we want to diver a bit more into a pipeline.
-
-Examine the following example, that makes the agent running the pipeline echo out "hello world":
+Examine the following example workflow definition:
 
 ```yaml
 name: Main workflow
@@ -44,7 +44,8 @@ jobs:
     steps:
       - name: Clone down repository
         uses: actions/checkout@v4       
-      - run: ci/build-app.sh
+      - name: Build application
+        run: ci/build-app.sh
 ```
 
 A line-by-line explanation of the above:
@@ -55,9 +56,11 @@ A line-by-line explanation of the above:
 - **Line 4-5**: Defines a job named `Build` that runs on an Ubuntu VM.
 - **Line 6**: Specifies that the job should run in a container with the image `gradle:6-jdk11`.
 - **Line 7**: Defines the steps that should be executed in the job.
-- **Line 8**: A step named `Clone down repository`
-- **Line 9**: Uses the action `actions/checkout@v4`, to clone down the repository's content to the runner, enabling subsequent steps to access it.
-- **Line 10**: Runs the `build-app.sh` script found in the `ci` directory of the repository.
+- **Line 8**: Defines a step named `Clone down repository` ...
+- **Line 9**: ... which uses the action `actions/checkout@v4`, to clone down the repository's content
+  to the runner, enabling subsequent steps to access it.
+- **Line 10**: Defines a step named `Build application` ...
+- **Line 11**: ... which runs the `build-app.sh` script found in the `ci` directory of the repository.
 
 This workflow is a basic example that provides insights into the event type, branch reference, and repository structure when code is pushed to it.
 
@@ -65,15 +68,15 @@ If you want to see what `build-app.sh` is doing, look into [the script](../ci/bu
 
 ## Task
 
-- Replace the workflow you created in `.github/workflows/main.yml` with the above example.
-- Add and commit the file and push it to Github.
+- Replace the contents of `.github/workflows/main.yml` with the above example.
+- Add and commit the file and push it to GitHub.
 
 <details>
 <summary>:bulb: Git commands to do it if you are using the terminal</summary>
 
 ```bash
-git add .github/workflows/hello-world.yml
-git commit -m "Add hello world workflow"
+git add .github/workflows/main.yml
+git commit -m "Add basic workflow to build the web service"
 git push
 
 ```
@@ -81,6 +84,8 @@ git push
 </details>
 
 - Go to Github Actions tab of the repository and check the action status.
+- When the build is green, click the `Build` job entry to see the workflow log.
+- Expand the `Run ./ci/build-app.sh` step to see the output of the build.
 
 ### Results
 
@@ -108,6 +113,6 @@ BUILD SUCCESSFUL in 15s
 
 ## Summary
 
-Congratulations, you have now build the java application!
+Congratulations, you have now built the Java web service!
 
-But we have some way to go yet, we want to build a docker image, and run some tests on it as well.
+But we have some way to go yet, we want to build a Docker image, and run some tests on it as well.
