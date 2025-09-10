@@ -5,7 +5,7 @@ This series of katas will go through the basic steps in github actions, making y
 ## Learning Goals
 
 - Creating an instance of the template repository
-- Creating a workflow file seeing Github Actions in action
+- Creating a workflow file seeing GitHub Actions in action
 
 ## Exercise
 
@@ -14,7 +14,7 @@ This series of katas will go through the basic steps in github actions, making y
 In this exercise we are creating your own instance of this templated repository, and creating a workflow.
 
 <details>
-<summary>:bulb: If you want to clone this down on your machine, you need to have git set up there. Here are the commands to set it up</summary>
+<summary>:bulb: If you want to clone the newly created repository down on your machine, you need to have git set up there. Here are the commands to set it up</summary>
 
 You need to provide your email and name to git with the following commands.
 
@@ -29,27 +29,40 @@ When you do a git clone, then you will be asked for your username and password. 
 
 ### Tasks
 
-#### Creating a repository
+#### Create a repository
 
-- Go to Code tab of this repository and click `Use this template`
+- Go to _Code_ tab of this repository
+- Click _Use this template_ and _Create a new repository_
 
-![Use this template](../img/template.png)
+  ![Use this template](../img/template.png)
 
-- Select your GitHub user as the owner and name the repository. Leave the repo public to have unlimited action minutes.
+- Fill in the details for your new repository:
+
+  - Owner: Select your GitHub user as the owner.
+  - Name: `github-actions-katas` or something similar.
+  - Description: Add a description if you want.
+  - Visibility: **Public**. This is important for some of the exercises later on.
+- Press _Create repository_.
+- Once the repository is created, open the _Setup_ exercise again in this new repository.
+
+The new repository has now been created as a public repository under your own user, and you should be
+reading this in the new repository.
 
 > :bulb: **From this point forward, all actions should be performed in the repository you just created, not the template repository**
 
-#### Creating the workflow
+#### Create a simple workflow
 
-As a general rule, all your workflow files will be located in the `.github/workflows` folder.
+In this part of the exercise we will create a simple workflow that just prints "Hello, world!" to
+the build log.
 
-- Click on the `Actions` tab and click `New workflow`
-
-- Click on the "setup the workflow yourself" link
+- Click on the _Actions_ tab
+- Click on the _Setup the workflow yourself_ link
 
 ![hello-world](../img/hello-world.png)
 
-- The file `.github/workflows/main.yaml` should have the following workflow:
+The file `.github/workflows/main.yaml` will be opened as an empty file in the GitHub web editor.
+
+- Copy the following content into the file and save it:
 
 ``` yaml
 # This is a basic workflow to help you get started with Actions
@@ -90,8 +103,9 @@ jobs:
           echo test, and deploy your project.
 ```
 
-- click `Commit changes` and commit to the main branch
-- Go to the `Actions` tab and see the workflow running
+- Click _Commit changes_ - found in the _upper right corner_ of the screen - and commit to the
+  `main` branch
+- Go to the _Actions_ tab and see the workflow running
 - Click on the workflow and see the output of the workflow
 
 ## Summary
