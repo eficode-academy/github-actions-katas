@@ -41,7 +41,7 @@ When you do a git clone, then you will be asked for your username and password. 
   - Owner: Select your GitHub user as the owner.
   - Name: `github-actions-katas` or something similar.
   - Description: Add a description if you want.
-  - Visibility: **Public**. This is important for some of the exercises later on.
+  - Visibility: **Public**. This is important! Some of the exercises later on will fail if the visibility of the repository is not public.
 - Press _Create repository_.
 - Once the repository is created, open the _Setup_ exercise again in this new repository.
 
