@@ -7,5 +7,5 @@ services:
     volumes:
       - "./performance-test/single-request.js:/home/k6/script.js"
   web:
-    image: ghcr.io/${docker_username}micronaut-app:latest
+    image: ghcr.io/${github_username}micronaut-app:latest
   

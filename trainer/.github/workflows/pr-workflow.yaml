@@ -7,8 +7,8 @@ on:
     branches:
       - main
 env: # Set the secret as an input
-  docker_username: ${{ github.actor }} 
-  docker_password: ${{ secrets.GITHUB_TOKEN }} #Nees to be set to be made available to the workflow
+  github_username: ${{ github.actor }}
+  github_password: ${{ secrets.GITHUB_TOKEN }} # Needs to be made available to the workflow
   GIT_COMMIT: ${{ github.sha }}
 jobs:
   Build:

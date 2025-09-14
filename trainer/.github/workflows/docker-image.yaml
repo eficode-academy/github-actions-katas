@@ -1,8 +1,8 @@
 name: Main workflow
 on: push
 env: # Set the secret as an input
-  docker_username: ${{ github.actor }} 
-  docker_password: ${{ secrets.GITHUB_TOKEN }} # Must be made available to the workflow
+  github_username: ${{ github.actor }}
+  github_password: ${{ secrets.GITHUB_TOKEN }} # Must be made available to the workflow
   GIT_COMMIT: ${{ github.sha }}
 jobs:
   Build:
@@ -12,8 +12,8 @@ jobs:
       - name: Validate Docker username is all lowercase
         id: validate_lower
         run: |
-          if [[ "${{ env.docker_username }}" =~ [A-Z] ]]; then
-            echo "::error::Validation Failed: Docker username '${{ env.docker_username }}' cannot contain uppercase characters."
+          if [[ "${{ env.github_username }}" =~ [A-Z] ]]; then
+            echo "::error::Validation Failed: Docker username '${{ env.github_username }}' cannot contain uppercase characters."
             exit 1
           else
             echo "Docker username format is valid."
