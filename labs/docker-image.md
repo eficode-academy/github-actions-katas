@@ -76,7 +76,7 @@ In order for us to create and push the docker image, we need the CI scripts, the
 
 </details>
 
--- Add `github_username` and `github_password` as environmental variables on top of the workflow file.
+- Add `github_username` and `github_password` as environmental variables on top of the workflow file.
 
 ```yaml
 name: Main workflow
