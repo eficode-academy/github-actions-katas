@@ -10,20 +10,20 @@ We have some requirements for our pipeline step:
 
 In order for this to work, we need three environment variables:
 
-- `docker_username` the username for docker registry.
-- `docker_password` the password for docker registry.
+- `github_username` the username for the GitHub Container Registry (usually the GitHub actor).
+- `github_password` the password/token used to authenticate to the registry (usually a token).
 - `GIT_COMMIT`  the name of the git commit that is being built.
 
 You can set these environment variables as global variables in your workflow through the `env` section.
 
 ```yaml
 env:
-  docker_username: <your docker username>
-  docker_password: <your docker password>
+  github_username: <your registry username or ${{ github.actor }}>
+  github_password: <your token or ${{ secrets.GITHUB_TOKEN }}>
   GIT_COMMIT: <your git commit>
 ```
 
-The two scripts: `ci/build-docker.sh` and `ci/push-docker.sh` expects all three environment variables to be set.
+The two scripts: `ci/build-docker.sh` and `ci/push-docker.sh` expect all three environment variables to be set.
 
 ## Build-in environment variables
 
@@ -76,37 +76,37 @@ In order for us to create and push the docker image, we need the CI scripts, the
 
 </details>
 
-- Add `docker_username` and `docker_password` as environmental variables on top of the workflow file.
+- Add `github_username` and `github_password` as environmental variables on top of the workflow file.
 
 ```yaml
 name: Main workflow
 on: push
 env: # Set the secret as an input
-  docker_username: ${{ github.actor }} 
-  docker_password: ${{ secrets.GITHUB_TOKEN }} # Must be made available to the workflow
+  github_username: ${{ github.actor }}
+  github_password: ${{ secrets.GITHUB_TOKEN }} # Must be made available to the workflow
 jobs:
   Build:
 ```
 
-> :bulb: The `docker_username` should be set to the `github.actor`.
+> :bulb: The `github_username` should typically be set to the `github.actor` if you want to provide it dynamically to the runner. Otherwise you can hardcode it to your username.
 >
-> *If* your username contains capital letters, you need to type it in manually as Docker will not accept capital letters in the repository name:
+> **NOTE**: Image name components (including the owner/namespace) must be lowercase. This restriction is from Docker/OCI image naming rules. GitHub user logins are case-insensitive, and will cause problems with storing and retrieving container images if it includes uppercase letters. If your GitHub username **contains uppercase letters**, provide it explicitly in lowercase in the workflow instead of using the built-in `github.actor`.
 
 ```yaml
-
-#  docker_username: ${{ github.actor }} 
-docker_username: elmeri #instead of Elmeri
+# Do this if your GitHub username contains uppercase letters, e.g. "Elmeri":
+# github_username: ${{ github.actor }}
+github_username: elmeri  # use lowercase for the registry/imagename component
 ```
 
 <details>
-  <summary>Checking for uppercase in docker_username</summary>
+  <summary>Optional: Check for uppercase letters in github_username</summary>
 
   ```yaml
     - name: Validate Docker username is all lowercase
       id: validate_lower
       run: |
-        if [[ "${{ env.docker_username }}" =~ [A-Z] ]]; then
-          echo "::error::Validation Failed: Docker username '${{ env.docker_username }}' cannot contain uppercase characters."
+        if [[ "${{ env.github_username }}" =~ [A-Z] ]]; then
+          echo "::error::Validation Failed: GitHub username '${{ env.github_username }}' cannot contain uppercase characters."
           exit 1
         else
           echo "Docker username format is valid."

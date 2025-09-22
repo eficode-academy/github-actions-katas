@@ -1,22 +1,22 @@
 name: Main workflow
 on: push
 env: # Set the secret as an input
-  docker_username: ${{ github.actor }} 
-  docker_password: ${{ secrets.GITHUB_TOKEN }} # Must be made available to the workflow
+  github_username: ${{ github.actor }}
+  github_password: ${{ secrets.GITHUB_TOKEN }} # Must be made available to the workflow
   GIT_COMMIT: ${{ github.sha }}
 jobs:
   Build:
     runs-on: ubuntu-latest
     container: gradle:6-jdk11
     steps:
-      - name: Validate Docker username is all lowercase
+      - name: Validate GitHub username is all lowercase
         id: validate_lower
         run: |
-          if [[ "${{ env.docker_username }}" =~ [A-Z] ]]; then
-            echo "::error::Validation Failed: Docker username '${{ env.docker_username }}' cannot contain uppercase characters."
+          if [[ "${{ env.github_username }}" =~ [A-Z] ]]; then
+            echo "::error::Validation Failed: GitHub username '${{ env.github_username }}' cannot contain uppercase characters."
             exit 1
           else
-            echo "Docker username format is valid."
+            echo "GitHub username format is valid."
           fi
         shell: bash
       - name: Clone down repository
@@ -30,6 +30,7 @@ jobs:
         with: 
           name: code
           path: .
+          include-hidden-files: true
   Linting:
     runs-on: ubuntu-latest
     needs: 
