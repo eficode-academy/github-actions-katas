@@ -99,7 +99,7 @@ github_username: elmeri  # use lowercase for the registry/imagename component
 ```
 
 <details>
-  <summary>Checking for uppercase in github_username</summary>
+  <summary>Optional: Check for uppercase letters in github_username</summary>
 
   ```yaml
     - name: Validate Docker username is all lowercase
