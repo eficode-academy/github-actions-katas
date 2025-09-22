@@ -93,6 +93,7 @@ jobs:
 > **NOTE**: Image name components (including the owner/namespace) must be lowercase. This restriction is from Docker/OCI image naming rules. GitHub user logins are case-insensitive, and will cause problems with storing and retrieving container images if it includes uppercase letters. If your GitHub username **contains uppercase letters**, provide it explicitly in lowercase in the workflow instead of using the built-in `github.actor`.
 
 ```yaml
+# Do this if your GitHub username contains uppercase letters, e.g. "Elmeri":
 # github_username: ${{ github.actor }}
 github_username: elmeri  # use lowercase for the registry/imagename component
 ```
