@@ -90,7 +90,7 @@ jobs:
 
 > :bulb: The `github_username` should typically be set to the `github.actor` if you want to provide it dynamically to the runner. Otherwise you can hardcode it to your username.
 >
-> Note: the restriction is from Docker/OCI image naming rules: image name components (including the owner/namespace) must be lowercase. GitHub user logins are case-insensitive, but some registries (and the Docker/OCI naming rules) require lowercase names when pushing images. If your GitHub username contains uppercase letters, provide it explicitly in lowercase in the workflow.
+> **NOTE**: Image name components (including the owner/namespace) must be lowercase. This restriction is from Docker/OCI image naming rules. GitHub user logins are case-insensitive, and will cause problems with storing and retrieving container images if it includes uppercase letters. If your GitHub username **contains uppercase letters**, provide it explicitly in lowercase in the workflow instead of using the built-in `github.actor`.
 
 ```yaml
 # github_username: ${{ github.actor }}
