@@ -85,11 +85,11 @@ git push
 
 - Go to Github Actions tab of the repository and check the action status.
 - When the build is green, click the `Build` job entry to see the workflow log.
-- Expand the `Run ./ci/build-app.sh` step to see the output of the build.
+- Expand the `Build application` step to see the output of the build.
 
 ### Results
 
-See that the build runs green and outputs this in the step log:
+See that the build status is green and the job log looks something like this:
 
 ```bash
 Run ./ci/build-app.sh

@@ -8,16 +8,20 @@ Both require your registry username and password as `env` variables in order to 
 
 ## Tasks
 
-- Add job named `Component-test`, which will run `bash ci/component-test.sh` script that runs a docker-compose file with component tests.
+- Add job named `Component-test`
+- Add a step to run `bash ci/component-test.sh` script.
+  This will run a docker-compose file with component tests.
 
 ```YAML
 - name: Execute component test
   run: bash ci/component-test.sh
 ```
 
-- This job needs to be dependent on `Docker-image` job.
+- Ensure that the job is dependent on the `Docker-image` job.
 
-- Add another job named `Performance-test`, which will run `bash ci/performance-test.sh` script that runs a docker-compose file with performance tests. (Same YAML structure as above)
+- Add another job named `Performance-test`
+- Add a step to run the `bash ci/performance-test.sh` script.
+  This will run a docker-compose file with performance tests. (Same YAML structure as above)
 - It too needs to be dependent on `Docker-image` job.
 
 - Push the changes to GitHub and see that the tests are running.
