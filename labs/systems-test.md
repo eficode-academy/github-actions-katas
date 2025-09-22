@@ -4,7 +4,7 @@ After having our releasable component (our docker image), we can now run our sys
 
 In the repository we have made two different system tests; component test and performance test.
 
-Both require your registry username as envs in order to work. The repository uses `github_username`/`github_password` as the environment variables.
+Both require your registry username and password as `env` variables in order to work. The workflow already has `github_username` and `github_password` environment variables defined for this purpose.
 
 ## Tasks
 
