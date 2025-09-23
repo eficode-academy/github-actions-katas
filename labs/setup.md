@@ -60,7 +60,7 @@ the build log.
 
 ![hello-world](../img/hello-world.png)
 
-The file `.github/workflows/main.yaml` will be opened as an empty file in the GitHub web editor.
+The file `.github/workflows/main.yml` will be opened as an empty file in the GitHub web editor.
 
 - Copy the following content into the file and save it:
 
