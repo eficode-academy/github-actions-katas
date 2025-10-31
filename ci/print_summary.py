@@ -49,7 +49,7 @@ def main():
         sys.exit(4)
 
     out = summarize(numbers)
-    print(json.dumps(out, indent=2))
+    print(json.dumps(out))
 
 
 if __name__ == "__main__":
