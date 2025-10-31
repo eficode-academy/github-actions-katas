@@ -56,7 +56,7 @@ jobs:
         id: format
         shell: bash
         run: |
-          printf '%s' "${{ steps.call-summary.outputs.summary }}" > summary.json || true
+          printf '%s' '${{ steps.call-summary.outputs.summary }}' > summary.json || true
           python3 - <<'PY' > summary_text.txt
 import json
 try:
