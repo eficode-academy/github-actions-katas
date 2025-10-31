@@ -34,6 +34,7 @@ inputs:
 outputs:
   summary:
     description: 'JSON summary produced by the helper'
+    value: ${{ steps.set-output.outputs.summary }}
 runs:
   using: "composite"
   steps:
