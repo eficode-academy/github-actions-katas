@@ -45,6 +45,7 @@ runs:
         cat summary.json
 
     - name: Set output
+      id: set-output
       shell: bash
       run: echo "summary=$(cat summary.json)" >> $GITHUB_OUTPUT
 ```
