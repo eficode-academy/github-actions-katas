@@ -7,7 +7,7 @@ Follow these steps:
 ## Create the reusable workflow
 
 1. Create `.github/workflows/reusable-2.yml`.
-2. Use the `workflow_call` trigger and add an input `numbers` of type `string` (JSON array encoded as a string). The input should have a default of `[1,2,3]`.
+2. Use the `workflow_call` trigger and add an input `numbers` of type `string` (JSON array encoded as a string). The input should have a default of `'[1,2,3]'`.
 3. The workflow should run a job `summarize` which:
    - checks out the repository
    - calls the composite action `./.github/actions/summary-action` with the provided input
