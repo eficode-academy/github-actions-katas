@@ -1,23 +1,35 @@
-# How to Implement This Workflow
+# Workflow Concurrency
+
+GitHub Actions can run multiple workflows simultaneously, but sometimes you want to control this behavior to prevent conflicts or resource contention. Workflow concurrency allows you to limit the number of workflow runs that can execute at the same time.
+
+:bulb: Concurrency is particularly useful for deployment workflows where you don't want multiple deployments running simultaneously.
+
+## Learning Goals
+
+- Understand how to configure workflow concurrency groups
+- Learn how to cancel in-progress workflows when new ones start
+- Practice using workflow artifacts to pass data between jobs
+- Experience workflow summaries and output grouping
+
+## Understanding Workflow Concurrency
+
+In this exercise, we will create a workflow that demonstrates concurrency control by:
+
+- Setting up a concurrency group to manage workflow runs
+- Creating jobs that generate and process artifacts
+- Using workflow summaries to display results
+- Simulating work with delays to observe concurrency behavior
+
+The workflow will have two jobs that work together: one that generates a directory tree listing and uploads it as an artifact, and another that downloads the artifact and creates a workflow summary.
 
 [Documentation](https://docs.github.com/en/actions/writing-workflows/choosing-what-your-workflow-does/control-the-concurrency-of-workflows-and-jobs)
 
-1. **Navigate to Your Repository**  
-   Open your GitHub repository where you want to add the workflow.
+## Task
 
-2. **Create the Workflow Directory**  
-   Ensure there is a `.github/workflows` directory in the root of your repository. If it does not exist, create it.
+1. **Set Up the Workflow File**  
+   Create a new workflow file named `concurrency-lab.yml` in the `.github/workflows` directory of your repository. Set the workflow name to "Concurrency Demo" and configure it to be triggered manually using the `workflow_dispatch` event.
 
-3. **Add a New Workflow File**  
-   Inside the `.github/workflows` directory, create a new file. You can name it, for example, `concurency-lab.yml`.
-
-4. **Set the Workflow Name**  
-   At the top of the file, specify a name for the workflow, such as “Concurrency Demo”.
-
-5. **Configure the Trigger**  
-   Set the workflow to be triggered manually using the `workflow_dispatch` event.
-
-6. **Define Concurrency Settings**  
+2. **Define Concurrency Settings**  
    Add a concurrency group that uses the workflow name and reference. Enable the option to cancel any in-progress runs if a new one starts.
 
 <details>
@@ -31,40 +43,59 @@ concurrency:
 
 </details>
 
-7. **Add the 'upload-tree' Job**  
-   Add a job that runs on the latest Ubuntu runner. Include step to check out the repository, list the files in the repository and add it to a `.txt` file, group the output with the `::group::` workflow command. Add a step to upload the `.txt` file as an artifact and simulate work by pausing for 10 seconds.
+3. **Create the 'upload-tree' Job**  
+   Add a job that runs on the latest Ubuntu runner with the following steps:
+   - Check out the repository
+   - Generate directory tree using the provided script
+   - Upload the tree output as an artifact
+   - Simulate work by pausing for 10 seconds
 
 <details>
   <summary>Solution</summary> 
 
 ```YAML
-    - name: List files in the repository
-      run: |
-        echo "::group::The repository ${{ github.repository }} contains the following files"
-        tree > tree.txt
-        cat tree.txt
-        echo "::endgroup::"
+  upload-tree:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout 
+        uses: actions/checkout@v4
 
-    - name: Upload tree output
-      uses: actions/upload-artifact@v4
-      with:
-        name: tree-output
-        path: tree.txt
+      - name: Generate directory tree
+        run: helper-scripts/generate-tree.sh
+
+      - name: Upload tree output
+        uses: actions/upload-artifact@v4
+        with:
+          name: tree-output
+          path: tree.txt
+
+      - name: Simulate work
+        run: sleep 10
 ```
 
 </details>
 
-8. **Add the 'add-summary' Job**  
-   Add a second job that also runs on the latest Ubuntu runner. Download the artifact with the `.txt` file, Include a step to simulate work by pausing for 10 seconds, and then add a [workflow summary](https://github.blog/news-insights/product-news/supercharging-github-actions-with-job-summaries/) to the job showing the contents of the `.txt` file.
+4. **Create the 'add-summary' Job**  
+   Add a second job that depends on the first job and runs on the latest Ubuntu runner with the following steps:
+   - Download the tree artifact
+   - Simulate work by pausing for 10 seconds
+   - Add a [workflow summary](https://github.blog/news-insights/product-news/supercharging-github-actions-with-job-summaries/) showing the directory tree
 
 <details>
     <summary>Solution</summary>
     
 ```YAML
+  add-summary:
+    runs-on: ubuntu-latest
+    needs: upload-tree
+    steps:
       - name: Download tree output
         uses: actions/download-artifact@v4
         with:
           name: tree-output
+
+      - name: Simulate work
+        run: sleep 10
 
       - name: Add job summary with tree output
         run: |
@@ -77,14 +108,30 @@ concurrency:
 
 </details>
 
-9. **Save and Commit**  
-   Save the workflow file and commit it to your repository.
-
-10. **Run the Workflow**  
-    Go to the Actions tab in your GitHub repository, select the workflow, and trigger it twice in quick succession. Observe that only the jobs from the last triggered workflow will run, as earlier runs will be cancelled due to the concurrency settings.
+5. **Test the Concurrency Behavior**  
+   Save and commit the workflow file, then go to the Actions tab in your GitHub repository. Trigger the workflow twice in quick succession to observe that only the jobs from the last triggered workflow will run, as earlier runs will be cancelled due to the concurrency settings.
 
 <details>
-  <summary>Solution</summary>
+<summary>:bulb: Git commands to commit the files</summary>
+
+```bash
+git add .github/workflows/concurrency-lab.yml ci/generate-tree.sh
+git commit -m "Add concurrency workflow demonstration"
+git push
+```
+
+</details>
+
+### Results
+
+You should see that when you trigger the workflow multiple times rapidly:
+- Only the most recent workflow run completes
+- Previous runs are cancelled automatically
+- The workflow summary displays the project directory tree
+- The concurrency group prevents multiple simultaneous runs
+
+<details>
+  <summary>Complete Solution</summary>
 
 ```YAML
 name: Concurrency Demo
@@ -103,12 +150,8 @@ jobs:
       - name: Checkout 
         uses: actions/checkout@v4
 
-      - name: List files in the repository
-        run: |
-          echo "::group::The repository ${{ github.repository }} contains the following files"
-          tree > tree.txt
-          cat tree.txt
-          echo "::endgroup::"
+      - name: Generate directory tree
+        run: helper-scripts/generate-tree.sh
 
       - name: Upload tree output
         uses: actions/upload-artifact@v4
@@ -141,4 +184,15 @@ jobs:
 ```
 
 </details>
+
+## Summary
+
+Congratulations! You have successfully implemented workflow concurrency controls. You've learned how to:
+
+- Configure concurrency groups to prevent simultaneous workflow runs
+- Use the `cancel-in-progress` option to automatically cancel outdated runs
+- Work with artifacts to pass data between jobs
+- Create workflow summaries for better visibility into your pipeline results
+
+This concurrency pattern is especially valuable for deployment workflows where you want to ensure only one deployment happens at a time, preventing conflicts and ensuring consistency.
 
