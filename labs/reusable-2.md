@@ -57,6 +57,8 @@ Follow these steps:
           shell: bash
           run: |
             printf '%s' '${{ steps.call-summary.outputs.summary }}' > summary.json || true
+            echo "summary_text=$(cat summary.json)" >> $GITHUB_OUTPUT
+            
             python3 ./ci/format_summary.py > summary_text.txt
             echo "summary_text=$(cat summary_text.txt)" >> $GITHUB_OUTPUT
   ```
