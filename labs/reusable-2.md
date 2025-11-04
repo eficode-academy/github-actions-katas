@@ -18,59 +18,60 @@ Follow these steps:
 <details>
   <summary>Solution: reusable-2.yml</summary>
 
-```yaml
-name: Reusable summary workflow
+  ```yaml
+  name: Reusable summary workflow
 
-on:
-  workflow_call:
-    inputs:
-      numbers:
-        description: 'JSON array of numbers as a string'
-        type: string
-        required: true
-        default: '[1,2,3]'
-    outputs:
-      summary:
-        description: 'Summary produced by the composite action (JSON)'
-        value: ${{ jobs.summarize.outputs.summary }}
-      summary_text:
-        description: 'Human-readable summary text'
-        value: ${{ jobs.summarize.outputs.summary_text }}
+  on:
+    workflow_call:
+      inputs:
+        numbers:
+          description: 'JSON array of numbers as a string'
+          type: string
+          required: true
+          default: '[1,2,3]'
+      outputs:
+        summary:
+          description: 'Summary produced by the composite action (JSON)'
+          value: ${{ jobs.summarize.outputs.summary }}
+        summary_text:
+          description: 'Human-readable summary text'
+          value: ${{ jobs.summarize.outputs.summary_text }}
 
-jobs:
-  summarize:
-    runs-on: ubuntu-latest
-    outputs:
-      summary: ${{ steps.call-summary.outputs.summary }}
-      summary_text: ${{ steps.format.outputs.summary_text }}
-    steps:
-      - uses: actions/checkout@v4
+  jobs:
+    summarize:
+      runs-on: ubuntu-latest
+      outputs:
+        summary: ${{ steps.call-summary.outputs.summary }}
+        summary_text: ${{ steps.format.outputs.summary_text }}
+      steps:
+        - uses: actions/checkout@v4
 
-      - name: Call summary composite action
-        id: call-summary
-        uses: ./.github/actions/summary-action
-        with:
-          numbers: ${{ inputs.numbers }}
+        - name: Call summary composite action
+          id: call-summary
+          uses: ./.github/actions/summary-action
+          with:
+            numbers: ${{ inputs.numbers }}
 
-      - name: Format summary (create human-readable text)
-        id: format
-        shell: bash
-        run: |
-          printf '%s' '${{ steps.call-summary.outputs.summary }}' > summary.json || true
-          python3 - <<'PY' > summary_text.txt
-import json
-try:
-    s = json.load(open('summary.json'))
-except Exception:
-    print('Invalid summary JSON')
-    raise
-if not isinstance(s, dict) or s.get('count', 0) == 0:
-    print('No numbers provided')
-else:
-    print(f"count={s['count']}, sum={s['sum']}, avg={s['avg']:.2f}, min={s['min']}, max={s['max']}")
-PY
-          echo "summary_text=$(cat summary_text.txt)" >> $GITHUB_OUTPUT
-```
+        - name: Format summary (create human-readable text)
+          id: format
+          shell: bash
+          run: |
+            printf '%s' '${{ steps.call-summary.outputs.summary }}' > summary.json || true
+            python3 - <<'PY' > summary_text.txt
+  import json
+  try:
+      s = json.load(open('summary.json'))
+  except Exception:
+      print('Invalid summary JSON')
+      raise
+  if not isinstance(s, dict) or s.get('count', 0) == 0:
+      print('No numbers provided')
+  else:
+      print(f"count={s['count']}, sum={s['sum']}, avg={s['avg']:.2f}, min={s['min']}, max={s['max']}")
+  PY
+            echo "summary_text=$(cat summary_text.txt)" >> $GITHUB_OUTPUT
+  ```
+
 </details>
 
 ## Create a consumer workflow
@@ -82,26 +83,27 @@ PY
 <details>
   <summary>Solution: use-reusable-2.yml (consumer)</summary>
 
-```yaml
-name: Use reusable summary
+  ```yaml
+  name: Use reusable summary
 
-on: [workflow_dispatch]
+  on: [workflow_dispatch]
 
-jobs:
-  call-reusable:
-    uses: ./.github/workflows/reusable-2.yml
-    with:
-      numbers: '[5, 15, 25, 35, 45]'
+  jobs:
+    call-reusable:
+      uses: ./.github/workflows/reusable-2.yml
+      with:
+        numbers: '[5, 15, 25, 35, 45]'
 
-  show-summary:
-    runs-on: ubuntu-latest
-    needs: [call-reusable]
-    steps:
-      - name: Print reusable workflow outputs
-        run: |
-          echo "Reusable summary (JSON): ${{ needs.call-reusable.outputs.summary }}"
-          echo "Reusable summary (text): ${{ needs.call-reusable.outputs.summary_text }}"
-```
+    show-summary:
+      runs-on: ubuntu-latest
+      needs: [call-reusable]
+      steps:
+        - name: Print reusable workflow outputs
+          run: |
+            echo "Reusable summary (JSON): ${{ needs.call-reusable.outputs.summary }}"
+            echo "Reusable summary (text): ${{ needs.call-reusable.outputs.summary_text }}"
+  ```
+
 </details>
 
 ## Try it
