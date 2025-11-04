@@ -6,10 +6,8 @@ and prints a small summary: count, sum, average, min, max.
 """
 import sys
 import json
-from typing import List
 
-
-def summarize(numbers: List[float]) -> dict:
+def summarize(numbers: list[float]) -> dict:
     if not numbers:
         return {"count": 0, "sum": 0, "avg": None, "min": None, "max": None}
     total = sum(numbers)
