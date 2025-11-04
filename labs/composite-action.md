@@ -85,7 +85,8 @@ Example consumer (solution):
             numbers: '[10, 20, 30, 40]'
 
         - name: Print action output
-          run: echo "Summary output: ${{ steps.summary.outputs.summary }}"
+          run: |
+            echo "Summary output: ${{ steps.summary.outputs.summary }}"
   ```
 
 </details>
