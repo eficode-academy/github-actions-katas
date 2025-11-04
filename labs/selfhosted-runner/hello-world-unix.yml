@@ -1,0 +1,38 @@
+name: Hello Selfhosted Runner
+
+on:
+  workflow_dispatch:
+
+jobs:
+  hello-world:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Display environment info
+      run: |
+        echo "Hello from a self-hosted runner!"
+        echo "Current user: $(whoami)"
+        echo "Operating system: $(uname -s)"
+        echo "Hostname: $(hostname)"
+        echo "Current directory: $(pwd)"
+        echo "Shell: $SHELL"
+        
+    - name: Simple shell script test
+      run: |
+        echo "Running a simple shell script..."
+        echo "Creating a test file..."
+        echo "Hello from GitHub Actions!" > hello.txt
+        cat hello.txt
+        rm hello.txt
+        echo "Test file created and cleaned up successfully!"
+        
+    - name: Check available commands
+      run: |
+        echo "Checking if common commands are available:"
+        which git && echo "✓ Git is available" || echo "✗ Git not found"
+        which curl && echo "✓ Curl is available" || echo "✗ Curl not found"
+        which node && echo "✓ Node.js is available" || echo "✗ Node.js not found"
+        which python3 && echo "✓ Python3 is available" || echo "✗ Python3 not found"
