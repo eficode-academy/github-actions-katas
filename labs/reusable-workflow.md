@@ -6,7 +6,7 @@ Follow these steps:
 
 ## Create the reusable workflow
 
-1. Create `.github/workflows/reusable-2.yml`.
+1. Create `.github/workflows/reusable.yml`.
 2. Use the `workflow_call` trigger and add an input `numbers` of type `string` (JSON array encoded as a string). The input should have a default of `'[1,2,3]'`.
 3. The workflow should run a job `summarize` which:
    - checks out the repository
@@ -16,7 +16,7 @@ Follow these steps:
 4. The workflow should expose outputs that map to the job outputs.
 
 <details>
-  <summary>Solution: reusable-2.yml</summary>
+  <summary>Solution: reusable.yml</summary>
 
   ```yaml
   name: Reusable summary workflow
@@ -67,12 +67,12 @@ Follow these steps:
 
 ## Create a consumer workflow
 
-1. Create `.github/workflows/use-reusable-2.yml` with a `workflow_dispatch` trigger.
-2. Add a job `call-reusable` that uses the reusable workflow `./.github/workflows/reusable-2.yml` and passes a custom `numbers` value.
+1. Create `.github/workflows/use-reusable.yml` with a `workflow_dispatch` trigger.
+2. Add a job `call-reusable` that uses the reusable workflow `./.github/workflows/reusable.yml` and passes a custom `numbers` value.
 3. Add a second job `show-summary` that depends on `call-reusable` and prints the outputs.
 
 <details>
-  <summary>Solution: use-reusable-2.yml (consumer)</summary>
+  <summary>Solution: use-reusable.yml (consumer)</summary>
 
   ```yaml
   name: Use reusable summary
@@ -81,7 +81,7 @@ Follow these steps:
 
   jobs:
     call-reusable:
-      uses: ./.github/workflows/reusable-2.yml
+      uses: ./.github/workflows/reusable.yml
       with:
         numbers: '[5, 15, 25, 35, 45]'
 
@@ -100,8 +100,8 @@ Follow these steps:
 ## Try it
 
 - Make sure `ci/print_summary.py` is executable (if running on a GitHub runner the `python3` call will work).
-- Commit the `action.yml` for the composite action, the `reusable-2.yml` workflow, and the consumer workflow.
-- Dispatch `use-reusable-2.yml` from the GitHub Actions UI and inspect the `show-summary` job logs to see the outputs.
+- Commit the `action.yml` for the composite action, the `reusable.yml` workflow, and the consumer workflow.
+- Dispatch `use-reusable.yml` from the GitHub Actions UI and inspect the `show-summary` job logs to see the outputs.
 
 ## Notes and tips
 
