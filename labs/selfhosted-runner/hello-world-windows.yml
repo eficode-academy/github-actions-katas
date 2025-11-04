@@ -1,0 +1,41 @@
+name: Hello Selfhosted Runner
+
+on:
+  workflow_dispatch:
+
+jobs:
+  hello-world:
+    runs-on: windows-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Display environment info
+      shell: powershell
+      run: |
+        Write-Host "Hello from a self-hosted Windows runner!"
+        Write-Host "Current user: $env:USERNAME"
+        Write-Host "Computer name: $env:COMPUTERNAME"
+        Write-Host "Operating system: $((Get-CimInstance Win32_OperatingSystem).Caption)"
+        Write-Host "Current directory: $(Get-Location)"
+        Write-Host "PowerShell version: $($PSVersionTable.PSVersion)"
+        
+    - name: Simple PowerShell script test
+      shell: powershell
+      run: |
+        Write-Host "Running a simple PowerShell script..."
+        Write-Host "Creating a test file..."
+        "Hello from GitHub Actions!" | Out-File -FilePath "hello.txt"
+        Get-Content "hello.txt"
+        Remove-Item "hello.txt"
+        Write-Host "Test file created and cleaned up successfully!"
+        
+    - name: Check available commands
+      shell: powershell
+      run: |
+        Write-Host "Checking if common commands are available:"
+        try { git --version; Write-Host "✓ Git is available" } catch { Write-Host "✗ Git not found" }
+        try { curl --version; Write-Host "✓ Curl is available" } catch { Write-Host "✗ Curl not found" }
+        try { node --version; Write-Host "✓ Node.js is available" } catch { Write-Host "✗ Node.js not found" }
+        try { python --version; Write-Host "✓ Python is available" } catch { Write-Host "✗ Python not found" }
