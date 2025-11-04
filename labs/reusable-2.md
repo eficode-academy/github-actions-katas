@@ -57,18 +57,7 @@ Follow these steps:
           shell: bash
           run: |
             printf '%s' '${{ steps.call-summary.outputs.summary }}' > summary.json || true
-            python3 - <<'PY' > summary_text.txt
-  import json
-  try:
-      s = json.load(open('summary.json'))
-  except Exception:
-      print('Invalid summary JSON')
-      raise
-  if not isinstance(s, dict) or s.get('count', 0) == 0:
-      print('No numbers provided')
-  else:
-      print(f"count={s['count']}, sum={s['sum']}, avg={s['avg']:.2f}, min={s['min']}, max={s['max']}")
-  PY
+            python3 ./ci/format_summary.py > summary_text.txt
             echo "summary_text=$(cat summary_text.txt)" >> $GITHUB_OUTPUT
   ```
 
