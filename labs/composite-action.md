@@ -2,7 +2,6 @@
 
 In this hands-on lab you'll create a small composite action that runs a few shell steps plus the Python helper located at `ci/print_summary.py`.
 
-
 The goal is to learn how to: create a composite action, accept inputs, expose outputs, and call it from a workflow.
 
 This lab contains the following steps:
@@ -15,40 +14,42 @@ This lab contains the following steps:
 
 1. Create a new directory `.github/actions/summary-action` in the repository.
 2. Add an `action.yml` file with the following behaviour:
-   - Accept an input `numbers` which is a JSON array encoded as a string (for simplicity)
-  - Pipe that string to the Python helper `ci/print_summary.py` via stdin
-  - Save the printed JSON summary to an output parameter called `summary`
 
-  For more information on action metadata format and the composite action syntax, see the GitHub Docs: https://docs.github.com/en/actions/tutorials/create-actions/create-a-composite-action#creating-an-action-metadata-file
+   - Accept an input `numbers` which is a JSON array encoded as a string (for simplicity)
+   - Pipe that string to the Python helper `ci/print_summary.py` via stdin
+   - Save the printed JSON summary to an output parameter called `summary`
+
+  For more information on action metadata format and the composite action syntax, see the GitHub Docs: <https://docs.github.com/en/actions/tutorials/create-actions/create-a-composite-action#creating-an-action-metadata-file>
 
 <details>
   <summary>Solution</summary>
 
-```yaml
-name: Summary action
-description: "Pipe numbers into a Python helper and print a small summary"
-inputs:
-  numbers:
-    description: 'JSON array of numbers as a string, e.g. "[1,2,3]"'
-    required: true
-outputs:
-  summary:
-    description: 'JSON summary produced by the helper'
-    value: ${{ steps.set-output.outputs.summary }}
-runs:
-  using: "composite"
-  steps:
-    - name: Run python summarizer (stdin)
-      shell: bash
-      run: |
-        echo "${{ inputs.numbers }}" | python3 ci/print_summary.py > summary.json
-        cat summary.json
+  ```yaml
+  name: Summary action
+  description: "Pipe numbers into a Python helper and print a small summary"
+  inputs:
+    numbers:
+      description: 'JSON array of numbers as a string, e.g. "[1,2,3]"'
+      required: true
+  outputs:
+    summary:
+      description: 'JSON summary produced by the helper'
+      value: ${{ steps.set-output.outputs.summary }}
+  runs:
+    using: "composite"
+    steps:
+      - name: Run python summarizer (stdin)
+        shell: bash
+        run: |
+          echo "${{ inputs.numbers }}" | python3 ci/print_summary.py > summary.json
+          cat summary.json
 
-    - name: Set output
-      id: set-output
-      shell: bash
-      run: echo "summary=$(cat summary.json)" >> $GITHUB_OUTPUT
-```
+      - name: Set output
+        id: set-output
+        shell: bash
+        run: echo "summary=$(cat summary.json)" >> $GITHUB_OUTPUT
+  ```
+
 </details>
 
 Notes:
@@ -66,26 +67,27 @@ Example consumer (solution):
 <details>
   <summary>Solution</summary>
 
-```yaml
-name: Use summary action
+  ```yaml
+  name: Use summary action
 
-on: [workflow_dispatch]
+  on: [workflow_dispatch]
 
-jobs:
-  call-summary:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
+  jobs:
+    call-summary:
+      runs-on: ubuntu-latest
+      steps:
+        - uses: actions/checkout@v4
 
-      - name: Call summary composite action
-        id: summary
-        uses: ./.github/actions/summary-action
-        with:
-          numbers: '[10, 20, 30, 40]'
+        - name: Call summary composite action
+          id: summary
+          uses: ./.github/actions/summary-action
+          with:
+            numbers: '[10, 20, 30, 40]'
 
-      - name: Print action output
-        run: echo "Summary output: ${{ steps.summary.outputs.summary }}"
-```
+        - name: Print action output
+          run: echo "Summary output: ${{ steps.summary.outputs.summary }}"
+  ```
+
 </details>
 
 ## Run the workflow
